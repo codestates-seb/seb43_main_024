@@ -43,11 +43,19 @@ button {
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
 :root {
-    --brand-color: #416831;
-    --background-color: #fefdf8;
-    --light-background-color: #f4f6eb;
-    --color-lightgreen: #c4f1a1;
-    --color-darkgreen: #0c2004;
+    --brand-color: #3AB170;
+    --background-color: #F8F8F8;
+    --light-background-color: #EBF8F0;
+    --color-lightgreen: #E1FBEC;
+    --color-darkgreen: #1F613D;
+    --color-white: #FFFFFF;
+    --color-lightgray: #ccc;
+    --color-gray5: #555;
+    --color-gray6: #666;
+    --color-gray8: #888;
+    --color-darkgray: #0C2004;
+    --color-black: #222;
+    --accent-color: #EB2A2A;
     /* TODO 사용법 >>> color: var(--brand-color); */
 }
 
