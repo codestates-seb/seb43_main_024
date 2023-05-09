@@ -1,25 +1,35 @@
-import useStore from './default/useStore';
 import './default/style.css';
-import { FilledBtns, Tags, OutlineBtns, TextInput } from './default/styled';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './pages/Header';
+// login 컴포넌트
+import Login from './pages/login/Login';
+// profile 컴포넌트
+import { Profile } from './pages/profile/Profile';
+import { Bookmark } from './pages/profile/components/Bookmark';
+import { FollowList } from './pages/profile/components/Followlist';
+import { MyTIL } from './pages/profile/components/MyTil';
 
 function App() {
-  const { count, increment, decrement } = useStore();
-
   return (
-    <div>
-      <h1>24시간이 모자라</h1>
-      <h2>Count: {count}</h2>
-      <p>
-        React의 입력 텍스트 영역에 스타일이 지정된 구성 요소를 제공하려면
-        styled-components 라이브러리를 사용할 수 있습니다.
-      </p>
-      <FilledBtns onClick={increment}>Increment</FilledBtns>
-      <OutlineBtns onClick={decrement}>Decrement</OutlineBtns>
-      <Tags>html</Tags>
-      <Tags>css</Tags>
-      <TextInput></TextInput>
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />}>
+            <Route path="bookmark" element={<Bookmark />} />
+            <Route path="followlist" element={<FollowList />} />
+            <Route path="mytil" element={<MyTIL />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
+}
+
+function Main() {
+  return <h2>Main</h2>;
 }
 
 export default App;
