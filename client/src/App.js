@@ -1,6 +1,8 @@
 import './default/style.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './pages/Header';
+import { Wrapper } from './default/styled';
+import Main from './pages/Main';
 // login 컴포넌트
 import Login from './pages/login/Login';
 // profile 컴포넌트
@@ -13,7 +15,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div>
+      <Wrapper>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
@@ -23,13 +25,9 @@ function App() {
             <Route path="mytil" element={<MyTIL />} />
           </Route>
         </Routes>
-      </div>
+      </Wrapper>
     </Router>
   );
-}
-
-function Main() {
-  return <h2>Main</h2>;
 }
 
 export default App;
