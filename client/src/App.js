@@ -12,8 +12,8 @@ import { MyTIL } from './pages/profile/components/MyTil';
 function App() {
   return (
     <Router>
+      <Header />
       <div>
-        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
