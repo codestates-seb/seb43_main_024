@@ -51,3 +51,22 @@ export const TextInput = styled.textarea`
   border-radius: 4px;
   display: block;
 `;
+
+export const TapMenu = styled.button`
+  padding: 10px 10px 20px 10px;
+  margin-right: 20px;
+  font-family: 'NanumGothic';
+  font-style: normal;
+  font-weight: 700;
+  color: #cccccc;
+  font-size: 18px;
+  border: none;
+
+  &:active,
+  &:focus {
+    color: #222222;
+    border-bottom: 3px solid #222222;
+  }
+`;
+
+export const FollowListComponent = styled.li``;
