@@ -1,25 +1,37 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import './default/style.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './pages/Header';
+// login 컴포넌트
+import Login from './pages/login/Login';
+// profile 컴포넌트
+import { Profile } from './pages/profile/Profile';
+import { Bookmark } from './pages/profile/components/Bookmark';
+import { FollowList } from './pages/profile/components/Followlist';
+import { MyTIL } from './pages/profile/components/MyTil';
 
 function App() {
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    axios
-      .get('/sample/')
-      .then((response) => {
-        const parsedData = JSON.parse(response.data);
-        setData(parsedData.message);
-      })
-      .catch((error) => console.error(error));
-  }, []);
 
   return (
-    <div>
-      <h1>{data}</h1>
-      <p>위에 helloworld 가 입력되지 않는다면 연결에 실패한 것입니다.</p>
-    </div>
+    <Router>
+      <Header />
+      <div>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />}>
+            <Route path="bookmark" element={<Bookmark />} />
+            <Route path="followlist" element={<FollowList />} />
+            <Route path="mytil" element={<MyTIL />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
+}
+
+function Main() {
+  return <h2>Main</h2>;
+
 }
 
 export default App;

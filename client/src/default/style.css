@@ -1,0 +1,81 @@
+/* 초기화 코드 */
+html, body, div, span, applet, object, iframe,
+blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+h1, h2, h3, h4, h5, h6, p, b {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+a {text-decoration: none; outline: none; color: inherit;}
+a:hover, a:active {text-decoration: none; color: inherit;}
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+button {
+	background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer
+}
+
+/* ! my-style */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+:root {
+    --brand-color: #3AB170;
+    --background-color: #F8F8F8;
+    --light-background-color: #EBF8F0;
+    --color-lightgreen: #E1FBEC;
+    --color-darkgreen: #1F613D;
+    --color-white: #FFFFFF;
+    --color-lightgray: #ccc;
+    --color-gray5: #555;
+    --color-gray6: #666;
+    --color-gray8: #888;
+    --color-darkgray: #0C2004;
+    --color-black: #222;
+    --accent-color: #EB2A2A;
+    /* TODO 사용법 >>> color: var(--brand-color); */
+}
+
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    line-height: 1;
+	font-size: 13px;
+	color: #555;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+h1 {
+    color: #222;
+    margin-bottom: 16px;
+}
+
+h2 {
+    color: #222;
+    margin-bottom: 12px;
+}
