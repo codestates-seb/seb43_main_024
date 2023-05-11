@@ -34,7 +34,7 @@ function Header() {
         </NavLogo>
 
         <BtnGroup>
-          <HeaderLink to="/" light>
+          <HeaderLink to="/write" light>
             TIL 작성하기
           </HeaderLink>
           <HeaderLink to="/login">로그인</HeaderLink>
