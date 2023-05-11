@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6, p, b {
 	padding: 0;
 	border: 0;
 }
-a {text-decoration: none; outline: none; color: inherit;}
+a {text-decoration: none; outline: none; color: inherit;cursor: pointer;}
 a:hover, a:active {text-decoration: none; color: inherit;}
 
 
@@ -41,6 +41,7 @@ button {
 
 /* ! my-style */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 :root {
     --brand-color: #3AB170;
