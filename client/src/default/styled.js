@@ -264,3 +264,28 @@ export const NavLogo = styled.div`
   align-items: center;
   gap: 48px;
 `;
+
+export const TilWrapper = styled(InnerWrapper)`
+  margin-top: 40px;
+`;
+
+export const TilFlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const PostComponent = styled.div`
+  padding: 60px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  > .user-name {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+`;
