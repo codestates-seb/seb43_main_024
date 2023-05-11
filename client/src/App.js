@@ -12,6 +12,7 @@ import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 
 function App() {
+
   return (
     <Router>
       <Header />
