@@ -1,26 +1,52 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import {
+  HeaderWrapper,
+  InnerWrapper,
+  TextLogo,
+  BtnGroup,
+  HeaderLink,
+  UserPic,
+  TapMenu,
+  TopNav,
+  NavLogo,
+} from '../default/styled';
 
-import styled from 'styled-components';
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  position: fixed;
-  width: 100%;
-  height: 60px;
-  box-sizing: border-box;
-  background: white;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-`;
 function Header() {
   return (
     <HeaderWrapper>
-      <h1>tiltil</h1>
-      <h2>
-        <Link to="/">Main</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/profile">Profile</Link>
-      </h2>
+      <InnerWrapper flex>
+        <NavLogo>
+          <Link to="/">
+            <TextLogo>TilTile</TextLogo>
+          </Link>
+
+          <TopNav>
+            <NavLink to="/">
+              <TapMenu>탐색</TapMenu>
+            </NavLink>
+            <NavLink to="/">
+              <TapMenu>핫틸</TapMenu>
+            </NavLink>
+            <NavLink to="/">
+              <TapMenu>팔로우틸</TapMenu>
+            </NavLink>
+          </TopNav>
+        </NavLogo>
+
+        <BtnGroup>
+          <HeaderLink to="/" light>
+            TIL 작성하기
+          </HeaderLink>
+          <HeaderLink to="/login">로그인</HeaderLink>
+          <HeaderLink to="/login" outline>
+            회원가입
+          </HeaderLink>
+          <HeaderLink to="/profile" userInfo>
+            <UserPic></UserPic>
+            <span>10 tilday 🥚</span>
+          </HeaderLink>
+        </BtnGroup>
+      </InnerWrapper>
     </HeaderWrapper>
   );
 }
