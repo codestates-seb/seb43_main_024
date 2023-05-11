@@ -32,14 +32,19 @@ export const InnerWrapper = styled.div`
     `}
 `;
 
+/* 기본적인 버튼 스타일 */
 const defaultBtnStyles = css`
   padding: 10px 16px;
   border-radius: 50px;
   transition: all 0.125s ease-in 0s;
 `;
 
+/* 버튼1 스타일 (css) */
 const FilledBtnsStyle = css`
-  ${defaultBtnStyles};
+  /* 기본 버튼 스타일을 불러옵니다. */
+  ${defaultBtnStyles}
+
+  /* 여기 부터 추가 스타일 */
   background-color: var(--brand-color);
   color: white;
   &:hover {
@@ -48,8 +53,12 @@ const FilledBtnsStyle = css`
   }
 `;
 
+/* 버튼2 스타일 (css) */
 const OutlineBtnsStyle = css`
-  ${defaultBtnStyles};
+  /* 기본 버튼 스타일을 불러옵니다. */
+  ${defaultBtnStyles}
+
+  /* 여기 부터 추가 스타일 */
   color: var(--brand-color);
   border: 1px solid var(--brand-color);
   background-color: white;
@@ -59,6 +68,7 @@ const OutlineBtnsStyle = css`
   }
 `;
 
+/* <FilledBtns /> 형태로 사용하기 위한 코드 */
 export const FilledBtns = styled.button`
   ${FilledBtnsStyle};
 `;
