@@ -10,6 +10,7 @@ import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 
 function App() {
+
   return (
     <Router>
       <Header />
@@ -30,6 +31,7 @@ function App() {
 
 function Main() {
   return <h2>Main</h2>;
+
 }
 
 export default App;
