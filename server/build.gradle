@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.11'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'war'
 }
 
 group = 'com.codestates'
@@ -36,9 +37,14 @@ dependencies {
 	implementation 'com.google.code.gson:gson'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
 
 	// JWT 기능을 위한 jjwt 라이브러리
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	// 타임리프를 위한 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
