@@ -1,37 +1,33 @@
 spring:
-  output:
-    ansi:
-      enabled: ALWAYS
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
-    password: tenten1010!!
-    url: jdbc:mysql://ten-ten-preproject-database.cv0dzdrngjmq.ap-northeast-2.rds.amazonaws.com:3306/tenten_app_backend?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-
-  config:
-    use-legacy-processing: true
-
+    url: jdbc:mysql://tiltile-rds0.cgrdq2ewy4ni.ap-northeast-2.rds.amazonaws.com/test?useSSL=false&characterEncoding=UTF-8&serverTimeZone=UTC
+    username: adming
+    password: tiltilE!
   jpa:
     database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create  # (1) 스키마 자동 생성
-    show-sql: true      # (2) SQL 쿼리 출력
+      ddl-auto: create-drop
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-        highlight_sql: true
-        color-codes: true
-        use_sql_comments: true
-        type:
-          descriptor:
-            sql: trace
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  key: test1234               # 민감한 정보는 시스템 환경 변수에서 로드한다.
+  access-token-expiration-minutes: 40
+  refresh-token-expiration-minutes: 420
 
-  cloud:
-    aws:
-      stack:
-        auto: false
-
-config:
-  domain: http://ten-ten.preproject.s3-website.ap-northeast-2.amazonaws.com
