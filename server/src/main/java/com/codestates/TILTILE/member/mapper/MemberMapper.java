@@ -12,4 +12,17 @@ public interface MemberMapper {
     @Mapping(source = "nickName", target = "nickName")
     @Mapping(source = "password", target = "password")
     Member memberPostToMember(MemberDto.Post requestBody);
+
+    default Member memberDtoToMember(MemberDto.Post memberDto) {
+        if (memberDto == null) {
+            return null;
+        }
+
+        Member member = new Member();
+        member.setEmail(memberDto.getEmail());
+        member.setNickName(memberDto.getNickName());
+        member.setPassword(memberDto.getPassword());
+
+        return member;
+    }
 }
