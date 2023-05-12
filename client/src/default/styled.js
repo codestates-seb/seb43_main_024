@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const InnerWrapper = styled.div`
-  /* 기본 스타일 */
+  /* 기본 InnerWrapper 스타일 */
   ${(props) =>
     !props.flex &&
     css`
@@ -17,8 +17,9 @@ export const InnerWrapper = styled.div`
       height: 100%;
       box-sizing: border-box;
       margin: 0 auto;
+      padding: 80px 0;
     `}
-  /* 헤더의 경우 */
+  /* 헤더의 경우 InnerWrapper 스타일 */
   ${(props) =>
     props.flex &&
     css`
@@ -73,6 +74,7 @@ export const FilledBtns = styled.button`
   ${FilledBtnsStyle};
 `;
 
+/* <OutlineBtns /> 형태로 사용하기 위한 코드 */
 export const OutlineBtns = styled.button`
   ${OutlineBtnsStyle};
 `;
@@ -131,7 +133,9 @@ export const TapMenu = styled.button`
 
 export const FollowListComponent = styled.li``;
 
-/* Main style */
+/**
+ * @MainStyle
+ */
 export const MainWrapper = styled.div`
   width: 100%;
   height: calc(100vh - 64px);
@@ -185,7 +189,9 @@ export const PostLink = styled(NavLink)`
   ${FilledBtnsStyle}
 `;
 
-/* Header style */
+/**
+ * @HeaderStyle
+ */
 export const HeaderWrapper = styled.div`
   display: flex;
   position: fixed;
@@ -297,5 +303,40 @@ export const UserInfo = styled.div`
   > .user-name {
     font-weight: bold;
     margin-right: 4px;
+  }
+`;
+
+/**
+ * @TilWriteStyle
+ */
+export const WritrForm = styled.form`
+  padding: 60px;
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+
+  & > textarea {
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    box-sizing: border-box;
+    resize: none;
+  }
+  & .w-md-editor {
+    height: 500px !important;
+  }
+`;
+
+export const PostActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+
+  & button {
+    margin-left: 12px;
   }
 `;
