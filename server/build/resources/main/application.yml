@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
-    username: root
-    password: yp102828!!
+    url: jdbc:mysql://tiltile-rds0.cgrdq2ewy4ni.ap-northeast-2.rds.amazonaws.com/test?useSSL=false&characterEncoding=UTF-8&serverTimeZone=UTC
+    username: admin
+    password: tiltilE!
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -27,7 +27,7 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: ${JWT_SECRET_KEY}               # 민감한 정보는 시스템 환경 변수에서 로드한다.
+  key: ${JWT_SECRET_KEY}           # 민감한 정보는 시스템 환경 변수에서 로드한다.
   access-token-expiration-minutes: 40
   refresh-token-expiration-minutes: 420
 

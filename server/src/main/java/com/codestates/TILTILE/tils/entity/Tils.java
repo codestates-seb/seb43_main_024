@@ -1,2 +1,3 @@
-package com.codestates.TILTILE.tils.entity;public class Tils {
+package com.codestates.TILTILE.tils.entity;
+public class Tils {
 }
