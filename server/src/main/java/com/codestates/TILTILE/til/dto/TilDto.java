@@ -1,0 +1,36 @@
+package com.codestates.TILTILE.til.dto;
+
+import lombok.Getter;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+public class TilDto {
+
+    @Getter
+    public static class Post {
+
+        @Positive
+        private long memberId;
+
+        @NotEmpty(message = "제목을 작성해 주세요.")
+        @Length(max = 100, message = "제목은 100자 이상 작성할 수 없습니다.")
+        private String tilTitle;
+
+        @NotEmpty(message = "내용을 작성해 주세요.")
+        private String tilContent;
+
+        @NotNull(message = "공개 여부를 선택해 주세요")
+        private Boolean tilStatus;
+
+
+        public Post(long memberId, String tilTitle, String tilContent, Boolean tilStatus) {
+            this.memberId = memberId;
+            this.tilTitle = tilTitle;
+            this.tilContent = tilContent;
+            this.tilStatus = tilStatus;
+        }
+    }
+}
