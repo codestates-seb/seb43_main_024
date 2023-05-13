@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function Login() {
-  const [email, setEmail] = useState('');
+function LoginForm() {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '1@1' && password === '1') {
-      navigate('/profile');
-    } else {
+
+    try {
+      const response = await axios.post('/login', {
+        username: username,
+        password: password,
+      });
+
+      console.log(response.data);
+    } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
     }
   };
@@ -22,8 +27,8 @@ function Login() {
         <div>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div>
@@ -39,4 +44,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;

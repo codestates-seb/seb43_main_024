@@ -4,7 +4,8 @@ import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
 // login 컴포넌트
-import Login from './pages/login/Login';
+import LoginForm from './pages/login/Login';
+import SignUpForm from './pages/login/Members';
 // profile 컴포넌트
 import { Profile } from './pages/profile/Profile';
 import { Bookmark } from './pages/profile/components/Bookmark';
@@ -18,7 +19,10 @@ function App() {
       <Wrapper>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUpForm />} />
+
           <Route path="/profile" element={<Profile />}>
             <Route path="bookmark" element={<Bookmark />} />
             <Route path="followlist" element={<FollowList />} />

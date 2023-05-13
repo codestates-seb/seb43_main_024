@@ -1,3 +1,4 @@
+import { HeaderLink } from '../../../default/styled';
 import styled from 'styled-components';
 
 const UserProfileWrapper = styled.div`
@@ -31,7 +32,7 @@ export function UserProfile() {
       />
       <h2>쩨우스</h2>
       <h4>10tiltil</h4>
-      <button>+팔로우</button>
+      <HeaderLink>+팔로우</HeaderLink>
       <p>
         저는 웹사이트의 시각적인 부분을 담당하는 프론트엔드 개발자로,
         사용자들에게 최상의 경험을 제공하기 위해 항상 노력합니다. 최신 기술과

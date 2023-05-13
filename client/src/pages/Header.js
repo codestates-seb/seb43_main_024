@@ -38,7 +38,7 @@ function Header() {
             TIL 작성하기
           </HeaderLink>
           <HeaderLink to="/login">로그인</HeaderLink>
-          <HeaderLink to="/login" outline>
+          <HeaderLink to="/signup" outline>
             회원가입
           </HeaderLink>
           <HeaderLink to="/profile" userInfo>
