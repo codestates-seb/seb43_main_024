@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class TilDto {
 
@@ -68,7 +69,7 @@ public class TilDto {
         private String tilTitle;
         private String tilContent;
         private long tilViewCount;
-        private Timestamp createdAt;
+        private LocalDateTime createdAt;
         private Timestamp modifiedAt;
         private String memberNickname;
         private Boolean tilStatus;

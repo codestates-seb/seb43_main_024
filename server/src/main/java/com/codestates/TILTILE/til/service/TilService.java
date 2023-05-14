@@ -2,9 +2,12 @@ package com.codestates.TILTILE.til.service;
 
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
+import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.repository.MemberRepository;
+import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.dto.TilDto;
 import com.codestates.TILTILE.til.entity.Til;
+import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.repository.TilRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Optional;
 
 @Transactional
 @Service
@@ -23,19 +25,39 @@ public class TilService {
 
     private final MemberRepository memberRepository;
 
+    private final MemberService memberService;
+
+    private final TilMapper tilMapper;
+
     @Autowired
-    public TilService(TilRepository tilRepository, MemberRepository memberRepository) {
+    public TilService(TilRepository tilRepository, MemberRepository memberRepository, MemberService memberService, TilMapper tilMapper) {
         this.tilRepository = tilRepository;
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
+        this.tilMapper = tilMapper;
     }
 
+//    @Transactional
+//    public Til createTil(Til til) {
+//
+//        Member findMember = memberService.verifyExistsMemberId(til.getMember().getMemberId());
+//
+//        til.setMember(findMember);
+//        til.setTilViewCount(0L);
+//        til.setTilStatus(false);
+//
+//        Til savedtil = tilRepository.save(til);
+//
+//        return tilRepository.save(til);
+//    }
+
     @Transactional
-    public Til createTil(TilDto.Post requestBody) {
-        Til til = new Til();
-        til.setMember(memberRepository.getOne(requestBody.getMemberId()));
-        til.setTilTitle(requestBody.getTilTitle());
-        til.setTilContent(requestBody.getTilContent());
-        til.setTilStatus(requestBody.getTilStatus());
+    public Til createTil(Til til) {
+        Member findMember = memberService.verifyExistsMemberId(til.getMember().getMemberId());
+        til.setMember(findMember);
+        til.setTilViewCount(0L);
+        til.setTilStatus(false);
+
         return tilRepository.save(til);
     }
 

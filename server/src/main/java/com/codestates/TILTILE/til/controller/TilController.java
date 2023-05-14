@@ -4,6 +4,7 @@ import com.codestates.TILTILE.til.dto.TilDto;
 import com.codestates.TILTILE.til.entity.Til;
 import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.service.TilService;
+import com.codestates.TILTILE.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @Validated
 @RequestMapping("/til")
@@ -23,8 +25,10 @@ public class TilController {
 
     @PostMapping
     public ResponseEntity postTil(@RequestBody @Valid TilDto.Post requestBody) {
-        Til til = tilService.createTil(requestBody);
-        return new ResponseEntity<>(requestBody, HttpStatus.CREATED);
+        Til til = tilService.createTil(mapper.tilPostToTil(requestBody));
+        URI location = UriCreator.createUri("/til", til.getTilId());
+
+        return ResponseEntity.created(location).body(mapper.tilToTilResponse2(til));
     }
 
     @PutMapping("/{til-id}")

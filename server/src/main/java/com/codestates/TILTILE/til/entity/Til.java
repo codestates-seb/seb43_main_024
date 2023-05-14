@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -40,7 +41,7 @@ public class Til {
     private Boolean tilStatus;
 
     @Column
-    private Timestamp createdAt = new Timestamp(new Date().getTime());
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
     private Timestamp modifiedAt;
