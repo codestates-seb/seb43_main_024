@@ -5,7 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ public class Til {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tilId;
+    private long tilId;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -25,21 +26,37 @@ public class Til {
         member.getTils().add(this);
     }
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String  tilTitle;
 
-    @Column
+    @Column(nullable = false)
+    @Lob
     private String tilContent;
 
     @Column
     private Long tilViewCount;
 
-    @Column
+    @Column(nullable = false)
     private Boolean tilStatus;
 
     @Column
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Timestamp createdAt = new Timestamp(new Date().getTime());
 
     @Column
-    private LocalDateTime modifiedAt = LocalDateTime.now();
+    private Timestamp modifiedAt;
+
+    public void updateFrom(Til til) {
+        if (til.getTilTitle() != null) {
+            this.setTilTitle(til.getTilTitle());
+        }
+        if (til.getTilContent() != null) {
+            this.setTilContent(til.getTilContent());
+        }
+        if (til.getTilStatus() != null) {
+            this.setTilStatus(til.getTilStatus());
+        }
+        if (til.getModifiedAt() != null) {
+            this.setModifiedAt(til.getModifiedAt());
+        }
+    }
 }
