@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { InputForm } from './Login';
 function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,49 +24,53 @@ function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSignUp}>
-      <div>
-        <label htmlFor="email">이메일</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일 형식이 올바르지 않습니다."
-          required
-        />
-      </div>
+    <>
+      <h1>회원가입</h1>
+      <InputForm>
+        <form onSubmit={handleSignUp}>
+          <div>
+            <input
+              type="text"
+              id="nickName"
+              name="nickName"
+              value={nickName}
+              onChange={(e) => setNickName(e.target.value)}
+              pattern="^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,10}$"
+              title="닉네임은 특수문자를 제외한 2~10자리여야 합니다."
+              placeholder="닉네임을 입력하세요."
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="이메일을 입력하세요"
+              required
+            />
+          </div>
 
-      <div>
-        <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
-          title="비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
-          required
-        />
-      </div>
+          <div>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$"
+              title="비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
+              placeholder="희망하는 비밀번호를 입력해주세요."
+              required
+            />
+          </div>
 
-      <div>
-        <label htmlFor="nickName">닉네임</label>
-        <input
-          type="text"
-          id="nickName"
-          name="nickName"
-          value={nickName}
-          onChange={(e) => setNickName(e.target.value)}
-          pattern="^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,10}$"
-          title="닉네임은 특수문자를 제외한 2~10자리여야 합니다."
-          required
-        />
-      </div>
-      <button type="submit">회원가입</button>
-    </form>
+          <button type="submit">회원가입</button>
+        </form>
+      </InputForm>
+    </>
   );
 }
 

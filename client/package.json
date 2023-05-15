@@ -10,7 +10,9 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "http-proxy-middleware": "^2.0.6",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
@@ -51,5 +53,5 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
-  "proxy": "http://ec2-3-39-0-27.ap-northeast-2.compute.amazonaws.com:8080"
+  "proxy": "http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080"
 }
