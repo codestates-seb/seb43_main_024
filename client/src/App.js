@@ -27,13 +27,14 @@ function App() {
         <Routes>
           {/* 메인 화면 */}
           <Route path="/" element={<Main />} />
+          {/* 틸 리스트 화면 */}
+          <Route path="/til/list" element={<SearchTil />} />
+          <Route path="/til/list/hot" element={<HotTil />} />
+          <Route path="/til/list/following" element={<FollowTil />} />
           {/* 로그인, 회원가입 화면 */}
           <Route path="/account" element={<Account />}>
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignUpForm />} />
-            <Route path="/til/list" element={<SearchTil />} />
-            <Route path="/til/list/hot" element={<HotTil />} />
-            <Route path="/til/list/following" element={<FollowTil />} />
           </Route>
           {/* 프로필 화면 */}
           <Route path="/profile" element={<Profile />}>

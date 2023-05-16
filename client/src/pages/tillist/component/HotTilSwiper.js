@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import styled from 'styled-components';
 import TilCard from '../../../default/TilCard';
-import { InnerWrapper, PreNextButton } from '../../../default/styled';
+import { TilWrapper, PreNextButton } from '../../../default/styled';
 
 SwiperCore.use([Navigation, Pagination, A11y]);
 
@@ -15,9 +15,9 @@ const SwiperWrapper = styled.section`
   background-color: var(--light-background-color);
 `;
 
-const SwiperInner = styled(InnerWrapper)`
+const SwiperInner = styled(TilWrapper)`
   width: 1380px;
-  padding: 35px 0px;
+  padding: 14px 0px;
   display: flex;
   align-items: center;
 `;
@@ -63,7 +63,7 @@ function HotTilSwiper() {
         <PreNextButtonWrapper className="my-swiper-prev">
           <PreNextButton pre />
         </PreNextButtonWrapper>
-        <InnerWrapper>
+        <TilWrapper>
           <Swiper
             spaceBetween={5}
             slidesPerView={4}
@@ -99,7 +99,7 @@ function HotTilSwiper() {
               <TilCard />
             </SlideContainer>
           </Swiper>
-        </InnerWrapper>
+        </TilWrapper>
         <PreNextButtonWrapper className="my-swiper-next">
           <PreNextButton next />
         </PreNextButtonWrapper>
