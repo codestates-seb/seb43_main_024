@@ -49,5 +49,4 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
 
         log.info("# Authenticated successfully!");
     }
-
 }
