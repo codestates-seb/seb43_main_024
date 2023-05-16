@@ -9,7 +9,20 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TilMapper {
 
-    Til tilPutToTil(TilDto.Put put);
+    default Til tilPutToTil(TilDto.Put put) {
+        if ( put == null ) {
+            return null;
+        }
+
+        Til til = new Til();
+
+        til.setTilId( put.getTilId() );
+        til.setTilTitle( put.getTilTitle() );
+        til.setTilContent( put.getTilContent() );
+        til.setTilStatus( put.getTilStatus() );
+
+        return til;
+    }
 
     // 추가
     default Til tilPostToTil(TilDto.Post post) {
