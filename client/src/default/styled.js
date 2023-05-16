@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const InnerWrapper = styled.div`
-  /* 기본 스타일 */
+  /* 기본 InnerWrapper 스타일 */
   ${(props) =>
     !props.flex &&
     css`
@@ -17,8 +17,9 @@ export const InnerWrapper = styled.div`
       height: 100%;
       box-sizing: border-box;
       margin: 0 auto;
+      padding: 80px 0;
     `}
-  /* 헤더의 경우 */
+  /* 헤더의 경우 InnerWrapper 스타일 */
   ${(props) =>
     props.flex &&
     css`
@@ -32,14 +33,19 @@ export const InnerWrapper = styled.div`
     `}
 `;
 
+/* 기본적인 버튼 스타일 */
 const defaultBtnStyles = css`
   padding: 10px 16px;
   border-radius: 50px;
   transition: all 0.125s ease-in 0s;
 `;
 
+/* 버튼1 스타일 (css) */
 const FilledBtnsStyle = css`
-  ${defaultBtnStyles};
+  /* 기본 버튼 스타일을 불러옵니다. */
+  ${defaultBtnStyles}
+
+  /* 여기 부터 추가 스타일 */
   background-color: var(--brand-color);
   color: white;
   &:hover {
@@ -48,8 +54,12 @@ const FilledBtnsStyle = css`
   }
 `;
 
+/* 버튼2 스타일 (css) */
 const OutlineBtnsStyle = css`
-  ${defaultBtnStyles};
+  /* 기본 버튼 스타일을 불러옵니다. */
+  ${defaultBtnStyles}
+
+  /* 여기 부터 추가 스타일 */
   color: var(--brand-color);
   border: 1px solid var(--brand-color);
   background-color: white;
@@ -59,10 +69,12 @@ const OutlineBtnsStyle = css`
   }
 `;
 
+/* <FilledBtns /> 형태로 사용하기 위한 코드 */
 export const FilledBtns = styled.button`
   ${FilledBtnsStyle};
 `;
 
+/* <OutlineBtns /> 형태로 사용하기 위한 코드 */
 export const OutlineBtns = styled.button`
   ${OutlineBtnsStyle};
 `;
@@ -121,7 +133,9 @@ export const TapMenu = styled.button`
 
 export const FollowListComponent = styled.li``;
 
-/* Main style */
+/**
+ * @MainStyle
+ */
 export const MainWrapper = styled.div`
   width: 100%;
   height: calc(100vh - 64px);
@@ -175,7 +189,9 @@ export const PostLink = styled(NavLink)`
   ${FilledBtnsStyle}
 `;
 
-/* Header style */
+/**
+ * @HeaderStyle
+ */
 export const HeaderWrapper = styled.div`
   display: flex;
   position: fixed;
@@ -263,4 +279,65 @@ export const NavLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 48px;
+`;
+<<<<<<< HEAD
+
+export const TilWrapper = styled(InnerWrapper)`
+  margin-top: 40px;
+`;
+
+export const TilFlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const PostComponent = styled.div`
+  padding: 60px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  > .user-name {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+`;
+
+/**
+ * @TilWriteStyle
+ */
+export const WritrForm = styled.form`
+  padding: 60px;
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+
+  & > textarea {
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    box-sizing: border-box;
+    resize: none;
+  }
+  & .w-md-editor {
+    height: 500px !important;
+  }
+`;
+
+export const PostActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+
+  & button {
+    margin-left: 12px;
+  }
 `;

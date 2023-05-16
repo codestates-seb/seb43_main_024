@@ -37,8 +37,7 @@ function Header() {
         </NavLogo>
 
         <BtnGroup>
-          {/* islogin? 작성창으로 이동 : 로그인으로 이동 */}
-          <HeaderLink to="/" light>
+          <HeaderLink to="/write" light>
             TIL 작성하기
           </HeaderLink>
 

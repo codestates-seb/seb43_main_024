@@ -12,6 +12,8 @@ import { Profile } from './pages/profile/Profile';
 import { Bookmark } from './pages/profile/components/Bookmark';
 import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
+// TilWrite 컴포넌트
+import TilWrite from './pages/tilwrite/TilWrite';
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
             <Route path="followlist" element={<FollowList />} />
             <Route path="mytil" element={<MyTIL />} />
           </Route>
+          <Route path="/write" element={<TilWrite />} />
         </Routes>
       </Wrapper>
     </Router>
