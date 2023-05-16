@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding-top: 64px;
+  padding-top: 64px; // 밀림방지
 `;
 
 export const InnerWrapper = styled.div`
@@ -280,6 +280,7 @@ export const NavLogo = styled.div`
   align-items: center;
   gap: 48px;
 `;
+<<<<<<< HEAD
 
 export const TilWrapper = styled(InnerWrapper)`
   margin-top: 40px;

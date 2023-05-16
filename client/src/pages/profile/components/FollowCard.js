@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { HeaderLink } from '../../../default/styled';
 
 const FollowComponentWrapper = styled.li`
   box-sizing: border-box;
@@ -83,8 +84,8 @@ export function FollowCard() {
         새로운 기술을 배우고 성장하며, 팀원들과의 협업을 즐깁니다.
       </p>
       <div>
-        <button>프로필</button>
-        <button>팔로우해제</button>
+        <HeaderLink Out>프로필</HeaderLink>
+        <HeaderLink>팔로우해제</HeaderLink>
       </div>
     </FollowComponentWrapper>
   );
