@@ -47,4 +47,9 @@ dependencies {
 	// 타임리프를 위한 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// OAUTH2
+	implementation 'org.springframework.boot:spring-boot-starter-security'     // (2)
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'  // (3)
+
 }

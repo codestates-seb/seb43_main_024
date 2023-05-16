@@ -49,9 +49,25 @@ public class Member {
         this.memberId = memberId;
     }
 
+    public Member(String email) {
+        this.email = email;
+    } // OAUTH2
+
+    // OAuth를 위해 구성한 추가 필드 2개
+    private String provider;
+    private String providerId;
+
     public Member(String email, String nickName, String password) {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
+    }
+
+    public Member(String email, String nickName, String password, String provider, String providerId) {
+        this.email = email;
+        this.nickName = nickName;
+        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 }
