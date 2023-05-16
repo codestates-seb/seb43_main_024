@@ -14,6 +14,10 @@ import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 // TilWrite 컴포넌트
 import TilWrite from './pages/tilwrite/TilWrite';
+import SearchTil from './pages/tillist/SearchTil';
+import HotTil from './pages/tillist/HotTil';
+import FollowTil from './pages/tillist/FollowTil';
+//import TilPost from './pages/tilpost/TilPost';
 
 function App() {
   return (
@@ -27,6 +31,9 @@ function App() {
           <Route path="/account" element={<Account />}>
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignUpForm />} />
+            <Route path="/til/list" element={<SearchTil />} />
+            <Route path="/til/list/hot" element={<HotTil />} />
+            <Route path="/til/list/following" element={<FollowTil />} />
           </Route>
           {/* 프로필 화면 */}
           <Route path="/profile" element={<Profile />}>
