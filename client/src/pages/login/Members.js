@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { InputForm } from './Login';
+import { Modal } from './components/Modal';
+
 function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickName, setNickName] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
+  /**
+   * 사용자 회원가입 폼 제출을 처리합니다.
+   * 이메일, 비밀번호, 닉네임을 포함하는 POST 요청을 보냅니다.
+   * 요청이 성공하면 응답 데이터를 콘솔에 기록합니다.
+   * 에러가 발생하면 에러를 콘솔에 기록합니다.
+   * @param {Event} e - 폼 제출 이벤트입니다.
+   */
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -15,8 +25,7 @@ function SignUpForm() {
         password: password,
         nickName: nickName,
       });
-
-      //axios.post 함수의 결과를 response 변수에 저장
+      setShowModal(true);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -70,6 +79,7 @@ function SignUpForm() {
           <button type="submit">회원가입</button>
         </form>
       </InputForm>
+      {showModal && <Modal />}
     </>
   );
 }

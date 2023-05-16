@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useStore from '../../default/useStore';
-import Cookies from 'js-cookie';
+
 // import { HeaderLink } from '../../default/styled';
 
 export const InputForm = styled.div`
@@ -32,7 +32,9 @@ export const InputForm = styled.div`
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { isLogin, setLoginStatus } = useStore();
+  const { setLoginStatus } = useStore();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,23 +52,11 @@ function LoginForm() {
       );
       window.sessionStorage.setItem('access_token', response.data.access_token); // 토큰 저장
       setLoginStatus(true);
+
       console.log(response.data);
+      navigate(-2);
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axios.post('/logout');
-      window.sessionStorage.removeItem('access_token'); // session.access_toekn토큰 삭제
-      Cookies.remove('access_token'); // cookie.access_token 삭제
-      Cookies.remove('refresh_token'); // cookie.refresh_token 삭제
-
-      setLoginStatus(false);
-      console.log('로그아웃 컴플리트');
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -104,7 +94,6 @@ function LoginForm() {
           </div>
         </form>
       </InputForm>
-      {isLogin ? <button onClick={handleLogout}>logout</button> : null}
     </>
   );
 }
