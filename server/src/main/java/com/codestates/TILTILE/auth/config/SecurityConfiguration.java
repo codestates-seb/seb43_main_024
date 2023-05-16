@@ -2,12 +2,10 @@ package com.codestates.TILTILE.auth.config;
 
 import com.codestates.TILTILE.auth.filter.JwtAuthenticationFilter;
 import com.codestates.TILTILE.auth.filter.JwtVerificationFilter;
-import com.codestates.TILTILE.auth.handler.MemberAccessDeniedHandler;
-import com.codestates.TILTILE.auth.handler.MemberAuthenticationEntryPoint;
-import com.codestates.TILTILE.auth.handler.MemberAuthenticationFailureHandler;
-import com.codestates.TILTILE.auth.handler.MemberAuthenticationSuccessHandler;
+import com.codestates.TILTILE.auth.handler.*;
 import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
+import com.codestates.TILTILE.member.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,15 +24,20 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final MemberService memberService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.memberService = memberService;
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,14 +59,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                         .anyRequest().permitAll() // 모든 HTTP request 요청에 대해서 접근을 허용
-                );
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService)));
         return http.build();
-    }
-
-    // PasswordEncoder Bean 객체를 생성
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     // 구체적인 CORS 정책을 설정

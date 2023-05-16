@@ -23,5 +23,10 @@ public class MemberDto {
 
         @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "닉네임은 특수문자를 제외한 2~10자리여야 합니다.")
         private String nickName;
+
+        // OAuth2 인증 후 받는 정보를 위한 필드
+        // OAuth2 자동 로그인 활성화시 필요
+//        private String provider; // OAuth2 제공자 이름 (Google, Facebook 등)
+//        private String providerId; // OAuth2 제공자 내에서 사용자를 식별하는 ID
     }
 }

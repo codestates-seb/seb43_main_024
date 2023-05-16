@@ -33,7 +33,8 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     private final class MemberDetails extends Member implements UserDetails {
-        // (1)
+
+        // 일반 로그인
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
@@ -69,5 +70,6 @@ public class MemberDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
+
     }
 }
