@@ -21,13 +21,13 @@ function Header() {
           </Link>
 
           <TopNav>
-            <NavLink to="/">
+            <NavLink to="/til/list">
               <TapMenu>탐색</TapMenu>
             </NavLink>
-            <NavLink to="/">
+            <NavLink to="/til/list/hot">
               <TapMenu>핫틸</TapMenu>
             </NavLink>
-            <NavLink to="/">
+            <NavLink to="/til/list/following">
               <TapMenu>팔로우틸</TapMenu>
             </NavLink>
           </TopNav>

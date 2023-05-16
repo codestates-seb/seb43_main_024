@@ -1,5 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import PreArrow from './image/preArrow.svg';
+import PreArrowHover from './image/preArrowHover.svg';
+import NextArrow from './image/nextArrow.svg';
+import NextArrowHover from './image/nextArrowHover.svg';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -269,7 +273,7 @@ export const TilWrapper = styled(InnerWrapper)`
   margin-top: 40px;
 `;
 
-export const TilFlexContainer = styled.div`
+export const TilFlexContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -277,6 +281,7 @@ export const TilFlexContainer = styled.div`
 
 export const PostComponent = styled.div`
   padding: 60px;
+  border-radius: 8px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
@@ -284,8 +289,33 @@ export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   font-size: 15px;
-  > .user-name {
-    font-weight: bold;
-    margin-right: 4px;
-  }
+`;
+
+export const TitleH1 = styled.h1`
+  margin: 0px 10px;
+`;
+
+export const PreNextButton = styled.button`
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  transition: background-image 0.3s ease;
+  /* 이전 버튼 */
+  ${(props) =>
+    props.pre &&
+    css`
+      background-image: url(${PreArrow});
+      &:hover {
+        background-image: url(${PreArrowHover});
+      }
+    `}
+  /* 다음 버튼 */
+  ${(props) =>
+    props.next &&
+    css`
+      background-image: url(${NextArrow});
+      &:hover {
+        background-image: url(${NextArrowHover});
+      }
+    `}
 `;

@@ -10,6 +10,10 @@ import { Profile } from './pages/profile/Profile';
 import { Bookmark } from './pages/profile/components/Bookmark';
 import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
+import SearchTil from './pages/tillist/SearchTil';
+import HotTil from './pages/tillist/HotTil';
+import FollowTil from './pages/tillist/FollowTil';
+//import TilPost from './pages/tilpost/TilPost';
 
 function App() {
   return (
@@ -19,6 +23,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/til/list" element={<SearchTil />} />
+          <Route path="/til/list/hot" element={<HotTil />} />
+          <Route path="/til/list/following" element={<FollowTil />} />
           <Route path="/profile" element={<Profile />}>
             <Route path="bookmark" element={<Bookmark />} />
             <Route path="followlist" element={<FollowList />} />

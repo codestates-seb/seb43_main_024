@@ -8,6 +8,7 @@ import { ReactComponent as View } from '../default/image/view.svg';
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: var(--color-white);
   box-sizing: border-box;
   width: 294px;
   height: 229px;
@@ -16,8 +17,8 @@ const CardWrapper = styled.div`
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   &:hover {
-    scale: 102%;
-    transition: 1s;
+    scale: 101%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -43,6 +44,7 @@ const CardContent = styled.div`
 const CardUserInfo = styled(UserInfo)`
   font-size: 10px;
   > .user-name {
+    font-weight: bold;
     margin-right: 2px;
   }
   > .view-img {

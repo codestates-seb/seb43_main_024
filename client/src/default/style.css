@@ -71,6 +71,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     position: relative;
+    background-color: var(--background-color);
 }
 
 h1 {
