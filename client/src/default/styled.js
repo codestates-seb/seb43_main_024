@@ -286,6 +286,7 @@ export const NavLogo = styled.div`
 `;
 
 export const TilWrapper = styled(InnerWrapper)`
+  padding: 0;
   margin-top: 40px;
 `;
 
