@@ -21,20 +21,21 @@ import java.util.Map;
 public class JwtTokenizer {
     @Getter
     @Value("${jwt.key}")
-    private String secretKey;       // (2)
-
+    private String secretKey;
     @Getter
     @Value("${jwt.access-token-expiration-minutes}")
-    private int accessTokenExpirationMinutes;        // (3)
+    private int accessTokenExpirationMinutes;
 
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
-    private int refreshTokenExpirationMinutes;          // (4)
+    private int refreshTokenExpirationMinutes;
 
+    // 비밀 키를 Base64로 인코딩합니다.
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    // 주어진 클레임, 주제, 만료 시간, Base64로 인코딩된 비밀 키를 사용하여 액세스 토큰을 생성합니다.
     public String generateAccessToken(Map<String, Object> claims, String subject, Date expiration, String base64EncodedSecretKey) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -44,6 +45,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    // 주어진 주제, 만료 시간, Base64로 인코딩된 비밀 키를 사용하여 리프레시 토큰을 생성합니다.
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         return Jwts.builder()
                 .setSubject(subject)
@@ -52,6 +54,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    // JWS(JWT 서명)에서 클레임을 추출합니다. Base64로 인코딩된 비밀 키를 사용하여 서명을 검증합니다.
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -62,6 +65,7 @@ public class JwtTokenizer {
         return claims;
     }
 
+    // JWS(JWT 서명)의 서명을 검증합니다. Base64로 인코딩된 비밀 키를 사용하여 서명을 검증합니다.
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -71,7 +75,7 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
     }
 
-    // (5)
+    // 토큰의 만료 시간을 계산합니다. 주어진 만료 시간(분)을 기준으로 현재 시간에서 해당 시간을 더하여 계산합니다.
     public Date getTokenExpiration(int expirationMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, expirationMinutes);
@@ -80,6 +84,7 @@ public class JwtTokenizer {
         return expiration;
     }
 
+    // Base64로 인코딩된 비밀 키에서 키를 추출합니다.
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
