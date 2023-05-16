@@ -10,8 +10,11 @@ import {
   TopNav,
   NavLogo,
 } from '../default/styled';
+import useStore from '../default/useStore';
 
 function Header() {
+  const { isLogin } = useStore();
+
   return (
     <HeaderWrapper>
       <InnerWrapper flex>
@@ -34,17 +37,23 @@ function Header() {
         </NavLogo>
 
         <BtnGroup>
-          <HeaderLink to="/" light>
+          <HeaderLink to="/write" light>
             TIL 작성하기
           </HeaderLink>
-          <HeaderLink to="/login">로그인</HeaderLink>
-          <HeaderLink to="/login" outline>
-            회원가입
-          </HeaderLink>
-          <HeaderLink to="/profile" userInfo>
-            <UserPic></UserPic>
-            <span>10 tilday 🥚</span>
-          </HeaderLink>
+
+          {isLogin ? (
+            <HeaderLink to="/profile" userInfo>
+              <UserPic></UserPic>
+              <span>닉네임,tilday</span>
+            </HeaderLink>
+          ) : (
+            <>
+              <HeaderLink to="/account/login">로그인</HeaderLink>
+              <HeaderLink to="/account/signup" outline>
+                회원가입
+              </HeaderLink>
+            </>
+          )}
         </BtnGroup>
       </InnerWrapper>
     </HeaderWrapper>
