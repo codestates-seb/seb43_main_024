@@ -1,8 +1,10 @@
 import './default/style.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
+
 // login 컴포넌트
 import Account from './pages/login/Account';
 import LoginForm from './pages/login/Login';
