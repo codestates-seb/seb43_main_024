@@ -7,6 +7,16 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MemberMapper {
-    Member memberPostToMember(MemberDto.Post requestBody);
+    default Member memberPostToMember(MemberDto.Post memberDto) {
+        if (memberDto == null) {
+            return null;
+        }
 
+        Member member = new Member();
+        member.setEmail(memberDto.getEmail());
+        member.setNickName(memberDto.getNickName());
+        member.setPassword(memberDto.getPassword());
+
+        return member;
+    }
 }

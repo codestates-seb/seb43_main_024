@@ -2,7 +2,6 @@ package com.codestates.TILTILE.member.service;
 
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
-import com.codestates.TILTILE.helper.MemberRegistrationApplicationEvent;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.repository.MemberRepository;
@@ -12,8 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 
 @Transactional
 @Service
@@ -31,26 +31,6 @@ public class MemberService {
         this.publisher = publisher;
     }
 
-//    public Member createMember(Member member) {
-//        verifyExistsEmail(member.getEmail());
-//
-//        if (member.getPassword() == null) {
-//            throw new IllegalArgumentException("Password cannot be null");
-//        }
-//
-//        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-//        member.setPassword(encryptedPassword);
-//
-//        // 추가: User Role DB에 저장
-//        List<String> roles = authorityUtils.createRoles(member.getEmail());
-//        member.setRoles(roles);
-//
-//        Member savedMember = repository.save(member);
-//
-//        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
-//        return savedMember;
-//    }
-
     public Member createMember(String email, String nickName, String password) {
         if (password == null) {
             throw new IllegalArgumentException("Password cannot be null");
@@ -60,10 +40,33 @@ public class MemberService {
         return repository.save(member);
     }
 
+    // OAUTH2
+    public Member createMember(String email, String name, String provider, String providerId) {
+        Optional<Member> existingMember = repository.findByEmail(email);
+
+        if (existingMember.isPresent()) {
+            return existingMember.get();
+        } else {
+            String randomPassword = UUID.randomUUID().toString().substring(0, 10);
+            String encodedPassword = passwordEncoder.encode(randomPassword);
+            Member savedMember = new Member(email, name, encodedPassword, provider, providerId);
+            return repository.save(savedMember);
+        }
+    }
+
 
     private void verifyExistsEmail(String email) {
         Optional<Member> member = repository.findByEmail(email);
-        if (member.isPresent())
+        if (member.isPresent()) { // member.isPresent?
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        }
+    }
+
+    public Member verifyExistsMemberId(long memberId) {
+        Optional<Member> member = repository.findById(memberId);
+        if (member.isEmpty())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+
+        return member.get();
     }
 }
