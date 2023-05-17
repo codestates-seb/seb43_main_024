@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useStore from '../../default/useStore';
-import { HeaderLink } from '../../default/styled';
 
 // import { HeaderLink } from '../../default/styled';
 
@@ -91,12 +90,17 @@ function LoginForm() {
           </div>
           <div className="right">
             <p>계정을 잃어버리셨나요? 계정찾기</p>
-            <HeaderLink>
-              <button type="submit">로그인</button>
-            </HeaderLink>
+            <button type="submit">로그인</button>
           </div>
         </form>
       </InputForm>
+      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+        구글로 로그인
+      </a>
+      <br />
+      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/github">
+        GitHub 로그인
+      </a>
     </>
   );
 }
