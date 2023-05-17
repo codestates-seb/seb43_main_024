@@ -42,10 +42,10 @@ export function UserProfile() {
         );
       }
     };
-
     fetchProfileData();
   }, []);
 
+  // null 에 대한 loading 처리
   if (!profileData) {
     return <div>Loading...</div>;
   }
@@ -55,6 +55,7 @@ export function UserProfile() {
       <img src={profileData.profilePicture} alt="user profile" />
       <h2>{profileData.nickName}</h2>
       <h4>{profileData.rank}</h4>
+      {/* TODO: 팔로우 리스트에 추가되어있다면 팔로우 헤제로 조건 렌더링 */}
       <HeaderLink>+팔로우</HeaderLink>
       <p>{profileData.about_me}</p>
     </UserProfileWrapper>

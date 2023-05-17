@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import useStore from '../../default/useStore';
 
 // import { HeaderLink } from '../../default/styled';
+axios.defaults.withCredentials = true;
 
 export const InputForm = styled.div`
   display: flex;
@@ -40,21 +41,13 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        '/login',
-        {
-          username: username,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      window.sessionStorage.setItem('access_token', response.data.access_token); // 토큰 저장
+      const response = await axios.post('/login', {
+        username: username,
+        password: password,
+      });
       setLoginStatus(true);
-
       console.log(response.data);
-      navigate(-2);
+      navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
     }
