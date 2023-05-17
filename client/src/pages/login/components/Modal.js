@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { HeaderLink } from '../../../default/styled';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState } from 'react';
+import useStore from '../../../default/useStore';
 
 const ModalBackdrop = styled.div`
   position: fixed;
@@ -38,13 +39,15 @@ const ModalView = styled.div`
 `;
 
 export function Modal() {
-  const [setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const { setShowModal } = useStore();
 
   const closeModal = () => {
     setShowModal(false);
-    navigate('/main');
+    navigate('/account/login');
   };
+
   return (
     <ModalBackdrop>
       <ModalView
@@ -52,11 +55,10 @@ export function Modal() {
           event.stopPropagation();
         }}
       >
-        <h1>
-          환영합니다!
-          <br /> 바람쐬고오겠습니다 45분까지 복귀하도록 하겠습니다 !
-        </h1>
-        <HeaderLink onClick={closeModal}>로그인 하러가기</HeaderLink>
+        <h1>환영합니다!</h1>
+        <HeaderLink>
+          <button onClick={closeModal}>로그인 하러가기</button>
+        </HeaderLink>
       </ModalView>
     </ModalBackdrop>
   );

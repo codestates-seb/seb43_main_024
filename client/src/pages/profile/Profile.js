@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { UserProfile } from './components/UserProfile';
 import styled from 'styled-components';
 import { ProfileNav } from './components/ProfileNav';
+import useStore from '../../default/useStore';
 
 const PageWrapper = styled.div`
   position: relative;
@@ -29,17 +30,24 @@ const ProfileContents = styled.div`
 `;
 
 function Profile() {
+  const { isLogin } = useStore();
   return (
     <>
-      <UserProfile />
-      <ProfileNav />
-      <PageWrapper>
-        <ContentsPosition>
-          <ProfileContents>
-            <Outlet />
-          </ProfileContents>
-        </ContentsPosition>
-      </PageWrapper>
+      {isLogin ? (
+        <>
+          <UserProfile />
+          <ProfileNav />
+          <PageWrapper>
+            <ContentsPosition>
+              <ProfileContents>
+                <Outlet />
+              </ProfileContents>
+            </ContentsPosition>
+          </PageWrapper>
+        </>
+      ) : (
+        <p>올바르지 않는 접근입니다. 다시 로그인 해주세요</p>
+      )}
     </>
   );
 }

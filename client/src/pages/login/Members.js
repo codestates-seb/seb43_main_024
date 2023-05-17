@@ -2,12 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import { InputForm } from './Login';
 import { Modal } from './components/Modal';
+import useStore from '../../default/useStore';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickName, setNickName] = useState('');
-  const [showModal, setShowModal] = useState(false);
+
+  const { showModal, setShowModal } = useStore();
 
   /**
    * 사용자 회원가입 폼 제출을 처리합니다.
@@ -79,7 +81,7 @@ function SignUpForm() {
           <button type="submit">회원가입</button>
         </form>
       </InputForm>
-      {showModal && <Modal />}
+      {showModal ? <Modal /> : null}
     </>
   );
 }

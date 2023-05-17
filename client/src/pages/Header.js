@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import {
   HeaderWrapper,
   InnerWrapper,
@@ -16,6 +16,7 @@ import Cookies from 'js-cookie';
 
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await axios.post('/logout');
@@ -24,6 +25,9 @@ function Header() {
       Cookies.remove('refresh_token'); // cookie.refresh_token 삭제
 
       setLoginStatus(false);
+
+      alert('로그아웃이 완료되었습니다.');
+      navigate('/account/login');
       console.log('로그아웃 컴플리트');
     } catch (error) {
       console.error(error);
