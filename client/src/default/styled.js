@@ -280,7 +280,6 @@ export const NavLogo = styled.div`
   align-items: center;
   gap: 48px;
 `;
-<<<<<<< HEAD
 
 export const TilWrapper = styled(InnerWrapper)`
   margin-top: 40px;
