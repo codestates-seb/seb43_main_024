@@ -9,6 +9,7 @@ import com.codestates.TILTILE.member.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,13 +19,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -42,17 +42,22 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers().frameOptions().sameOrigin() // 동일 출처로부터 들어오는 request만 페이지 렌더링을 허용
+                .headers().frameOptions().sameOrigin() //    동일 출처로부터 들어오는 request만 페이지 렌더링을 허용
                 .and()
                 .csrf().disable() // CSRF 공격에 대한 Spring Security에 대한 설정을 비활성화
                 .cors(Customizer.withDefaults()) // CORS 설정을 추가
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                    .deleteCookies("jwt-token")
+                .and()
                 .formLogin().disable() // 폼 로그인 방식을 비활성화
                 .httpBasic().disable() // HTTP Basic 인증 방식을 비활성화
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
-                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                    .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                    .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
@@ -69,11 +74,11 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처(Origin)에 대해 스크립트 기반의 HTTP 통신을 허용
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE")); // 파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
+        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처(Origin)에 대해 스크립트 기반의 HTTP 통신 허용
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE")); // 허용되는 HTTP 메소드 지정
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 모든 URL에 앞에서 구성한 CORS 정책 적용
+        source.registerCorsConfiguration("/**", configuration); // 모든 URL에 대해 CORS 정책 적용
         return source;
     }
 
@@ -84,7 +89,7 @@ public class SecurityConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(jwtTokenizer));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
@@ -94,6 +99,11 @@ public class SecurityConfiguration {
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
+    }
+
+    @Bean
+    public LogoutFilterConfigurer logoutConfigurer() {
+        return new LogoutFilterConfigurer();
     }
 }
 

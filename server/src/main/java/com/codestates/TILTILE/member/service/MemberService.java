@@ -61,4 +61,12 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
+
+    public Member verifyExistsMemberId(long memberId) {
+        Optional<Member> member = repository.findById(memberId);
+        if (member.isEmpty())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+
+        return member.get();
+    }
 }
