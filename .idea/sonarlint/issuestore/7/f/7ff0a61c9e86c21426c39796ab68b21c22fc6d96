@@ -1,8 +1,0 @@
-
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(£Ÿ¬Öùÿÿÿÿ
-O
-java:S1068"2Remove this unused "authorityUtils" private field.(Æ¦Ê±8¡ÈæÔ‚1
-O
-java:S1068"-Remove this unused "publisher" private field.(–ñäÛøÿÿÿÿ8¡ÈæÔ‚1
-R
-java:S1144:"6Remove this unused private "verifyExistsEmail" method.(€ÂÆY8¡ÈæÔ‚1
