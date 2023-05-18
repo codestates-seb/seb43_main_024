@@ -3,32 +3,31 @@ package com.codestates.TILTILE.member.service;
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
+import com.codestates.TILTILE.exception.NotFoundException;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Transactional
 @Service
-public class MemberService {
-    private final MemberRepository repository;
+public class MemberService{
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final ApplicationEventPublisher publisher;
 
-    @Autowired
-    public MemberService(MemberRepository repository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils, ApplicationEventPublisher publisher) {
-        this.repository = repository;
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils, ApplicationEventPublisher publisher) {
+        this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
         this.publisher = publisher;
+
     }
 
     public Member createMember(String email, String nickName, String password) {
@@ -37,12 +36,12 @@ public class MemberService {
         }
         String encodedPassword = passwordEncoder.encode(password);
         Member member = new Member(email, nickName, encodedPassword);
-        return repository.save(member);
+        return memberRepository.save(member);
     }
 
     // OAUTH2
-    public Member createMember(String email, String name, String provider, String providerId) {
-        Optional<Member> existingMember = repository.findByEmail(email);
+    public Member oauth2CreateMember(String email, String name, String provider, String providerId) {
+        Optional<Member> existingMember = memberRepository.findByEmail(email);
 
         if (existingMember.isPresent()) {
             return existingMember.get();
@@ -50,27 +49,20 @@ public class MemberService {
             String randomPassword = UUID.randomUUID().toString().substring(0, 10);
             String encodedPassword = passwordEncoder.encode(randomPassword);
             Member savedMember = new Member(email, name, encodedPassword, provider, providerId);
-            return repository.save(savedMember);
-        }
-    }
-
-    private void verifyExistsEmail(String email) {
-        Optional<Member> member = repository.findByEmail(email);
-        if (member.isPresent()) { // member.isPresent?
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            return memberRepository.save(savedMember);
         }
     }
 
     public Member verifyExistsMemberId(long memberId) {
-        Optional<Member> member = repository.findById(memberId);
+        Optional<Member> member = memberRepository.findById(memberId);
         if (member.isEmpty())
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
 
         return member.get();
     }
 
-//    public Member getMemberById(Long memberId) {
-//        return repository.findById(memberId)
-//                .orElseThrow(() -> new NotFoundException("Member not found with ID: " + memberId));
-//    }
+    public Member getMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException(404, "Member not found"));
+    }
 }

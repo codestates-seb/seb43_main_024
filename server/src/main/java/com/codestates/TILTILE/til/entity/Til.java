@@ -1,6 +1,7 @@
 package com.codestates.TILTILE.til.entity;
 
 import com.codestates.TILTILE.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ public class Til {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tilId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
