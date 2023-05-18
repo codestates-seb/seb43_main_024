@@ -23,6 +23,7 @@ bin/
 *.iml
 *.ipr
 *.yml
+*.log
 *.bin
 out/
 !**/src/main/**/out/
@@ -37,3 +38,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignore server caches and daemons
+/server/caches/
+/server/daemon/
