@@ -54,7 +54,6 @@ public class MemberService {
         }
     }
 
-
     private void verifyExistsEmail(String email) {
         Optional<Member> member = repository.findByEmail(email);
         if (member.isPresent()) { // member.isPresent?
@@ -69,4 +68,9 @@ public class MemberService {
 
         return member.get();
     }
+
+//    public Member getMemberById(Long memberId) {
+//        return repository.findById(memberId)
+//                .orElseThrow(() -> new NotFoundException("Member not found with ID: " + memberId));
+//    }
 }
