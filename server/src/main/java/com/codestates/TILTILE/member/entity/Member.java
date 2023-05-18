@@ -23,7 +23,7 @@ public class Member {
     @Column(length = 300, nullable = false)
     private String password;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, unique = true, nullable = false)
     private String nickName;
 
     @ElementCollection(fetch = FetchType.EAGER)
