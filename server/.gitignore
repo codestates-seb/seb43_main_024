@@ -25,6 +25,7 @@ bin/
 *.yml
 *.log
 *.bin
+modules.xml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
