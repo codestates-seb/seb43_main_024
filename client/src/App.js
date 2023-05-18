@@ -1,5 +1,6 @@
 import './default/style.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import useStore from './default/useStore';
 
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
@@ -21,9 +22,23 @@ import HotTil from './pages/tillist/HotTil';
 import FollowTil from './pages/tillist/FollowTil';
 //import TilPost from './pages/tilpost/TilPost';
 
+//TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
+
 function App() {
+  const { isLogin } = useStore();
+  const location = useLocation();
+
+  if (
+    !isLogin &&
+    (location.pathname === '/profile' ||
+      location.pathname === '/til/list/following' ||
+      location.pathname === '/write')
+  ) {
+    return <Navigate to="/account/login" />;
+  }
+
   return (
-    <Router>
+    <>
       <Header />
       <Wrapper>
         <Routes>
@@ -47,7 +62,7 @@ function App() {
           <Route path="/write" element={<TilWrite />} />
         </Routes>
       </Wrapper>
-    </Router>
+    </>
   );
 }
 
