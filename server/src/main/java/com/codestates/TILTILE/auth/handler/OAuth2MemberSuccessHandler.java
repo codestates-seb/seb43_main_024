@@ -63,7 +63,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     }
 
     private void saveMember(String email, String name, String provider, String providerId) {
-        memberService.createMember(email, name, provider, providerId);
+        memberService.oauth2CreateMember(email, name, provider, providerId);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
