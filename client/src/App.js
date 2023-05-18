@@ -5,6 +5,9 @@ import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
 
+// 모달
+import Modal from './default/Modal';
+
 // login 컴포넌트
 import Account from './pages/login/Account';
 import LoginForm from './pages/login/Login';
@@ -24,6 +27,7 @@ import FollowTil from './pages/tillist/FollowTil';
 function App() {
   return (
     <Router>
+      <Modal />
       <Header />
       <Wrapper>
         <Routes>

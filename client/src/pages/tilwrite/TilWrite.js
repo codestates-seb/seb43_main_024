@@ -1,21 +1,43 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
 import {
   FilledBtns,
-  InnerWrapper,
+  GrayFilledBtns,
   OutlineBtns,
+  GrayOutlineBtns,
+  InnerWrapper,
   WritrForm,
   PostActions,
 } from '../../default/styled';
+import WarningIcon from '../../default/image/icoWarning.svg';
 
 function TilWrite() {
   const [titleValue, setTitleValue] = useState();
   const [value, setValue] = useState();
   const [isPrivate, setIsPrivate] = useState(false);
   const navigate = useNavigate();
+  const openModal = useStore((state) => state.openModal);
+  const closeModal = useStore((state) => state.closeModal);
+
+  const handleOpenModal = () => {
+    openModal({
+      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      title: '정말로 삭제 하시겠습니까?',
+      content: '작성중인 내용은 저장되지 않습니다.',
+      buttons: [
+        <GrayOutlineBtns key="cancelButton" onClick={closeModal}>
+          취소
+        </GrayOutlineBtns>,
+        <GrayFilledBtns key="confirmButton" onClick={handleCancel}>
+          확인
+        </GrayFilledBtns>,
+      ],
+    });
+  };
 
   const onTitleChange = (e) => {
     setTitleValue(e.target.value);
@@ -31,6 +53,7 @@ function TilWrite() {
     setValue('');
     setIsPrivate(false);
     navigate(-1); //이전페이지로 돌아가기
+    closeModal();
   };
 
   const handleSubmit = async () => {
@@ -81,7 +104,7 @@ function TilWrite() {
           </label>
         </div>
         <div>
-          <OutlineBtns onClick={handleCancel}>취소하기</OutlineBtns>
+          <OutlineBtns onClick={handleOpenModal}>취소하기</OutlineBtns>
           <FilledBtns onClick={handleSubmit}>TIL 작성하기</FilledBtns>
         </div>
       </PostActions>
