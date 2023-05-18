@@ -1,5 +1,6 @@
 package com.codestates.TILTILE.member.entity;
 
+import com.codestates.TILTILE.til.entity.Til;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,22 @@ public class Member {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Til> tils = new ArrayList<>();
+
+    public List<Til> getTils() {
+        return tils;
+    }
+
+    public void setTils(List<Til> tils) {
+        this.tils = tils;
+    }
+
+    public void addTil(Til til) {
+        tils.add(til);
+        til.setMember(this);
+    }
 
     public void setMemberId(long memberId) {
         this.memberId = memberId;
