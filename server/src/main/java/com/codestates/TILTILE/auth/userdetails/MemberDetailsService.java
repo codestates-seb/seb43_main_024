@@ -1,10 +1,10 @@
 package com.codestates.TILTILE.auth.userdetails;
 
+import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.repository.MemberRepository;
-import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
