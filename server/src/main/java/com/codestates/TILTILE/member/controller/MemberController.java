@@ -1,5 +1,6 @@
 package com.codestates.TILTILE.member.controller;
 
+import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.bookmark.service.BookmarkService;
 import com.codestates.TILTILE.member.dto.MemberWithBookmarksDto;
 import com.codestates.TILTILE.member.entity.Member;
@@ -44,10 +45,9 @@ public class MemberController {
         Member createdMember = memberService.createMember(member.getEmail(), member.getNickName(), member.getPassword());
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
 
-        String message = "회원가입에 성공했습니다."; // 추가한 부분
+        String message = "회원가입에 성공했습니다.";
 
-        return ResponseEntity.created(location).body(message); // 수정한 부분
-//        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(message);
     }
 
     @PostMapping("/logout")
