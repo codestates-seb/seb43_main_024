@@ -62,7 +62,7 @@ function LoginForm() {
       </div>
 
       <InputForm>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} method="POST">
           <div className="left">
             <input
               type="email"

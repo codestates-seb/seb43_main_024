@@ -73,7 +73,7 @@ function SignUpForm() {
     <>
       <h1>회원가입</h1>
       <InputForm>
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={handleSignUp} method="POST">
           <div>
             <input
               type="email"
@@ -84,7 +84,9 @@ function SignUpForm() {
               placeholder="이메일을 입력하세요"
               required
             />
-            <button onClick={handleCodeSend}>코드보내기</button>
+            <button onClick={handleCodeSend} method="POST">
+              코드보내기
+            </button>
           </div>
 
           <div>
@@ -147,7 +149,9 @@ function SignUpForm() {
 
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-          <button type="submit">회원가입</button>
+          <button type="submit" method="POST">
+            회원가입
+          </button>
         </form>
       </InputForm>
       {showModal ? <Modal /> : null}
