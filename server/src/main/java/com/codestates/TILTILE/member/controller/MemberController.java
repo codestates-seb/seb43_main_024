@@ -1,6 +1,5 @@
 package com.codestates.TILTILE.member.controller;
 
-import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.bookmark.service.BookmarkService;
 import com.codestates.TILTILE.member.dto.MemberWithBookmarksDto;
 import com.codestates.TILTILE.member.entity.Member;
@@ -18,11 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
-/**
- * - DI 적용
- * - Mapstruct Mapper 적용
- * - @ExceptionHandler 적용
- */
+
 @RestController
 @RequestMapping("/members")
 @Validated
