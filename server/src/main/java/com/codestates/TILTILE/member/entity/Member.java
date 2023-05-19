@@ -1,6 +1,8 @@
 package com.codestates.TILTILE.member.entity;
 
+import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.til.entity.Til;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,27 +25,25 @@ public class Member {
     @Column(length = 300, nullable = false)
     private String password;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, unique = true, nullable = false)
     private String nickName;
+
+    @Column
+    private String aboutMe;
+
+    @Column
+    private Long tilTier;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Til> tils = new ArrayList<>();
 
-    public List<Til> getTils() {
-        return tils;
-    }
-
-    public void setTils(List<Til> tils) {
-        this.tils = tils;
-    }
-
-    public void addTil(Til til) {
-        tils.add(til);
-        til.setMember(this);
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     public void setMemberId(long memberId) {
         this.memberId = memberId;

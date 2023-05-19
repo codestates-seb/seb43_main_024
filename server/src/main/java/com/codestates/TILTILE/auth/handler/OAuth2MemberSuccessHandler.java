@@ -1,8 +1,8 @@
 package com.codestates.TILTILE.auth.handler;
 
-import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
+import com.codestates.TILTILE.member.service.MemberService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {   // (1)
     private final JwtTokenizer jwtTokenizer;
@@ -60,7 +63,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     }
 
     private void saveMember(String email, String name, String provider, String providerId) {
-        memberService.createMember(email, name, provider, providerId);
+        memberService.oauth2CreateMember(email, name, provider, providerId);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
