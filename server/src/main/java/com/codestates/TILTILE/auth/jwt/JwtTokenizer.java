@@ -41,7 +41,7 @@ public class JwtTokenizer {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey)
+                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }
 
