@@ -1,5 +1,7 @@
 import { HeaderLink } from '../../../default/styled';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const UserProfileWrapper = styled.div`
   position: fixed;
@@ -24,22 +26,38 @@ const UserProfileWrapper = styled.div`
 `;
 
 export function UserProfile() {
+  const [profileData, setProfileData] = useState(null);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/profile');
+        const data = response.data;
+        setProfileData(data);
+        console.log('/profile에 대한 get요청이 완료되었습니다.');
+      } catch (error) {
+        console.error(
+          '프로필 데이터를 가져오는 중 오류가 발생했습니다.',
+          error
+        );
+      }
+    };
+    fetchProfileData();
+  }, []);
+
+  // null 에 대한 loading 처리
+  if (!profileData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <UserProfileWrapper>
-      <img
-        src="https://velog.velcdn.com/images/chang626/post/c9533c4f-adbb-4411-bce4-b09293d64fbf/A03EACB4-4DFA-439A-A3FE-084635A89FE6.png"
-        alt="user profile"
-      />
-      <h2>쩨우스</h2>
-      <h4>10tiltil</h4>
+      <img src={profileData.profilePicture} alt="user profile" />
+      <h2>{profileData.nickName}</h2>
+      <h4>{profileData.rank}</h4>
+      {/* TODO: 팔로우 리스트에 추가되어있다면 팔로우 헤제로 조건 렌더링 */}
       <HeaderLink>+팔로우</HeaderLink>
-      <p>
-        저는 웹사이트의 시각적인 부분을 담당하는 프론트엔드 개발자로,
-        사용자들에게 최상의 경험을 제공하기 위해 항상 노력합니다. 최신 기술과
-        동향을 학습하고, 웹사이트의 디자인과 기능을 개선하는 것을 즐깁니다. 제가
-        개발한 웹사이트가 사용자들에게 편리하고 만족스러운 경험을 제공할 때 가장
-        큰 보람을 느낍니다.
-      </p>
+      <p>{profileData.about_me}</p>
     </UserProfileWrapper>
   );
 }

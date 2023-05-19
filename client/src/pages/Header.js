@@ -62,11 +62,11 @@ function Header() {
 
           {isLogin ? (
             <>
+              <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
               <HeaderLink to="/profile" userInfo>
                 <UserPic></UserPic>
                 <span>닉네임,tilday</span>
               </HeaderLink>
-              <HeaderLink onClick={handleLogout}>logout</HeaderLink>
             </>
           ) : (
             <>
