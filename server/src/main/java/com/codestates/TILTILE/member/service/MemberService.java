@@ -27,7 +27,6 @@ public class MemberService{
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
         this.publisher = publisher;
-
     }
 
     public Member createMember(String email, String nickName, String password) {
