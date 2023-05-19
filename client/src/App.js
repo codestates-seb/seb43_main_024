@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <>
       <Modal />
       <Header />
       <Wrapper>
@@ -66,7 +66,7 @@ function App() {
           <Route path="/write" element={<TilWrite />} />
         </Routes>
       </Wrapper>
-    </Router>
+    </>
   );
 }
 
