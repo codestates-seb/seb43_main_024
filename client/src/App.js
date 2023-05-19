@@ -66,7 +66,7 @@ function App() {
           <Route path="/write" element={<TilWrite />} />
         </Routes>
       </Wrapper>
-    </>
+    </Router>
   );
 }
 
