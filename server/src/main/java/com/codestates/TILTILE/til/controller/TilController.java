@@ -6,6 +6,9 @@ import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.service.TilService;
 import com.codestates.TILTILE.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +27,16 @@ public class TilController {
     private final TilService tilService;
     private final TilMapper mapper;
 
-    @GetMapping
-    public ResponseEntity<List<TilDto.Response>> getTils() {
-        List<TilDto.Response> TilList = tilService.findTop16ByOrderByIdDesc();
+
+    @GetMapping("/paging")
+    public ResponseEntity<Page<TilDto.Response>> getTils(@PageableDefault(page = 1) Pageable pageable) {
+//        List<TilDto.Response> TilList = tilService.findTop16ByOrderByIdDesc();
+        System.out.println("in");
+        Page<TilDto.Response> TilList = tilService.paging(pageable);
+
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int endPage = Math.min(startPage + blockLimit - 1, TilList.getTotalPages());
 
         return new ResponseEntity<>(TilList, HttpStatus.OK);
     }
