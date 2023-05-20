@@ -9,11 +9,19 @@ import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.entity.Til;
 import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.repository.TilRepository;
+import com.codestates.TILTILE.til.dto.TilDto;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Transactional
 @Service
@@ -32,6 +40,23 @@ public class TilService {
         this.memberRepository = memberRepository;
         this.memberService = memberService;
         this.tilMapper = tilMapper;
+    }
+
+
+    public List<TilDto.Response> findTop16ByOrderByIdDesc() {
+        List<Til> EntityTilList = tilRepository.findTop16ByOrderByTilIdDesc();
+
+        return tilMapper.toDtoResponseList(EntityTilList);
+    }
+
+    public Page<TilDto.Response> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() -1 ;
+        int pageLimit = 16;
+
+        Page<Til> EntityTils =
+                tilRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId")));
+
+        return EntityTils.map(tilMapper::tilToTilResponse2);
     }
 
     @Transactional

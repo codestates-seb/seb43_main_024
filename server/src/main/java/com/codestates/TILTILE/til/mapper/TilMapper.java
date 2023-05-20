@@ -6,6 +6,9 @@ import com.codestates.TILTILE.til.entity.Til;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TilMapper {
 
@@ -35,6 +38,19 @@ public interface TilMapper {
         til.setMember(member);
 
         return til;
+    }
+
+    default List<TilDto.Response> toDtoResponseList(List<Til> tils) {
+        if ( tils == null ) {
+            return null;
+        }
+
+        List<TilDto.Response> list = new ArrayList<>( tils.size() );
+        for ( Til til : tils ) {
+            list.add( tilToTilResponse( til ) );
+        }
+
+        return list;
     }
 
     default TilDto.Response tilToTilResponse2(Til til) {
