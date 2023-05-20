@@ -9,17 +9,13 @@ import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/members")
 @Validated
 @Slf4j
 public class MemberController {
@@ -34,10 +30,10 @@ public class MemberController {
         this.bookmarkService = bookmarkService;
     }
 
-    @PostMapping
+    @PostMapping("/members")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
-        Member createdMember = memberService.createMember(member.getEmail(), member.getNickName(), member.getPassword());
+        Member createdMember = memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
 
         String message = "회원가입에 성공했습니다.";
@@ -45,12 +41,7 @@ public class MemberController {
         return ResponseEntity.created(location).body(message);
     }
 
-    @PostMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        SecurityContextHolder.clearContext();
-    }
-
-    @GetMapping("/{member-id}/bookmark")
+    @GetMapping("/bookmark/{member-id}")
     public ResponseEntity<MemberWithBookmarksDto> getMyPageWithBookmarks(@PathVariable("member-id") Long memberId) {
         MemberWithBookmarksDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(memberId);
         return ResponseEntity.ok(memberWithBookmarksDto);
