@@ -1,10 +1,12 @@
 package com.codestates.TILTILE.til.mapper;
 
+import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.til.dto.TilDto;
 import com.codestates.TILTILE.til.entity.Til;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +42,50 @@ public interface TilMapper {
         return til;
     }
 
-    default List<TilDto.Response> toDtoResponseList(List<Til> tils) {
+    default TilDto.Card toCard(Til til,List<Bookmark> bookmarks) {
+        TilDto.Card card = new TilDto.Card();
+        long til_id = til.getTilId();
+        card.setTilId(til_id);
+        card.setTilTitle(til.getTilTitle());
+        card.setTilContent(til.getTilContent());
+        card.setTilViewCount(til.getTilViewCount());
+        card.setCreatedAt(til.getCreatedAt());
+        card.setModifiedAt(til.getModifiedAt());
+        card.setMemberNickname(til.getMember().getNickName());
+        // 로그인 멤버가 가지고 있는 북마크 목록을 가져옴.
+        // 북마크 목록은
+        card.setCheckBookmark(false);
+        for (Bookmark bookmark: bookmarks) {
+            if (bookmark.getTil().getTilId() == til_id) {
+                card.setCheckBookmark(true);
+            }
+        }
+
+
+        return card;
+    }
+    default TilDto.PageResponseDto toPageResponseDto(Page<Til> tils, int page, List<Bookmark> bookmarks,int startPage, int endPage) {
         if ( tils == null ) {
             return null;
         }
 
-        List<TilDto.Response> list = new ArrayList<>( tils.size() );
+        List<TilDto.Card> cardlist = new ArrayList<>( tils.getContent().size() );
         for ( Til til : tils ) {
-            list.add( tilToTilResponse( til ) );
+            cardlist.add( toCard( til ,bookmarks) );
         }
 
-        return list;
+        TilDto.PageResponseDto pageResponseDto = new TilDto.PageResponseDto();
+        pageResponseDto.setCards(cardlist);
+        pageResponseDto.setPageNumber(page+1); // findCards { int page = pageable.getPageNumber() -1 ...}
+        pageResponseDto.setTotalPages(tils.getTotalPages());
+        pageResponseDto.setTotalElements(tils.getTotalElements());
+        pageResponseDto.setSize(tils.getSize());
+        pageResponseDto.setStartPage(startPage);
+        pageResponseDto.setEndPage(endPage);
+
+        return pageResponseDto;
     }
+
 
     default TilDto.Response tilToTilResponse2(Til til) {
 

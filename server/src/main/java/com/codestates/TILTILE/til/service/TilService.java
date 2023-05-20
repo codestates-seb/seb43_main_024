@@ -1,5 +1,6 @@
 package com.codestates.TILTILE.til.service;
 
+import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
 import com.codestates.TILTILE.exception.NotFoundException;
@@ -35,28 +36,27 @@ public class TilService {
 
     private final TilMapper tilMapper;
 
-    public TilService(TilRepository tilRepository, MemberRepository memberRepository, MemberService memberService, TilMapper tilMapper) {
+    public TilService(TilRepository tilRepository, MemberRepository memberRepository, MemberService memberService,
+                      TilMapper tilMapper) {
         this.tilRepository = tilRepository;
         this.memberRepository = memberRepository;
         this.memberService = memberService;
         this.tilMapper = tilMapper;
     }
 
+    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks) {
 
-    public List<TilDto.Response> findTop16ByOrderByIdDesc() {
-        List<Til> EntityTilList = tilRepository.findTop16ByOrderByTilIdDesc();
-
-        return tilMapper.toDtoResponseList(EntityTilList);
-    }
-
-    public Page<TilDto.Response> paging(Pageable pageable) {
         int page = pageable.getPageNumber() -1 ;
         int pageLimit = 16;
 
         Page<Til> EntityTils =
                 tilRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId")));
 
-        return EntityTils.map(tilMapper::tilToTilResponse2);
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min(startPage + blockLimit - 1, EntityTils.getTotalPages());
+
+        return tilMapper.toPageResponseDto(EntityTils, page, bookmarks,startPage,endPage);
     }
 
     @Transactional
