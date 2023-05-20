@@ -57,7 +57,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String authorization = request.getHeader("Authorization");
         // "Authorization" 헤더가 없거나, 값이 "Bearer"로 시작하지 않는 경우 필터를 적용하지 않습니다.
-        return authorization == null || !authorization.startsWith("Bearer");
+        return authorization == null || !authorization.startsWith("Bearer ");
     }
 
     // JWS(JWT 서명)를 확인하고 해당 토큰의 클레임을 반환합니다.
