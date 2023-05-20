@@ -34,7 +34,7 @@ public class MemberDetailsService implements UserDetailsService {
 
     // 사용자 정보를 나타내는 내부 클래스
     private final class MemberDetails extends Member implements UserDetails {
-        // (1) 생성자를 통해 Member 객체로부터 MemberDetails를 초기화합니다.
+        // 생성자를 통해 Member 객체로부터 MemberDetails를 초기화합니다.
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
