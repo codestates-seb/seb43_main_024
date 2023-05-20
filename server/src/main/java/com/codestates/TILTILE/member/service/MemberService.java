@@ -30,13 +30,19 @@ public class MemberService{
 
     }
 
-    public Member createMember(String email, String nickName, String password) {
-        if (password == null) {
-            throw new IllegalArgumentException("Password cannot be null");
-        }
-        String encodedPassword = passwordEncoder.encode(password);
-        Member member = new Member(email, nickName, encodedPassword);
-        return memberRepository.save(member);
+    public Member createMember(Member member) {
+        verifyExistsEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        // 추가: User Role DB에 저장
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+
+        Member savedMember = memberRepository.save(member);
+
+
+        return savedMember;
     }
 
     // OAUTH2
@@ -59,6 +65,12 @@ public class MemberService{
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
 
         return member.get();
+    }
+
+    private void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
     public Member getMemberById(Long memberId) {
