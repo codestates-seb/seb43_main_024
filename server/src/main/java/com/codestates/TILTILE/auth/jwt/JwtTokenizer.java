@@ -42,7 +42,7 @@ public class JwtTokenizer {
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey.getBytes(StandardCharsets.UTF_8))
+                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey)
                 .compact();
     }
 
@@ -92,5 +92,10 @@ public class JwtTokenizer {
         Key key = Keys.hmacShaKeyFor(keyBytes);
 
         return key;
+    }
+
+    // 서명 알고리즘에 해당하는 Key를 반환합니다.
+    private Key getSigningKey(String base64EncodedSecretKey) {
+        return getKeyFromBase64EncodedKey(base64EncodedSecretKey);
     }
 }
