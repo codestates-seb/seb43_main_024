@@ -2,7 +2,9 @@ package com.codestates.TILTILE.auth.filter;
 
 import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +32,6 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // System.out.println("# JwtVerificationFilter");
 
         try {
             // JWT 검증을 수행하여 클레임을 가져옵니다.
@@ -57,16 +58,22 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String authorization = request.getHeader("Authorization");
         // "Authorization" 헤더가 없거나, 값이 "Bearer"로 시작하지 않는 경우 필터를 적용하지 않습니다.
-        return authorization == null || !authorization.startsWith("Bearer");
+        return authorization == null || !authorization.startsWith("Bearer ");
     }
 
     // JWS(JWT 서명)를 확인하고 해당 토큰의 클레임을 반환합니다.
     private Map<String, Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+        verifySignature(jws, base64EncodedSecretKey);
+        Jws<Claims> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey);
 
-        return claims;
+        return claims.getBody();
+    }
+
+    // JWS(JWT 서명)의 서명을 검증합니다. Base64로 인코딩된 비밀 키를 사용하여 서명을 검증합니다.
+    public void verifySignature(String jws, String base64EncodedSecretKey) {
+        jwtTokenizer.verifySignature(jws, base64EncodedSecretKey);
     }
 
     // 클레임을 기반으로 인증 객체를 생성하고, SecurityContextHolder에 설정합니다.

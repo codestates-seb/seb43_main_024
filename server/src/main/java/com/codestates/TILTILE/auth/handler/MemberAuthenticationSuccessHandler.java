@@ -25,18 +25,16 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         Member member = (Member) authentication.getPrincipal();
-        Long memberId = member.getMemberId();
 
         // 로그인 성공 메시지를 응답으로 전송
         response.getWriter().println("로그인 컴플리트");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        response.setHeader("Member-Id", memberId.toString());
-
         // JWT 토큰 생성
         String username = authentication.getName();
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
+        claims.put("role", "USER");
         Date accessTokenExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
         Date refreshTokenExpiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -53,6 +51,6 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         refreshTokenCookie.setPath("/");
         response.addCookie(refreshTokenCookie);
 
-        log.info("# Authenticated successfully!", memberId);
+        log.info("# Authenticated successfully!");
     }
 }
