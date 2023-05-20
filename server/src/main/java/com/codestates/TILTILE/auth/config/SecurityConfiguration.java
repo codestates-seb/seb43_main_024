@@ -116,8 +116,4 @@ public class SecurityConfiguration {
         }
     }
 
-    @Bean
-    public LogoutFilterConfigurer logoutConfigurer() {
-        return new LogoutFilterConfigurer();
-    }
 }
