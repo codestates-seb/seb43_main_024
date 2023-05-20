@@ -40,6 +40,7 @@ public class JwtTokenizer {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
+                .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey.getBytes(StandardCharsets.UTF_8))
                 .compact();
@@ -49,6 +50,7 @@ public class JwtTokenizer {
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         return Jwts.builder()
                 .setSubject(subject)
+                .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey)
                 .compact();
