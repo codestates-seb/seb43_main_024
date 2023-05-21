@@ -1,5 +1,6 @@
 package com.codestates.TILTILE.til.service;
 
+import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.exception.BusinessLogicException;
 import com.codestates.TILTILE.exception.ExceptionCode;
 import com.codestates.TILTILE.exception.NotFoundException;
@@ -11,7 +12,6 @@ import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.repository.TilRepository;
 import com.codestates.TILTILE.til.dto.TilDto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,28 +35,33 @@ public class TilService {
 
     private final TilMapper tilMapper;
 
-    public TilService(TilRepository tilRepository, MemberRepository memberRepository, MemberService memberService, TilMapper tilMapper) {
+    public TilService(TilRepository tilRepository, MemberRepository memberRepository, MemberService memberService,
+                      TilMapper tilMapper) {
         this.tilRepository = tilRepository;
         this.memberRepository = memberRepository;
         this.memberService = memberService;
         this.tilMapper = tilMapper;
     }
 
+    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, String searchKeyword) {
 
-    public List<TilDto.Response> findTop16ByOrderByIdDesc() {
-        List<Til> EntityTilList = tilRepository.findTop16ByOrderByTilIdDesc();
-
-        return tilMapper.toDtoResponseList(EntityTilList);
-    }
-
-    public Page<TilDto.Response> paging(Pageable pageable) {
         int page = pageable.getPageNumber() -1 ;
         int pageLimit = 16;
 
-        Page<Til> EntityTils =
-                tilRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId")));
+        Page<Til> EntityTils;
+        Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
+        if (searchKeyword == null) {
+            EntityTils =
+                    tilRepository.findAll(pageRequest);
+        } else {
+            EntityTils = tilRepository.findByTilTitleContaining(searchKeyword, pageRequest);
+        }
 
-        return EntityTils.map(tilMapper::tilToTilResponse2);
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min(startPage + blockLimit - 1, EntityTils.getTotalPages());
+
+        return tilMapper.toPageResponseDto(EntityTils, page, bookmarks,startPage,endPage);
     }
 
     @Transactional
@@ -68,6 +73,15 @@ public class TilService {
 
         return tilRepository.save(til);
     }
+    public TilDto.Response getTil(long tilId) {
+
+        Til findTil = getTilById(tilId);
+        findTil.setTilViewCount(findTil.getTilViewCount()+1);
+
+//        tilRepository.save(findTil); 더티체킹
+        return tilMapper.tilToTilResponse(findTil);
+    }
+
 
     public Til updateTil(Til til) {
 
