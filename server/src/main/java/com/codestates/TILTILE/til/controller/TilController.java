@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Validated
 @RequestMapping("/til")
@@ -34,11 +35,16 @@ public class TilController {
 
 
     @GetMapping("/paging")
-    public ResponseEntity<TilDto.PageResponseDto> getTils(@RequestParam("member_id") Long memberId,
+    public ResponseEntity<TilDto.PageResponseDto> getTils(@RequestParam("member_id") Optional<Long> memberId,
                                                           @PageableDefault(page = 1) Pageable pageable) {
-        Member member = memberService.getMemberById(memberId);
-        List<Bookmark> bookmarks = bookmarkService.getBookmarksByMember(member);
-        TilDto.PageResponseDto pageResponseDto = tilService.findCards(pageable, bookmarks);
+        TilDto.PageResponseDto pageResponseDto;
+        if (memberId.isPresent()) {
+            Member member = memberService.getMemberById(memberId.get());
+            List<Bookmark> bookmarks = bookmarkService.getBookmarksByMember(member);
+            pageResponseDto = tilService.findCards(pageable, bookmarks);
+        } else {
+            pageResponseDto = tilService.findCards(pageable, null);
+        }
 
 
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);

@@ -52,11 +52,12 @@ public interface TilMapper {
         card.setCreatedAt(til.getCreatedAt());
         card.setModifiedAt(til.getModifiedAt());
         card.setMemberNickname(til.getMember().getNickName());
-
         card.setCheckBookmark(false);
-        for (Bookmark bookmark: bookmarks) {
-            if (bookmark.getTil().getTilId() == til_id) {
-                card.setCheckBookmark(true);
+        if (bookmarks != null) {
+            for (Bookmark bookmark: bookmarks) {
+                if (bookmark.getTil().getTilId() == til_id) {
+                    card.setCheckBookmark(true);
+                }
             }
         }
         return card;
