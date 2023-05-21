@@ -52,18 +52,16 @@ public interface TilMapper {
         card.setCreatedAt(til.getCreatedAt());
         card.setModifiedAt(til.getModifiedAt());
         card.setMemberNickname(til.getMember().getNickName());
-        // 로그인 멤버가 가지고 있는 북마크 목록을 가져옴.
-        // 북마크 목록은
+
         card.setCheckBookmark(false);
         for (Bookmark bookmark: bookmarks) {
             if (bookmark.getTil().getTilId() == til_id) {
                 card.setCheckBookmark(true);
             }
         }
-
-
         return card;
     }
+
     default TilDto.PageResponseDto toPageResponseDto(Page<Til> tils, int page, List<Bookmark> bookmarks,int startPage, int endPage) {
         if ( tils == null ) {
             return null;
@@ -85,6 +83,23 @@ public interface TilMapper {
 
         return pageResponseDto;
     }
+
+//    default TilDto.getResponse tilToGetReponse(Til til) {
+//        if (til == null) {
+//            return null;
+//        }
+//
+//        TilDto.getResponse getResponse = new TilDto.getResponse();
+    // settilId 추가
+//        getResponse.setTilTitle(til.getTilTitle());
+//        getResponse.setTilContent(til.getTilContent());
+//        getResponse.setTilViewCount(til.getTilViewCount());
+//        getResponse.setCreatedAt(til.getCreatedAt());
+//        getResponse.setModifiedAt(til.getModifiedAt());
+//        getResponse.setMemberNickname(til.getMember().getNickName());
+//
+//        return getResponse;
+//    } // status 필요 없으면 주석 해제
 
 
     default TilDto.Response tilToTilResponse2(Til til) {

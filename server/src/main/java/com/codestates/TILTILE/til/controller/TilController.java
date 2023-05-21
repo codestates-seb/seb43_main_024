@@ -10,7 +10,6 @@ import com.codestates.TILTILE.til.service.TilService;
 import com.codestates.TILTILE.utils.UriCreator;
 import com.codestates.TILTILE.bookmark.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -45,12 +44,21 @@ public class TilController {
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity postTil(@RequestBody @Valid TilDto.Post requestBody) {
         Til til = tilService.createTil(mapper.tilPostToTil(requestBody));
         URI location = UriCreator.createUri("/til", til.getTilId());
 
         return ResponseEntity.created(location).body(mapper.tilToTilResponse2(til));
+    }
+
+    @GetMapping("/{til_id}")
+    public ResponseEntity getTil(@PathVariable("til_id") long tilId) {
+
+        TilDto.Response Response = tilService.getTil(tilId);
+
+        return new ResponseEntity<>(Response, HttpStatus.OK);
     }
 
     @PutMapping("/{til-id}")

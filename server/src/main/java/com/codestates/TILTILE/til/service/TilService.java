@@ -12,7 +12,6 @@ import com.codestates.TILTILE.til.mapper.TilMapper;
 import com.codestates.TILTILE.til.repository.TilRepository;
 import com.codestates.TILTILE.til.dto.TilDto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -68,6 +67,15 @@ public class TilService {
 
         return tilRepository.save(til);
     }
+    public TilDto.Response getTil(long tilId) {
+
+        Til findTil = getTilById(tilId);
+        findTil.setTilViewCount(findTil.getTilViewCount()+1);
+
+//        tilRepository.save(findTil); 더티체킹
+        return tilMapper.tilToTilResponse(findTil);
+    }
+
 
     public Til updateTil(Til til) {
 
