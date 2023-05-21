@@ -43,13 +43,19 @@ public class TilService {
         this.tilMapper = tilMapper;
     }
 
-    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks) {
+    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, String searchKeyword) {
 
         int page = pageable.getPageNumber() -1 ;
         int pageLimit = 16;
 
-        Page<Til> EntityTils =
-                tilRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId")));
+        Page<Til> EntityTils;
+        Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
+        if (searchKeyword == null) {
+            EntityTils =
+                    tilRepository.findAll(pageRequest);
+        } else {
+            EntityTils = tilRepository.findByTilTitleContaining(searchKeyword, pageRequest);
+        }
 
         int blockLimit = 5;
         int startPage = (((int)(Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;

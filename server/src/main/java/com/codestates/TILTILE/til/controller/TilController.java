@@ -36,16 +36,17 @@ public class TilController {
 
     @GetMapping("/paging")
     public ResponseEntity<TilDto.PageResponseDto> getTils(@RequestParam("member_id") Optional<Long> memberId,
-                                                          @PageableDefault(page = 1) Pageable pageable) {
+                                                          @PageableDefault(page = 1) Pageable pageable,
+                                                          @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
         TilDto.PageResponseDto pageResponseDto;
+        List<Bookmark> bookmarks;
         if (memberId.isPresent()) {
             Member member = memberService.getMemberById(memberId.get());
-            List<Bookmark> bookmarks = bookmarkService.getBookmarksByMember(member);
-            pageResponseDto = tilService.findCards(pageable, bookmarks);
+             bookmarks = bookmarkService.getBookmarksByMember(member);
         } else {
-            pageResponseDto = tilService.findCards(pageable, null);
+            bookmarks = null;
         }
-
+        pageResponseDto = tilService.findCards(pageable, bookmarks, searchKeyword);
 
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
     }
