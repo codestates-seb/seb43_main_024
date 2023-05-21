@@ -28,14 +28,14 @@ public class Member {
     @Column(length = 100, unique = true, nullable = false)
     private String nickName;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @Column
     private String aboutMe;
 
     @Column
     private Long tilTier;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
@@ -69,5 +69,10 @@ public class Member {
         this.password = password;
         this.provider = provider;
         this.providerId = providerId;
+    }
+
+    public enum MemberRole {
+        ROLE_USER,
+        ROLE_ADMIN
     }
 }
