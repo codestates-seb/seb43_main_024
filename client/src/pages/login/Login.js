@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -37,16 +37,39 @@ function LoginForm() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setLoginStatus(isLoggedIn);
+
+    // 이메일 정보가 로컬 스토리지에 저장되어 있는 경우, 자동으로 입력
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/login', {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        // eslint-disable-next-line no-undef
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          username: username,
+          password: password,
+        },
+        {
+          withCredentials: true, // 쿠키 포함 요청 설정
+        }
+      );
+      // 로컬스토리지에 저장하는 3개의 토큰
+      const accessToken = response.data.accessToken;
+      localStorage.setItem('accessToken', accessToken); // 엑세스 토큰
+      localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태
+      localStorage.setItem('username', username); // 이메일 정보
+      // 로그인 상태
       setLoginStatus(true);
-      console.log(response.data);
       navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
@@ -57,7 +80,7 @@ function LoginForm() {
     <>
       <div>
         <h2>로그인</h2>
-        <p>아직회원이 아니신가요?</p>
+        <p>아직 회원이 아니신가요?</p>
         <Link to="/signup">회원가입</Link>
       </div>
 
