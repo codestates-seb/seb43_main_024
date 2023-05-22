@@ -26,10 +26,6 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final CustomAuthorityUtils authorityUtils;
     private final MemberService memberService;
 
-//    null 떠서 일단 주석처리
-//    @Value("${myapp.host}")
-//    private String host;
-
 
     // (2)
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
@@ -72,7 +68,6 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
 //        response.setHeader("Authorization", "Bearer " + accessToken);  // (4-4)
 //        response.setHeader("Refresh", refreshToken);
-        System.out.println("end!!");
 
         String uri = createURI(accessToken, refreshToken).toString();   // (6-3)
         System.out.println("uri = " + uri);
@@ -114,7 +109,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .scheme("http")
                 .host("localhost")
 //                .port(80)
-                .path("/receive-token.html")
+                .path("/receive-token.html") //
+//                .path(uriPath)
                 .queryParams(queryParams)
                 .build()
                 .toUri();
