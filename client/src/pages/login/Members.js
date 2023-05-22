@@ -31,7 +31,7 @@ function SignUpForm() {
     }
 
     try {
-      const response = await axios.post(`${URL}/members`, {
+      const response = await axios.post('/members', {
         email: email,
         password: password,
         nickName: nickName,
@@ -134,20 +134,6 @@ function SignUpForm() {
               required
             />
           </div>
-
-          <div>
-            <input
-              type="password"
-              id="passwordConfirm"
-              name="passwordConfirm"
-              value={passwordConfirm}
-              onChange={(e) => setPasswordConfirm(e.target.value)}
-              placeholder="비밀번호 확인"
-              required
-            />
-          </div>
-
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           <div>
             <input
