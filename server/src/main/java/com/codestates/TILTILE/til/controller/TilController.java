@@ -46,7 +46,7 @@ public class TilController {
         } else {
             bookmarks = null;
         }
-        pageResponseDto = tilService.findCards(pageable, bookmarks, searchKeyword);
+        pageResponseDto = tilService.findCards(pageable, bookmarks, searchKeyword, 16);
 
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
     }
