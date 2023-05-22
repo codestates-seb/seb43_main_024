@@ -9,11 +9,11 @@ group = 'com.codestates'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-//configurations {
-//    compileOnly {
-//        extendsFrom annotationProcessor
-//    }
-//}
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenCentral()
@@ -52,4 +52,8 @@ dependencies {
     // OAUTH2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    // 스프링 배치
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    // 배치를 주기적으로 실행시키기 위한 트리거로 사용하기 위해서 추가
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
 }
