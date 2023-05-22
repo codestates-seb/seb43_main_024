@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TilRepository extends JpaRepository<Til, Long> {
 
-    @Query("SELECT t FROM Til t WHERE t.tilTitle LIKE %:keyword% OR t.tilContent LIKE %:keyword%")
+    @Query("SELECT t FROM Til t WHERE (t.tilTitle LIKE %:keyword% OR t.tilContent LIKE %:keyword%) AND t.tilStatus = false")
     Page<Til> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
+    Page<Til> findByTilStatusFalse(Pageable pageable);
+
     Page<Til> findByMember_MemberId(Long memberId, Pageable pageable);
 }
