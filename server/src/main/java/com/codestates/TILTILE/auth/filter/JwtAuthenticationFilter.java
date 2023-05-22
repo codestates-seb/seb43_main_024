@@ -1,8 +1,8 @@
 package com.codestates.TILTILE.auth.filter;
 
-import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.auth.dto.LoginDto;
 import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
+import com.codestates.TILTILE.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -56,6 +58,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // RefreshToken을 생성합니다.
         String refreshToken = delegateRefreshToken(member);
+
+        // 응답 헤더에 memberId를 설정합니다.
+        response.setHeader("memberId", Long.toString(member.getMemberId()));
 
         // 응답 헤더에 AccessToken을 설정합니다.
         response.setHeader("Authorization", "Bearer " + accessToken);
