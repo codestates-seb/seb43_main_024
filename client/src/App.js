@@ -20,10 +20,14 @@ import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 // TilWrite 컴포넌트
 import TilWrite from './pages/tilwrite/TilWrite';
+//TilList, TilPost, TilEdit 컴포넌트
 import SearchTil from './pages/tillist/SearchTil';
 import HotTil from './pages/tillist/HotTil';
 import FollowTil from './pages/tillist/FollowTil';
-//import TilPost from './pages/tilpost/TilPost';
+import TilPost from './pages/tilpost/TilPost';
+import TilEdit from './pages/tilpost/TilEdit';
+
+//TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
 
 //TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
 
@@ -64,6 +68,8 @@ function App() {
             <Route path="mytil" element={<MyTIL />} />
           </Route>
           <Route path="/write" element={<TilWrite />} />
+          <Route path="/edit/:tilId" element={<TilEdit />} />
+          <Route path="/til/:tilId" element={<TilPost />} />
         </Routes>
       </Wrapper>
     </>
