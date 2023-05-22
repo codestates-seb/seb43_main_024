@@ -60,9 +60,13 @@ public class MemberController {
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/bookmark/{member-id}")
-    public ResponseEntity<MemberWithBookmarksDto> getMyPageWithBookmarks(@PathVariable("member-id") Long memberId) {
-        MemberWithBookmarksDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(memberId);
+
+    @GetMapping("/members/{member-id}/bookmark")
+    public ResponseEntity<MemberWithBookmarksDto> getMyPageWithBookmarks(
+            @PathVariable("member-id") Long memberId,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "pageSize", defaultValue = "12") int pageSize) {
+        MemberWithBookmarksDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(memberId, page, pageSize);
         return ResponseEntity.ok(memberWithBookmarksDto);
     }
 }
