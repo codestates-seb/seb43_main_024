@@ -17,8 +17,8 @@ public class FollowService {
 
     public void createFollow(Long followerId, Long followingId) {
         Follow follow = new Follow();
-        follow.setMemberId(followerId);
         follow.setFollowId(followingId);
+        follow.setMemberId(followerId);
         followRepository.save(follow);
     }
 
