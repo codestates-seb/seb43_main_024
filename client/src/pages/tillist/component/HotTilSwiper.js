@@ -2,8 +2,8 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import styled from 'styled-components';
-import TilCard from '../../../default/TilCard';
 import { TilWrapper, PreNextButton } from '../../../default/styled';
+import TilCard from '../../../default/tilComponents/TilCard';
 
 SwiperCore.use([Navigation, Pagination, A11y]);
 
@@ -20,6 +20,7 @@ const SwiperInner = styled(TilWrapper)`
   padding: 14px 0px;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const SlideContainer = styled(SwiperSlide)`
@@ -55,7 +56,7 @@ const StyledPagination = styled.div`
   }
 `;
 
-function HotTilSwiper() {
+function HotTilSwiper({ data }) {
   return (
     <SwiperWrapper>
       <SwiperInner>
@@ -65,7 +66,7 @@ function HotTilSwiper() {
         </PreNextButtonWrapper>
         <TilWrapper>
           <Swiper
-            spaceBetween={5}
+            spaceBetween={3}
             slidesPerView={4}
             navigation={{
               prevEl: '.my-swiper-prev',
@@ -83,21 +84,15 @@ function HotTilSwiper() {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
           >
-            <SlideContainer>
-              <TilCard />
-            </SlideContainer>
-            <SlideContainer>
-              <TilCard />
-            </SlideContainer>
-            <SlideContainer>
-              <TilCard />
-            </SlideContainer>
-            <SlideContainer>
-              <TilCard />
-            </SlideContainer>
-            <SlideContainer>
-              <TilCard />
-            </SlideContainer>
+            {data.map((data) => {
+              return (
+                <SlideContainer key={data.tilId}>
+                  <li>
+                    <TilCard data={data} />
+                  </li>
+                </SlideContainer>
+              );
+            })}
           </Swiper>
         </TilWrapper>
         <PreNextButtonWrapper className="my-swiper-next">

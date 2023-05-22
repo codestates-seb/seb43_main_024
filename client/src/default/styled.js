@@ -285,6 +285,9 @@ export const NavLogo = styled.div`
   gap: 48px;
 `;
 
+/**
+ * @TilListStyle
+ */
 export const TilWrapper = styled(InnerWrapper)`
   padding: 0;
   margin-top: 40px;
@@ -297,8 +300,10 @@ export const TilFlexContainer = styled.section`
 `;
 
 export const PostComponent = styled.div`
+  height: 600px;
   padding: 60px;
   border-radius: 8px;
+  background-color: var(--color-white);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
@@ -431,6 +436,19 @@ export const GrayOutlineBtns = styled.button`
   &:hover {
     background: #f6f6f6;
     color: #888;
+  }
+`;
+
+export const GreenOutlineBtns = styled.button`
+  ${FilledBtnsStyle};
+  background: var(--brand-color);
+  color: var(--color-white);
+  padding: 12px 32px;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: var(--color-darkgreen);
+    color: var(--color-white);
   }
 `;
 /* ---- */
