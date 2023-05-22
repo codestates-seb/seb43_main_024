@@ -19,7 +19,7 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await axios.post('/logout');
+      await axios.post(`${process.env.REACT_APP_API_URL}/logout`);
       window.sessionStorage.removeItem('access_token'); // session.access_toekn토큰 삭제
       Cookies.remove('access_token'); // cookie.access_token 삭제
       Cookies.remove('refresh_token'); // cookie.refresh_token 삭제
@@ -28,7 +28,7 @@ function Header() {
 
       alert('로그아웃이 완료되었습니다.');
       navigate('/account/login');
-      console.log('로그아웃 컴플리트');
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }

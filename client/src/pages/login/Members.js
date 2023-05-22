@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { InputForm } from './Login';
-import { Modal } from './components/Modal';
+// eslint-disable-next-line import/named
+import { Modal } from './components/SignUpModal';
 import useStore from '../../default/useStore';
 
 function SignUpForm() {
@@ -16,7 +17,6 @@ function SignUpForm() {
   const [isCodeValid, setIsCodeValid] = useState(false); // 인증번호 검사
   const { showModal, setShowModal } = useStore();
 
-  // 회원가입 코드
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -31,11 +31,14 @@ function SignUpForm() {
     }
 
     try {
-      const response = await axios.post('/members', {
-        email: email,
-        password: password,
-        nickName: nickName,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/members`,
+        {
+          email: email,
+          password: password,
+          nickName: nickName,
+        }
+      );
       setShowModal(true);
       console.log(response.data);
     } catch (error) {
@@ -43,17 +46,19 @@ function SignUpForm() {
     }
   };
 
-  // 이메일 발송 코드
-  const handleCodeSend = () => {
-    const data = { email: email };
-    axios
-      .post('/login/mailConfirm', data)
-      .then((response) => {
-        setAuthCode(response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  const handleCodeSend = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/login/mailConfirm`,
+        {
+          email: email,
+        }
+      );
+      setAuthCode(response.data);
+      // res 한 authcode를 client에 저장합니다.
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleSignUpNumberChange = (e) => {
@@ -61,8 +66,8 @@ function SignUpForm() {
   };
 
   const handleVerification = () => {
-    // 저장된 authcode와 입력한 signupnumber가 일치한지, 아닌지 검사.
     if (authcode === signUpNumber) {
+      // 저장된 authcode와 입력한 signupnumber가 일치한지, 아닌지 검사.
       setIsCodeValid(true);
     } else {
       setIsCodeValid(false);
