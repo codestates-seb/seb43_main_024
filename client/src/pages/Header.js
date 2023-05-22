@@ -19,10 +19,11 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/logout`);
-      window.sessionStorage.removeItem('access_token'); // session.access_toekn토큰 삭제
+      await axios.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
       Cookies.remove('access_token'); // cookie.access_token 삭제
       Cookies.remove('refresh_token'); // cookie.refresh_token 삭제
+      localStorage.removeItem('accessToken'); // 로컬 스토리지에서 액세스 토큰 삭제
+      localStorage.removeItem('isLoggedIn'); // 로컬 스토리지에서 액세스 토큰 삭제
 
       setLoginStatus(false);
 
