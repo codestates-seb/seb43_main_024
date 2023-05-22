@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useStore from '../../default/useStore';
-import Cookies from 'js-cookie';
+
 // import { HeaderLink } from '../../default/styled';
+axios.defaults.withCredentials = true;
 
 export const InputForm = styled.div`
   display: flex;
@@ -32,41 +33,25 @@ export const InputForm = styled.div`
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { isLogin, setLoginStatus } = useStore();
+  const { setLoginStatus } = useStore();
+
+  const navigate = useNavigate();
+
+  const URL = `http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        '/login',
-        {
-          username: username,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      window.sessionStorage.setItem('access_token', response.data.access_token); // 토큰 저장
+      const response = await axios.post(`${URL}/login`, {
+        username: username,
+        password: password,
+      });
       setLoginStatus(true);
       console.log(response.data);
+      navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axios.post('/logout');
-      window.sessionStorage.removeItem('access_token'); // session.access_toekn토큰 삭제
-      Cookies.remove('access_token'); // cookie.access_token 삭제
-      Cookies.remove('refresh_token'); // cookie.refresh_token 삭제
-
-      setLoginStatus(false);
-      console.log('로그아웃 컴플리트');
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -104,7 +89,13 @@ function LoginForm() {
           </div>
         </form>
       </InputForm>
-      {isLogin ? <button onClick={handleLogout}>logout</button> : null}
+      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+        구글로 로그인
+      </a>
+      <br />
+      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/github">
+        GitHub 로그인
+      </a>
     </>
   );
 }

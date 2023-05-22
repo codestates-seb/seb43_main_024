@@ -285,6 +285,9 @@ export const NavLogo = styled.div`
   gap: 48px;
 `;
 
+/**
+ * @TilListStyle
+ */
 export const TilWrapper = styled(InnerWrapper)`
   padding: 0;
   margin-top: 40px;
@@ -297,8 +300,10 @@ export const TilFlexContainer = styled.section`
 `;
 
 export const PostComponent = styled.div`
+  height: 600px;
   padding: 60px;
   border-radius: 8px;
+  background-color: var(--color-white);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
@@ -371,3 +376,79 @@ export const PostActions = styled.div`
     margin-left: 12px;
   }
 `;
+
+/**
+ * @Modal
+ */
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const ModalContainer = styled.div`
+  background: white;
+  border-radius: 10px;
+  padding: 60px;
+  overflow-y: auto;
+  text-align: center;
+  & h1 {
+    padding-top: 32px;
+    line-height: 1.3;
+  }
+  & p {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  & b {
+    color: var(--brand-color);
+  }
+`;
+
+/**
+ * 경고성 모달에 들어갈 버튼들
+ */
+export const GrayFilledBtns = styled.button`
+  ${FilledBtnsStyle};
+  background: #888;
+  padding: 9px 32px;
+  display: inline-block;
+  &:hover {
+    background: #999;
+    color: white;
+  }
+`;
+
+export const GrayOutlineBtns = styled.button`
+  ${OutlineBtnsStyle};
+  color: #888;
+  border: 1px solid #888;
+  padding: 9px 32px;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: #f6f6f6;
+    color: #888;
+  }
+`;
+
+export const GreenOutlineBtns = styled.button`
+  ${FilledBtnsStyle};
+  background: var(--brand-color);
+  color: var(--color-white);
+  padding: 12px 32px;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: var(--color-darkgreen);
+    color: var(--color-white);
+  }
+`;
+/* ---- */

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import '../../../default/style.css';
 import { ReactComponent as SearchImg } from '../../../default/image/searchImg.svg';
@@ -8,6 +7,7 @@ const InputWrapper = styled.div`
   position: relative;
   width: 450px;
   height: 52px;
+  margin: 10px 0px 30px;
 `;
 
 const SearchInput = styled.input`
@@ -38,8 +38,7 @@ const SearchImage = styled(SearchImg)`
   height: 20px;
 `;
 
-function Search() {
-  //const navigate = useNavigate();
+function Search({ onSubmit }) {
   const [text, setText] = useState('');
   const handleChange = (e) => {
     setText(e.target.value);
@@ -53,7 +52,10 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //navigate(`/tils/${text}`);
+    if (text.trim()) {
+      onSubmit(text);
+      setText('');
+    }
   };
 
   return (
