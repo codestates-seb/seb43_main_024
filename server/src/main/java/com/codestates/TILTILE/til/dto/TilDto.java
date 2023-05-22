@@ -70,6 +70,7 @@ public class TilDto {
         private long tilViewCount;
         private LocalDateTime createdAt;
         private Timestamp modifiedAt;
+        private long memberId;
         private String memberNickname;
         private Boolean tilStatus;
     }
@@ -99,6 +100,7 @@ public class TilDto {
         private LocalDateTime createdAt;
         private Timestamp modifiedAt;
         private String memberNickname;
+        private long memberId;
         private Boolean checkBookmark;
     }
 
@@ -113,6 +115,5 @@ public class TilDto {
         private int size;
         private int startPage;
         private int endPage;
-
     }
 }
