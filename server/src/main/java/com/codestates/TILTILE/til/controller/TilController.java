@@ -34,7 +34,7 @@ public class TilController {
     private final BookmarkService bookmarkService;
 
 
-    @GetMapping("/paging")
+    @GetMapping("/list")
     public ResponseEntity<TilDto.PageResponseDto> getTils(@RequestParam("member_id") Optional<Long> memberId,
                                                           @PageableDefault(page = 1) Pageable pageable,
                                                           @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
