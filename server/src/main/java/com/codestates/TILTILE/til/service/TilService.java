@@ -53,7 +53,7 @@ public class TilService {
             EntityTils =
                     tilRepository.findAll(pageRequest);
         } else {
-            EntityTils = tilRepository.findByTilTitleContaining(searchKeyword, pageRequest);
+            EntityTils = tilRepository.findByKeyword(searchKeyword, pageRequest);
         }
 
         int blockLimit = 5;
