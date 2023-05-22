@@ -29,6 +29,8 @@ import TilEdit from './pages/tilpost/TilEdit';
 
 //TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
 
+//TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
+
 function App() {
   const { isLogin } = useStore();
   const location = useLocation();

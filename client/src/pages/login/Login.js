@@ -36,14 +36,21 @@ function LoginForm() {
   const { setLoginStatus } = useStore();
 
   const navigate = useNavigate();
+<<<<<<< HEAD
 
   const URL = `http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080`;
+=======
+>>>>>>> 21794d9e33e6a2796da6bea69355335704581cb9
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+<<<<<<< HEAD
       const response = await axios.post(`${URL}/login`, {
+=======
+      const response = await axios.post('/login', {
+>>>>>>> 21794d9e33e6a2796da6bea69355335704581cb9
         username: username,
         password: password,
       });
@@ -64,7 +71,7 @@ function LoginForm() {
       </div>
 
       <InputForm>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} method="post">
           <div className="left">
             <input
               type="email"

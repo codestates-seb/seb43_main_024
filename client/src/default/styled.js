@@ -438,6 +438,69 @@ export const GrayOutlineBtns = styled.button`
     color: #888;
   }
 `;
+/* ---- */
+
+/**
+ * @Modal
+ */
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const ModalContainer = styled.div`
+  background: white;
+  border-radius: 10px;
+  padding: 60px;
+  overflow-y: auto;
+  text-align: center;
+  & h1 {
+    padding-top: 32px;
+    line-height: 1.3;
+  }
+  & p {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  & b {
+    color: var(--brand-color);
+  }
+`;
+
+/**
+ * 경고성 모달에 들어갈 버튼들
+ */
+export const GrayFilledBtns = styled.button`
+  ${FilledBtnsStyle};
+  background: #888;
+  padding: 9px 32px;
+  display: inline-block;
+  &:hover {
+    background: #999;
+    color: white;
+  }
+`;
+
+export const GrayOutlineBtns = styled.button`
+  ${OutlineBtnsStyle};
+  color: #888;
+  border: 1px solid #888;
+  padding: 9px 32px;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: #f6f6f6;
+    color: #888;
+  }
+`;
 
 export const GreenOutlineBtns = styled.button`
   ${FilledBtnsStyle};

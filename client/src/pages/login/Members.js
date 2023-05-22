@@ -16,7 +16,6 @@ function SignUpForm() {
   const [isCodeValid, setIsCodeValid] = useState(false); // 인증번호 검사
   const { showModal, setShowModal } = useStore();
 
-  const URL = `http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080`;
   // 회원가입 코드
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -48,7 +47,7 @@ function SignUpForm() {
   const handleCodeSend = () => {
     const data = { email: email };
     axios
-      .post(`${URL}/login/mailConfirm`, data)
+      .post('/login/mailConfirm', data)
       .then((response) => {
         setAuthCode(response.data);
       })
@@ -74,7 +73,7 @@ function SignUpForm() {
     <>
       <h1>회원가입</h1>
       <InputForm>
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={handleSignUp} method="post">
           <div>
             <input
               type="email"
@@ -85,7 +84,9 @@ function SignUpForm() {
               placeholder="이메일을 입력하세요"
               required
             />
-            <button onClick={handleCodeSend}>코드보내기</button>
+            <button onClick={handleCodeSend} method="post">
+              코드보내기
+            </button>
           </div>
 
           <div>
@@ -148,7 +149,23 @@ function SignUpForm() {
 
           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-          <button type="submit">회원가입</button>
+          <div>
+            <input
+              type="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+              placeholder="비밀번호 확인"
+              required
+            />
+          </div>
+
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+          <button type="submit" method="post">
+            회원가입
+          </button>
         </form>
       </InputForm>
       {showModal ? <Modal /> : null}
