@@ -43,10 +43,9 @@ public class TilService {
         this.tilMapper = tilMapper;
     }
 
-    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, String searchKeyword) {
+    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, String searchKeyword, int pageLimit) {
 
         int page = pageable.getPageNumber() -1 ;
-        int pageLimit = 16;
 
         Page<Til> EntityTils;
         Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
@@ -54,7 +53,7 @@ public class TilService {
             EntityTils =
                     tilRepository.findAll(pageRequest);
         } else {
-            EntityTils = tilRepository.findByTilTitleContaining(searchKeyword, pageRequest);
+            EntityTils = tilRepository.findByKeyword(searchKeyword, pageRequest);
         }
 
         int blockLimit = 5;
@@ -63,6 +62,23 @@ public class TilService {
 
         return tilMapper.toPageResponseDto(EntityTils, page, bookmarks,startPage,endPage);
     }
+
+    public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, long memberId, int pageLimit) {
+
+        int page = pageable.getPageNumber() -1 ;
+
+        Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
+
+        Page<Til> EntityTils =  tilRepository.findByMember_MemberId(memberId, pageRequest);
+
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min(startPage + blockLimit - 1, EntityTils.getTotalPages());
+
+        return tilMapper.toPageResponseDto(EntityTils, page, bookmarks,startPage,endPage);
+    }
+
+
 
     @Transactional
     public Til createTil(Til til) {
@@ -107,5 +123,6 @@ public class TilService {
         return tilRepository.findById(tilId)
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.Til_NOT_FOUND.getStatus(), ExceptionCode.Til_NOT_FOUND.getMessage()));
     }
+
 
 }
