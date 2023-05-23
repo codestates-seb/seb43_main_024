@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { HeaderLink } from '../../../default/styled';
 import { useNavigate } from 'react-router-dom';
-// import { useState } from 'react';
+
 import useStore from '../../../default/useStore';
 
 const ModalBackdrop = styled.div`
@@ -45,7 +45,9 @@ export function Modal() {
 
   const closeModal = () => {
     setShowModal(false);
-    navigate('/account/login');
+    setTimeout(() => {
+      navigate('/account/login');
+    }, 0);
   };
 
   return (
