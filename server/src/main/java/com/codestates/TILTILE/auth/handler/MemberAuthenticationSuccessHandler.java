@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,22 +40,6 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
 
         String accessToken = jwtTokenizer.generateAccessToken(claims, username, accessTokenExpiration, base64EncodedSecretKey);
         String refreshToken = jwtTokenizer.generateRefreshToken(username, refreshTokenExpiration, base64EncodedSecretKey);
-
-        // JWT 토큰을 쿠키에 담아서 응답으로 전송
-//        Cookie accessTokenCookie = new Cookie("access_token", accessToken);
-//        accessTokenCookie.setPath("/");
-//        accessTokenCookie.setDomain("localhost");
-//        accessTokenCookie.setSecure(true);
-//        accessTokenCookie.setHttpOnly(true);
-//        response.addCookie(accessTokenCookie);
-//
-//        Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
-//        refreshTokenCookie.setPath("/");
-//        refreshTokenCookie.setDomain("localhost");
-//        refreshTokenCookie.setSecure(true);
-//        refreshTokenCookie.setHttpOnly(true);
-//        response.addCookie(refreshTokenCookie);
-
 
         log.info("# Authenticated successfully!");
     }
