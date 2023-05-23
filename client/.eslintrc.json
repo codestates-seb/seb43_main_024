@@ -17,6 +17,9 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "plugins": [
+    "import"
+  ],
   "rules": {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,

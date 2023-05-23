@@ -65,7 +65,10 @@ function TilWrite() {
     };
 
     try {
-      const response = await axios.post('/til', data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/til`,
+        data
+      );
       console.log(response);
       navigate(-1); //! 이전페이지로 돌아가기, 추 후 작성한 게시글 페이지로 이동하도록 수정 필요
       //요청이 성공했을 때 처리

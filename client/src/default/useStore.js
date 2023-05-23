@@ -4,6 +4,9 @@ const useStore = create((set) => ({
   isLogin: false,
   setLoginStatus: (isLogin) => set({ isLogin }),
 
+  currentUser: null,
+  setCurrentUser: (userData) => set({ currentUser: userData }),
+
   showModal: false,
   setShowModal: (showModal) => set({ showModal }),
 

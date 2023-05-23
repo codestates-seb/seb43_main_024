@@ -50,11 +50,12 @@ export const useTilStore = create((set) => ({
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/til/${tilId}`
       );
-      const { data } = response;
+      const data = response.data;
       set({ data: data });
+      return data;
     } catch (error) {
-      console.error(`데이터를 가져오는 중에 오류가 발생했습니다:`, error);
-      set({ isLoading: false });
+      console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
+      return null;
     }
   },
   updateData: async (tilId, updatedData) => {
@@ -64,6 +65,7 @@ export const useTilStore = create((set) => ({
         updatedData
       );
       console.log(updatedData);
+      set({ data: updatedData });
     } catch (error) {
       console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);
     }
