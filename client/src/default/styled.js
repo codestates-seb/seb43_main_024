@@ -299,6 +299,17 @@ export const TilFlexContainer = styled.section`
   flex-direction: column;
 `;
 
+export const TilListWrapper = styled(TilFlexContainer)`
+  justify-content: center;
+  margin: 30px 0px;
+`;
+
+export const TilCardWrapper = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
+
 export const PostComponent = styled.div`
   height: 600px;
   padding: 60px;
