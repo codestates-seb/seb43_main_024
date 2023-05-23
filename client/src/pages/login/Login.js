@@ -75,7 +75,6 @@ function LoginForm() {
       }
       // (여기까지)
 
-      localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태
       localStorage.setItem('username', username); // 이메일 정보
       // 로그인 상태
       setLoginStatus(true);
