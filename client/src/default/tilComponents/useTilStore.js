@@ -97,3 +97,40 @@ export const useTilStore = create((set) => ({
     }
   },
 }));
+
+export const useBookmarkStore = create((set) => ({
+  data: [],
+  getBookmarkData: async (memberId) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`
+      );
+      const { bookmarks } = response.data;
+      set({ data: bookmarks });
+    } catch (error) {
+      console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
+      return null;
+    }
+  },
+  updateData: async (tilId, updatedData) => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/til/${tilId}`,
+        updatedData
+      );
+      console.log(updatedData);
+      set({ data: updatedData });
+    } catch (error) {
+      console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);
+    }
+  },
+  deleteData: async (tilId) => {
+    try {
+      console.log(tilId);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
+      set({ data: [] });
+    } catch (error) {
+      console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
+    }
+  },
+}));
