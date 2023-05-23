@@ -44,7 +44,7 @@ function App() {
       navigate('/account/login');
     }
   }, [location.pathname]);
-  
+
   return (
     <>
       <Modal />

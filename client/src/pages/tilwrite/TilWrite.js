@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
@@ -14,6 +14,7 @@ import {
   PostActions,
 } from '../../default/styled';
 import WarningIcon from '../../default/image/icoWarning.svg';
+import API from '../../API';
 
 function TilWrite() {
   const [titleValue, setTitleValue] = useState();
@@ -65,7 +66,7 @@ function TilWrite() {
     };
 
     try {
-      const response = await axios.post(
+      const response = await API.post(
         `${process.env.REACT_APP_API_URL}/til`,
         data
       );
@@ -73,7 +74,9 @@ function TilWrite() {
       navigate(-1); //! 이전페이지로 돌아가기, 추 후 작성한 게시글 페이지로 이동하도록 수정 필요
       //요청이 성공했을 때 처리
     } catch (error) {
-      console.log(error);
+      console.log('Error: ', error); // 에러를 좀 더 자세하게 표시
+      console.log('Error response: ', error.response); // 에러 응답 객체도 출력
+      console.log('Error message: ', error.message); // errorMessage를 인쇄합니다.
       //에러처리
     }
   };
