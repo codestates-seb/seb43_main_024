@@ -112,4 +112,9 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public Member getMemberInfo(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElse(null);
+    }
+
 }
