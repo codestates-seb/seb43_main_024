@@ -49,6 +49,19 @@ public class Member {
         this.memberId = memberId;
     }
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     public Member(String email) {
         this.email = email;
     } // OAUTH2
