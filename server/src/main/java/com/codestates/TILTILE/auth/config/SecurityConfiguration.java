@@ -86,7 +86,7 @@ public class SecurityConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedOrigins(List.of("http://tiltil2-images.s3-website.ap-northeast-2.amazonaws.com", "http://localhost:3000"));
-        corsConfiguration.setAllowedHeaders(List.of("http://tiltil2-images.s3-website.ap-northeast-2.amazonaws.com", "http://localhost:3000"));
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
         corsConfiguration.setExposedHeaders(List.of("Authorization", "Refresh"));
         corsConfiguration.setAllowedMethods(List.of("POST", "GET", "PATCH", "PUT", "DELETE", "OPTIONS"));
 
