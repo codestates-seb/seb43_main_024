@@ -111,6 +111,7 @@ public interface TilMapper {
                 .tilTitle(til.getTilTitle())
                 .tilContent(til.getTilContent())
                 .createdAt(til.getCreatedAt())
+                .memberId(til.getMember().getMemberId())
                 .memberNickname(til.getMember().getNickName())
                 .tilStatus(til.getTilStatus())
                 .build();
