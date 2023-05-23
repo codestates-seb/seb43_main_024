@@ -42,7 +42,7 @@ public class TilController {
         List<Bookmark> bookmarks;
         if (memberId.isPresent()) {
             Member member = memberService.getMemberById(memberId.get());
-             bookmarks = bookmarkService.getBookmarksByMember(member);
+            bookmarks = bookmarkService.getBookmarksByMember(member);
         } else {
             bookmarks = null;
         }
@@ -63,9 +63,9 @@ public class TilController {
     @GetMapping("/{til_id}")
     public ResponseEntity getTil(@PathVariable("til_id") long tilId) {
 
-        TilDto.Response Response = tilService.getTil(tilId);
+        TilDto.getResponse getResponse = tilService.getTil(tilId);
 
-        return new ResponseEntity<>(Response, HttpStatus.OK);
+        return new ResponseEntity<>(getResponse, HttpStatus.OK);
     }
 
     @PutMapping("/{til-id}")
