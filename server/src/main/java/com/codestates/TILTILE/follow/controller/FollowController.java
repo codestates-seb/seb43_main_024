@@ -22,10 +22,14 @@ public class FollowController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteFollow(@RequestParam("followerId") Long followerId, @RequestParam("followingId") Long followingId) {
-        followService.deleteFollow(followerId, followingId);
+    public ResponseEntity<String> deleteFollow(@RequestParam("followerId") Long followerId, @RequestParam("followedMemberId") Long followedMemberId) {
+        followService.deleteFollow(followerId, followerId, followedMemberId);
         return ResponseEntity.ok("Follow deleted successfully");
     }
 
-
 }
+
+// member_id -> follower (RequestParam)
+// 팔로우 버튼 클릭시 받는 member_id -> followed_member_id
+// 팔로우 주체 -> RequestParam
+// 팔로우 피사체 -> 주소로

@@ -15,15 +15,15 @@ public class FollowService {
         this.followRepository = followRepository;
     }
 
-    public void createFollow(Long followerId, Long followingId) {
+    public void createFollow(Long followerId, Long followedMemberId) {
         Follow follow = new Follow();
-        follow.setFollowId(followingId);
-        follow.setMemberId(followerId);
+        follow.setFollowerId(followerId);
+        follow.setFollowedMemberId(followedMemberId);
         followRepository.save(follow);
     }
 
-    public void deleteFollow(Long followerId, Long followingId) {
-        Optional<Follow> optionalFollow = followRepository.findByFollowIdAndMemberId(followerId, followingId);
+    public void deleteFollow(Long followId, Long followerId, Long followedMemberId) {
+        Optional<Follow> optionalFollow = followRepository.findByFollowIdAndFollowerIdAndFollowedMemberId(followId, followerId, followedMemberId);
         optionalFollow.ifPresent(follow -> followRepository.delete(follow));
     }
 }

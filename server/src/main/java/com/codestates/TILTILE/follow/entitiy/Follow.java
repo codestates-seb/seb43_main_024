@@ -16,6 +16,9 @@ public class Follow {
     @Column(name = "follow_id")
     private Long followId;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @Column(name = "follower_id")
+    private Long followerId;
+
+    @Column(name = "followed_member_id")
+    private Long followedMemberId;
 }
