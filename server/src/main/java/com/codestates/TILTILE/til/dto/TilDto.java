@@ -75,18 +75,18 @@ public class TilDto {
         private Boolean tilStatus;
     }
 
-//    @Getter
-//    @Setter
-//    @NoArgsConstructor
-//    public static class getResponse {
-//        private long tilId;
-//        private String tilTitle;
-//        private String tilContent;
-//        private long tilViewCount;
-//        private LocalDateTime createdAt;
-//        private Timestamp modifiedAt;
-//        private String memberNickname;
-//    }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class getResponse {
+        private long tilId;
+        private String tilTitle;
+        private String tilContent;
+        private long tilViewCount;
+        private LocalDateTime createdAt;
+        private Timestamp modifiedAt;
+        private String memberNickname;
+    }
 
     @Getter
     @Setter
