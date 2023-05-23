@@ -86,22 +86,23 @@ public interface TilMapper {
         return pageResponseDto;
     }
 
-//    default TilDto.getResponse tilToGetReponse(Til til) {
-//        if (til == null) {
-//            return null;
-//        }
-//
-//        TilDto.getResponse getResponse = new TilDto.getResponse();
-    // settilId 추가
-//        getResponse.setTilTitle(til.getTilTitle());
-//        getResponse.setTilContent(til.getTilContent());
-//        getResponse.setTilViewCount(til.getTilViewCount());
-//        getResponse.setCreatedAt(til.getCreatedAt());
-//        getResponse.setModifiedAt(til.getModifiedAt());
-//        getResponse.setMemberNickname(til.getMember().getNickName());
-//
-//        return getResponse;
-//    } // status 필요 없으면 주석 해제
+    default TilDto.getResponse tilToGetReponse(Til til) {
+        if (til == null) {
+            return null;
+        }
+
+        TilDto.getResponse getResponse = new TilDto.getResponse();
+        getResponse.setTilId(til.getTilId());
+        getResponse.setTilTitle(til.getTilTitle());
+        getResponse.setTilContent(til.getTilContent());
+        getResponse.setTilViewCount(til.getTilViewCount());
+        getResponse.setTilViewCount(til.getTilViewCount());
+        getResponse.setCreatedAt(til.getCreatedAt());
+        getResponse.setModifiedAt(til.getModifiedAt());
+        getResponse.setMemberNickname(til.getMember().getNickName());
+
+        return getResponse;
+    }
 
 
     default TilDto.Response tilToTilResponse2(Til til) {

@@ -102,4 +102,14 @@ public class MemberService {
         return memberRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new MemberNotFoundException(HttpStatus.NOT_FOUND.value(), "User not found"));
     }
+
+    public Member findByEmail(String email) {
+        Optional<Member> memberOptional = memberRepository.findByEmail(email);
+        return memberOptional.orElse(null);
+    }
+
+    public void saveMember(Member member) {
+        memberRepository.save(member);
+    }
+
 }

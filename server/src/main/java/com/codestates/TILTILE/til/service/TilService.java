@@ -51,7 +51,7 @@ public class TilService {
         Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
         if (searchKeyword == null) {
             EntityTils =
-                    tilRepository.findAll(pageRequest);
+                    tilRepository.findByTilStatusFalse(pageRequest);
         } else {
             EntityTils = tilRepository.findByKeyword(searchKeyword, pageRequest);
         }
@@ -89,13 +89,13 @@ public class TilService {
 
         return tilRepository.save(til);
     }
-    public TilDto.Response getTil(long tilId) {
+    public TilDto.getResponse getTil(long tilId) {
 
         Til findTil = getTilById(tilId);
         findTil.setTilViewCount(findTil.getTilViewCount()+1);
 
 //        tilRepository.save(findTil); 더티체킹
-        return tilMapper.tilToTilResponse(findTil);
+        return tilMapper.tilToGetReponse(findTil);
     }
 
 

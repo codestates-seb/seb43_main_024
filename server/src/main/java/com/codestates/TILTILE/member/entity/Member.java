@@ -45,6 +45,13 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @Column(name = "profile_image")
+    private String profileImage;
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public void setMemberId(long memberId) {
         this.memberId = memberId;
     }
@@ -65,6 +72,10 @@ public class Member {
     public Member(String email) {
         this.email = email;
     } // OAUTH2
+
+    public String getEmail() {
+        return email;
+    }
 
     // OAuth를 위해 구성한 추가 필드 2개
     private String provider;

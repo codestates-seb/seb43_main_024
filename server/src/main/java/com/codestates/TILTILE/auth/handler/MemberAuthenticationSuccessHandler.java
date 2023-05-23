@@ -43,13 +43,20 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         String refreshToken = jwtTokenizer.generateRefreshToken(username, refreshTokenExpiration, base64EncodedSecretKey);
 
         // JWT 토큰을 쿠키에 담아서 응답으로 전송
-        Cookie accessTokenCookie = new Cookie("access_token", accessToken);
-        accessTokenCookie.setPath("/");
-        response.addCookie(accessTokenCookie);
+//        Cookie accessTokenCookie = new Cookie("access_token", accessToken);
+//        accessTokenCookie.setPath("/");
+//        accessTokenCookie.setDomain("localhost");
+//        accessTokenCookie.setSecure(true);
+//        accessTokenCookie.setHttpOnly(true);
+//        response.addCookie(accessTokenCookie);
+//
+//        Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
+//        refreshTokenCookie.setPath("/");
+//        refreshTokenCookie.setDomain("localhost");
+//        refreshTokenCookie.setSecure(true);
+//        refreshTokenCookie.setHttpOnly(true);
+//        response.addCookie(refreshTokenCookie);
 
-        Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
-        refreshTokenCookie.setPath("/");
-        response.addCookie(refreshTokenCookie);
 
         log.info("# Authenticated successfully!");
     }
