@@ -34,6 +34,7 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setLoginStatus } = useStore();
+  const { setCurrentUser } = useStore();
 
   const navigate = useNavigate();
 
@@ -70,6 +71,7 @@ function LoginForm() {
       localStorage.setItem('username', username); // 이메일 정보
       // 로그인 상태
       setLoginStatus(true);
+      setCurrentUser(response.data);
       navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
