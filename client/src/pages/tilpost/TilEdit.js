@@ -17,13 +17,25 @@ import {
 function TilEdit() {
   const navigate = useNavigate();
   const { tilId } = useParams();
-  const { data, getData, updateData } = useTilStore();
-  const { tilTitle, tilContent, tilStatus } = data;
-  const [titleValue, setTitleValue] = useState();
-  const [value, setValue] = useState();
+  const getData = useTilStore((state) => state.getData);
+  const updateData = useTilStore((state) => state.updateData);
+
+  const [titleValue, setTitleValue] = useState('');
+  const [value, setValue] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
+
+  useEffect(() => {
+    (async () => {
+      const postData = await getData(tilId);
+      if (postData) {
+        setTitleValue(postData.tilTitle);
+        setValue(postData.tilContent);
+        setIsPrivate(postData.tilStatus);
+      }
+    })();
+  }, [getData, tilId]);
 
   const handleOpenModal = () => {
     openModal({
@@ -38,10 +50,6 @@ function TilEdit() {
     });
   };
 
-  useEffect(() => {
-    getData(tilId);
-  }, [tilId, getData]);
-
   const onTitleChange = (e) => {
     setTitleValue(e.target.value);
   };
@@ -49,12 +57,6 @@ function TilEdit() {
   const onPrivateChange = (e) => {
     setIsPrivate(e.target.checked);
   };
-
-  useEffect(() => {
-    setTitleValue(tilTitle);
-    setValue(tilContent);
-    setIsPrivate(tilStatus);
-  }, [tilTitle, tilContent, tilStatus]);
 
   const handleSubmit = async () => {
     const updatedData = {
@@ -64,9 +66,9 @@ function TilEdit() {
       tilStatus: isPrivate,
     };
     console.log(updatedData);
-    await updateData(updatedData);
-    navigate(`/til/${tilId}`);
+    await updateData(tilId, updatedData); // 'tilId'를 인수로 전달하도록 수정
     closeModal();
+    navigate(`/til/${updatedData.tilId}`);
   };
 
   const handleCancel = () => {

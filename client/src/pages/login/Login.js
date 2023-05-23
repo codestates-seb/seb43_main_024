@@ -34,6 +34,7 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setLoginStatus } = useStore();
+  const { setCurrentUser } = useStore();
 
   const navigate = useNavigate();
 
@@ -52,24 +53,21 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      await axios.post(
         // eslint-disable-next-line no-undef
         `${process.env.REACT_APP_API_URL}/login`,
         {
           username: username,
           password: password,
-        },
-        {
-          withCredentials: true, // 쿠키 포함 요청 설정
         }
       );
       // 로컬스토리지에 저장하는 3개의 토큰
-      const accessToken = response.data.accessToken;
-      localStorage.setItem('accessToken', accessToken); // 엑세스 토큰
+
       localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태
       localStorage.setItem('username', username); // 이메일 정보
       // 로그인 상태
       setLoginStatus(true);
+      setCurrentUser(response.data);
       navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');

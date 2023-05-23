@@ -13,10 +13,12 @@ import {
 import useStore from '../default/useStore';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
@@ -39,6 +41,15 @@ function Header() {
     navigate(path, { replace: true });
     window.location.reload();
   };
+
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const isLoggedIn = storedIsLoggedIn === 'true';
+
+    if (isLoggedIn) {
+      setLoginStatus(true);
+    }
+  }, [location.pathname]);
 
   return (
     <HeaderWrapper>
@@ -75,7 +86,7 @@ function Header() {
               <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
               <HeaderLink to="/profile" userInfo>
                 <UserPic></UserPic>
-                <span>닉네임,tilday</span>
+                <span>{`${isLogin}`}</span>
               </HeaderLink>
             </>
           ) : (

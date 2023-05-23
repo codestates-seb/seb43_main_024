@@ -59,6 +59,7 @@ function TilPost() {
   const { tilId } = useParams();
   const navigate = useNavigate();
   const { data, getData, deleteData } = useTilStore();
+  const currentUser = useStore((state) => state.currentUser);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
 
@@ -94,14 +95,16 @@ function TilPost() {
   return (
     <TilWrapper>
       <div>
-        <ButtonWrapper>
-          <Link to={`/edit/${tilId}`}>
-            <Button type="button">수정</Button>
-          </Link>
-          <Button type="button" onClick={handleOpenModal}>
-            삭제
-          </Button>
-        </ButtonWrapper>
+        {data && currentUser && data.memberId === currentUser.userId && (
+          <ButtonWrapper>
+            <Link to={`/edit/${tilId}`}>
+              <Button type="button">수정</Button>
+            </Link>
+            <Button type="button" onClick={handleOpenModal}>
+              삭제
+            </Button>
+          </ButtonWrapper>
+        )}
         {data && <PostContent data={data} />}
         <PreNextWrapper>
           <PostButtonWrapper>
