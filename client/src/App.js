@@ -1,6 +1,6 @@
 import './default/style.css';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import useStore from './default/useStore';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
@@ -27,22 +27,23 @@ import FollowTil from './pages/tillist/FollowTil';
 import TilPost from './pages/tilpost/TilPost';
 import TilEdit from './pages/tilpost/TilEdit';
 
-//TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
-
-//TODO: islogin으로 상태를 관리하여, 올바르게 route 될수 있도록 한다.
-
 function App() {
-  const { isLogin } = useStore();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  if (
-    !isLogin &&
-    (location.pathname === '/profile' ||
-      location.pathname === '/til/list/following' ||
-      location.pathname === '/write')
-  ) {
-    return <Navigate to="/account/login" />;
-  }
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const isLoggedIn = storedIsLoggedIn === 'true';
+
+    if (
+      !isLoggedIn &&
+      (location.pathname === '/profile' ||
+        location.pathname === '/til/list/following' ||
+        location.pathname === '/write')
+    ) {
+      navigate('/account/login');
+    }
+  }, [location.pathname]);
 
   return (
     <>
