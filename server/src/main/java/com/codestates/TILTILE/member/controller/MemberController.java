@@ -5,6 +5,7 @@ import com.codestates.TILTILE.bookmark.service.BookmarkService;
 import com.codestates.TILTILE.member.dto.MemberWithBookmarksDto;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.dto.MemberDto;
+import com.codestates.TILTILE.member.dto.MemberResponseDto;
 import com.codestates.TILTILE.member.mapper.MemberMapper;
 import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.dto.TilDto;
@@ -68,5 +69,26 @@ public class MemberController {
             @RequestParam(value = "pageSize", defaultValue = "12") int pageSize) {
         MemberWithBookmarksDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(memberId, page, pageSize);
         return ResponseEntity.ok(memberWithBookmarksDto);
+    }
+
+    @GetMapping("/members/{memberId}")
+    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable("memberId") Long memberId) {
+        Member member = memberService.getMemberInfo(memberId);
+        if (member != null) {
+            MemberResponseDto memberResponseDto = new MemberResponseDto();
+            memberResponseDto.setMemberId(member.getMemberId());
+            memberResponseDto.setNickName(member.getNickName());
+            memberResponseDto.setAboutMe(member.getAboutMe());
+            memberResponseDto.setImg(member.getProfileImage());
+
+            // Oauth 유저인 경우에는 비밀번호 필드를 비워둘 수 있습니다.
+            if (!member.isOauthMember()) {
+                memberResponseDto.setPassWord(member.getPassword());
+            }
+
+            return ResponseEntity.ok(memberResponseDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
