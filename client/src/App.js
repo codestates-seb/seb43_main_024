@@ -44,6 +44,9 @@ function App() {
     return <Navigate to="/account/login" />;
   }
 
+  if (!isLogin && location.pathname === '/profile') {
+    return <Navigate to="/account/login" />;
+  }
   return (
     <>
       <Modal />

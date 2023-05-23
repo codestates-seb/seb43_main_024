@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useTilListStore } from '../../default/tilComponents/useTilStore';
+import useStore from '../../default/useStore';
 import { TilWrapper, TitleH1 } from '../../default/styled';
 import TilList from '../../default/tilComponents/TilList';
 import TilCard from '../../default/tilComponents/TilCard';
 import LoadingImage from '../../default/LoadingImage';
 
 function FollowTil() {
+  const isLogin = useStore((state) => state.isLogin);
   const {
     data,
     isLoading,
@@ -17,15 +19,23 @@ function FollowTil() {
     setCurrentPage,
   } = useTilListStore();
 
+  const userId = null;
+  const url =
+    isLogin && userId
+      ? `${process.env.REACT_APP_API_URL}/til/list?member_id=${userId}&`
+      : null;
+
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage]);
+    fetchData(currentPage, url);
+  }, [currentPage, url]);
+
+  if (isLoading) return <LoadingImage />;
 
   return (
     <TilWrapper>
       <div>
         <TitleH1>내가 팔로우한 틸</TitleH1>
-        {isLoading && !data && <LoadingImage />}
+        {data.length === 0 && <LoadingImage />}
         <TilList
           data={data}
           currentPage={currentPage}

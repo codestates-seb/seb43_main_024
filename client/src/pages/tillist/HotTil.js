@@ -1,55 +1,59 @@
 import { useEffect } from 'react';
-import { useTilListStore } from '../../default/tilComponents/useTilStore';
-import { TilWrapper, TitleH1 } from '../../default/styled';
-import HotTilNav from './component/HotTilNav';
+import { useHotTilListStore } from '../../default/tilComponents/useTilStore';
+import useStore from '../../default/useStore';
 import HotTilSwiper from './component/HotTilSwiper';
-import TilList from '../../default/tilComponents/TilList';
 import TilCard from '../../default/tilComponents/TilCard';
+import styled from 'styled-components';
 import LoadingImage from '../../default/LoadingImage';
+import {
+  TilWrapper,
+  TilListWrapper,
+  TilCardWrapper,
+  TitleH1,
+} from '../../default/styled';
+
+const HotTilListWrapper = styled(TilListWrapper)`
+  margin-bottom: 100px;
+`;
 
 function HotTil() {
-  const {
-    data,
-    isLoading,
-    currentPage,
-    totalPages,
-    startPage,
-    endPage,
-    fetchData,
-    setCurrentPage,
-  } = useTilListStore();
+  const isLogin = useStore((state) => state.isLogin);
+  const { data, isLoading, getHotTilData } = useHotTilListStore();
+
+  const userId = null;
+  let url = `${process.env.REACT_APP_API_URL}/til/list`;
+
+  if (isLogin && userId) {
+    url = `${process.env.REACT_APP_API_URL}/til/list?member_id=${userId}`;
+  }
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage, fetchData]);
+    getHotTilData(url);
+  }, [url]);
 
-  const HotTilData = data.slice(0, 10);
+  if (isLoading) return <LoadingImage />;
+
+  const HotTilSwiperData = data.slice(0, 10);
+  const HotTilData = data.slice(10, 30);
 
   return (
     <div>
       <TilWrapper>
         <TitleH1>가장 인기있는 틸</TitleH1>
       </TilWrapper>
-      <HotTilSwiper data={HotTilData} />
+      <HotTilSwiper data={HotTilSwiperData} />
       <TilWrapper>
-        <HotTilNav />
-        {isLoading && !data && <LoadingImage />}
-        <TilList
-          data={data}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          startPage={startPage}
-          endPage={endPage}
-          fetchData={fetchData}
-          setCurrentPage={setCurrentPage}
-        >
-          {data &&
-            data.map((data) => (
-              <li key={data.tilId}>
-                <TilCard data={data} />
-              </li>
-            ))}
-        </TilList>
+        <HotTilListWrapper>
+          <TilCardWrapper>
+            {data.length === 0 && <LoadingImage />}
+            {HotTilData &&
+              HotTilData.map((data) => (
+                <li key={data.tilId}>
+                  <TilCard data={data} />
+                </li>
+              ))}
+          </TilCardWrapper>
+        </HotTilListWrapper>
       </TilWrapper>
     </div>
   );

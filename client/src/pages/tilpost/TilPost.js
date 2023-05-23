@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useTilStore } from '../../default/tilComponents/useTilStore';
 import useStore from '../../default/useStore';
 import styled from 'styled-components';
-
 import {
   TilWrapper,
   PreNextButton,

@@ -35,6 +35,11 @@ function Header() {
     }
   };
 
+  const handleNavigation = (path) => {
+    navigate(path, { replace: true });
+    window.location.reload();
+  };
+
   return (
     <HeaderWrapper>
       <InnerWrapper flex>
@@ -45,12 +50,16 @@ function Header() {
 
           <TopNav>
             <NavLink to="/til/list">
-              <TapMenu>탐색</TapMenu>
+              <TapMenu onClick={() => handleNavigation('/til/list')}>
+                탐색
+              </TapMenu>
             </NavLink>
             <NavLink to="/til/list/hot">
-              <TapMenu>핫틸</TapMenu>
+              <TapMenu onClick={() => handleNavigation('/til/list/hot')}>
+                핫틸
+              </TapMenu>
             </NavLink>
-            <NavLink to="/til/list/following">
+            <NavLink to="/til/list/following" activeClassName="active">
               <TapMenu>팔로우틸</TapMenu>
             </NavLink>
           </TopNav>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTilListStore } from '../../default/tilComponents/useTilStore';
+import useStore from '../../default/useStore';
 import styled from 'styled-components';
 import { TilWrapper, TilFlexContainer } from '../../default/styled';
 import TilList from '../../default/tilComponents/TilList';
@@ -12,7 +13,7 @@ const SearchResult = styled.div`
 `;
 
 function SearchTil() {
-  //const { keyword } = useParams();
+  const isLogin = useStore((state) => state.isLogin);
   const [keyword, setKeyword] = useState('');
   const {
     data,
@@ -25,13 +26,26 @@ function SearchTil() {
     setCurrentPage,
   } = useTilListStore();
 
-  const handleSearchSubmit = (keyword) => {
-    setKeyword(keyword);
-  };
+  const userId = null;
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage]);
+    let url = `${process.env.REACT_APP_API_URL}/til/list?`;
+
+    if (isLogin && userId) {
+      url += `member_id=${userId}&`;
+    }
+    if (keyword) {
+      url += `searchKeyword=${keyword}&`;
+    }
+    fetchData(currentPage, url);
+  }, [currentPage, keyword, isLogin, userId]);
+
+  const handleSearchSubmit = (keyword) => {
+    setKeyword(keyword);
+    setCurrentPage(1);
+  };
+
+  if (isLoading) return <LoadingImage />;
 
   return (
     <TilWrapper>
@@ -39,11 +53,15 @@ function SearchTil() {
         <Search onSubmit={handleSearchSubmit} />
         {keyword && (
           <SearchResult>
-            <h2>{keyword}에 대한 결과입니다.</h2>
+            {data.length === 0 ? (
+              <h2>{keyword}에 대한 결과가 없습니다.</h2>
+            ) : (
+              <h2>{keyword}에 대한 결과입니다.</h2>
+            )}
           </SearchResult>
         )}
       </TilFlexContainer>
-      {isLoading && !data && <LoadingImage />}
+      {data.length === 0 && <LoadingImage />}
       <TilList
         data={data}
         currentPage={currentPage}

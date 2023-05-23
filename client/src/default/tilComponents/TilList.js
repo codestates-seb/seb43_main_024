@@ -1,20 +1,9 @@
 import styled, { css } from 'styled-components';
-import { TilFlexContainer } from '../styled';
+import { TilListWrapper, TilCardWrapper } from '../styled';
 import LeftArrow from '../image/leftArrow.svg';
 import RightArrow from '../image/rightArrow.svg';
 import LeftArrowHover from '../image/leftArrowHover.svg';
 import RightArrowHover from '../image/rightArrowHover.svg';
-
-const TilListWrapper = styled(TilFlexContainer)`
-  justify-content: center;
-  margin: 30px 0px;
-`;
-
-const TilCardWrapper = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
 
 const PageButtonWrapper = styled.div`
   display: flex;
