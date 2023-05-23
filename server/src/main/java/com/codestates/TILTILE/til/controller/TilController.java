@@ -42,7 +42,7 @@ public class TilController {
         List<Bookmark> bookmarks;
         if (memberId.isPresent()) {
             Member member = memberService.getMemberById(memberId.get());
-             bookmarks = bookmarkService.getBookmarksByMember(member);
+            bookmarks = bookmarkService.getBookmarksByMember(member);
         } else {
             bookmarks = null;
         }
