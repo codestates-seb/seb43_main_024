@@ -74,6 +74,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.DELETE, "/bookmark/**").hasRole("USER") // 북마크 삭제(USER)
                         .antMatchers(HttpMethod.POST,"/follow/**").hasRole("USER") // follow 추가(USER)
                         .antMatchers(HttpMethod.PATCH,"/mypage/**").hasRole("USER") // mypage 변경 추가(USER)
+                        .antMatchers(HttpMethod.GET, "/members/**").permitAll() // member 정보 조회(*)
                         .anyRequest().permitAll() // 모든 HTTP request 요청에 대해서 접근을 허용
                 )
                 .oauth2Login(oauth2 -> oauth2
