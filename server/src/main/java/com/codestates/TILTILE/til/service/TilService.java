@@ -87,7 +87,10 @@ public class TilService {
         til.setTilViewCount(0L);
         til.setTilStatus(false);
 
-        return tilRepository.save(til);
+        Til createdTil = tilRepository.save(til);
+        createdTil.getMember().setMemberId(findMember.getMemberId()); // memberId 값 설정
+
+        return createdTil;
     }
     public TilDto.getResponse getTil(long tilId) {
 
