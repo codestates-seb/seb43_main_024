@@ -51,7 +51,7 @@ public class TilService {
         Pageable pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "tilId"));
         if (searchKeyword == null) {
             EntityTils =
-                    tilRepository.findAll(pageRequest);
+                    tilRepository.findByTilStatusFalse(pageRequest);
         } else {
             EntityTils = tilRepository.findByKeyword(searchKeyword, pageRequest);
         }
