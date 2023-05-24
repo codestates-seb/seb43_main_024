@@ -92,7 +92,7 @@ public class MemberController {
         }
     }
 
-    @DeleteMapping("/{memberId}")
+    @DeleteMapping("/members/{memberId}")
     public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId,
                                                @RequestParam(value = "provider", required = false) String provider,
                                                @RequestParam(value = "providerId", required = false) String providerId) {
