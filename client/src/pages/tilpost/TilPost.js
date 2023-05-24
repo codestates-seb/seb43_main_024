@@ -58,15 +58,23 @@ const P = styled.p`
 function TilPost() {
   const { tilId } = useParams();
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const { data, getData, deleteData } = useTilStore();
-  const currentUser = useStore((state) => state.currentUser);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
+  const memberId = localStorage.getItem('memberId');
+  const tilData = useTilStore((state) => state.data);
 
   useEffect(() => {
-    getData(tilId);
-  }, [tilId, getData]);
-
+    const fetchData = async () => {
+      await getData(tilId);
+    };
+    fetchData().then(() => {
+      console.log('tilData :', tilData.memberId);
+      console.log('memberId :', memberId);
+    });
+  }, [tilId, getData, memberId]);
+  console.log(data);
   const handleDelete = () => {
     deleteData(tilId);
     navigate('/til/list');
@@ -89,10 +97,14 @@ function TilPost() {
     });
   };
 
+  if (!tilData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <TilWrapper>
       <div>
-        {data && currentUser && data.memberId === currentUser.userId && (
+        {tilData && tilData.memberId === memberId && (
           <ButtonWrapper>
             <Link to={`/edit/${tilId}`}>
               <Button type="button">수정</Button>
@@ -102,7 +114,7 @@ function TilPost() {
             </Button>
           </ButtonWrapper>
         )}
-        {data && <PostContent data={data} tilId={tilId} />}
+        {tilData && <PostContent data={tilData} />}
         <PreNextWrapper>
           <PostButtonWrapper>
             <PreNextButton pre type="button"></PreNextButton>

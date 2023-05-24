@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import axios from 'axios';
 import API from '../../API';
 
 export const useTilListStore = create((set, get) => ({
@@ -17,7 +16,7 @@ export const useTilListStore = create((set, get) => ({
     try {
       set({ isLoading: true, currentPage: page });
       const { pageSize } = get();
-      const response = await axios.get(`${url}page=${page}&size=${pageSize}`);
+      const response = await API.get(`${url}page=${page}&size=${pageSize}`);
       //cards(틸 리스트), 전체 틸 숫자, 전체페이지번호, 시작페이지번호, 끝나는페이지번호(페이지가 5페이지씩 나눠옴)
       const { cards, totalElements, totalPages, startPage, endPage } =
         response.data;
@@ -49,7 +48,7 @@ export const useHotTilListStore = create((set) => ({
   isLoading: false,
   getHotTilData: async (url) => {
     try {
-      const response = await axios.get(`${url}`);
+      const response = await API.get(`${url}`);
       const { cards } = response.data;
       const sortedCards = cards.sort((a, b) => b.tilViewCount - a.tilViewCount);
       const hotTilCards = sortedCards.slice(0, 30);
@@ -62,10 +61,10 @@ export const useHotTilListStore = create((set) => ({
 }));
 
 export const useTilStore = create((set) => ({
-  data: [],
+  data: null,
   getData: async (tilId) => {
     try {
-      const response = await axios.get(
+      const response = await API.get(
         `${process.env.REACT_APP_API_URL}/til/${tilId}`
       );
       const data = response.data;
@@ -90,6 +89,8 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
+
+      console.log(tilId);
       await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });
     } catch (error) {

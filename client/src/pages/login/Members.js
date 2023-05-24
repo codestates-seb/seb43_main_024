@@ -4,6 +4,7 @@ import { InputForm } from './Login';
 // eslint-disable-next-line import/named
 import { Modal } from './components/SignUpModal';
 import useStore from '../../default/useStore';
+import API from '../../API';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -48,7 +49,7 @@ function SignUpForm() {
 
   const handleCodeSend = async () => {
     try {
-      const response = await axios.post(
+      const response = await API.post(
         `${process.env.REACT_APP_API_URL}/login/mailConfirm`,
         {
           email: email,
