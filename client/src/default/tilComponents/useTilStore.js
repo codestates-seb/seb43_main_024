@@ -89,7 +89,6 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
-
       console.log(tilId);
       await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });

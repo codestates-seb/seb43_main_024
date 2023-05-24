@@ -62,7 +62,7 @@ function TilPost() {
   const { data, getData, deleteData } = useTilStore();
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
-  const memberId = localStorage.getItem('memberId');
+  const memberId = Number(localStorage.getItem('memberId'));
   const tilData = useTilStore((state) => state.data);
 
   useEffect(() => {
@@ -70,11 +70,12 @@ function TilPost() {
       await getData(tilId);
     };
     fetchData().then(() => {
+      console.log(data);
       console.log('tilData :', tilData.memberId);
       console.log('memberId :', memberId);
     });
   }, [tilId, getData, memberId]);
-  console.log(data);
+
   const handleDelete = () => {
     deleteData(tilId);
     navigate('/til/list');
@@ -104,7 +105,7 @@ function TilPost() {
   return (
     <TilWrapper>
       <div>
-        {tilData && tilData.memberId === memberId && (
+        {tilData && tilData.memberId && tilData.memberId === memberId && (
           <ButtonWrapper>
             <Link to={`/edit/${tilId}`}>
               <Button type="button">수정</Button>

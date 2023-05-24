@@ -24,6 +24,7 @@ const StyledCheckBookmarkIcon = styled(CheckBookmarkIcon)`
 function TilBookmark({ checkBookmark, tilId, width, height }) {
   //memberId를 받아와야함
   const memberId = 1;
+  // eslint-disable-next-line no-unused-vars
   const { getBookmarkData, data, deleteData, addBookmarkData } =
     useBookmarkStore();
   const [bookmarkCheck, setBookmarkCheck] = useState(checkBookmark);
@@ -36,10 +37,10 @@ function TilBookmark({ checkBookmark, tilId, width, height }) {
     }
     setBookmarkCheck((prevCheck) => !prevCheck);
   };
-  console.log(memberId);
-  console.log(tilId);
-  console.log(bookmarkCheck);
-  console.log(data);
+  // console.log(memberId);
+  // console.log(tilId);
+  // console.log(bookmarkCheck);
+  // console.log(data);
 
   useEffect(() => {
     getBookmarkData(memberId, tilId);
