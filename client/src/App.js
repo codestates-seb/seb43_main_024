@@ -32,11 +32,11 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-    const isLoggedIn = storedIsLoggedIn === 'true';
+    const storedToken = localStorage.getItem('token');
+    const hasToken = storedToken !== null;
 
     if (
-      !isLoggedIn &&
+      !hasToken &&
       (location.pathname === '/profile' ||
         location.pathname === '/til/list/following' ||
         location.pathname === '/write')
