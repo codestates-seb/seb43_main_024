@@ -89,9 +89,50 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
+
       console.log(tilId);
       await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });
+    } catch (error) {
+      console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
+    }
+  },
+}));
+
+export const useBookmarkStore = create((set) => ({
+  data: [],
+  getBookmarkData: async (memberId) => {
+    try {
+      const response = await API.get(
+        `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`
+      );
+      const { bookmarks } = response.data;
+      set({ data: bookmarks });
+      return bookmarks;
+    } catch (error) {
+      console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
+      return null;
+    }
+  },
+  addBookmarkData: async (memberId, tilId) => {
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/bookmark/member/${memberId}/til/${tilId}`;
+
+      await API.post(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);
+    }
+  },
+  deleteData: async (bookmarkId) => {
+    try {
+      await API.delete(
+        `${process.env.REACT_APP_API_URL}/bookmark/${bookmarkId}`
+      );
     } catch (error) {
       console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
     }

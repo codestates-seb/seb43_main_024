@@ -27,8 +27,9 @@ const UserName = styled.p`
   margin-right: 4px;
 `;
 
-function PostContent({ data }) {
+function PostContent({ data, tilId }) {
   //const isLogin = useStore((state) => state.isLogin);
+  const memberId = null;
   const { tilTitle, tilContent, createdAt, checkBookmark, memberNickname } =
     data;
   const formattedDate = createdAt
@@ -43,6 +44,8 @@ function PostContent({ data }) {
             width="17px"
             height="21px"
             checkBookmark={checkBookmark}
+            memberId={memberId}
+            tilId={tilId}
           />
         </TitleWrapper>
         <UserContainer>

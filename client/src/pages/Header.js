@@ -67,9 +67,9 @@ function Header() {
                 핫틸
               </TapMenu>
             </NavLink>
-            <NavLink to="/til/list/following" activeClassName="active">
+            {/* <NavLink to="/til/list/following" activeClassName="active">
               <TapMenu>팔로우틸</TapMenu>
-            </NavLink>
+            </NavLink> */}
           </TopNav>
         </NavLogo>
 

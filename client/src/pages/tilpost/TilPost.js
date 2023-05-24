@@ -74,9 +74,7 @@ function TilPost() {
       console.log('memberId :', memberId);
     });
   }, [tilId, getData, memberId]);
-
   console.log(data);
-
   const handleDelete = () => {
     deleteData(tilId);
     navigate('/til/list');
