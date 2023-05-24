@@ -102,7 +102,7 @@ function TilPost() {
             </Button>
           </ButtonWrapper>
         )}
-        {data && <PostContent data={data} />}
+        {data && <PostContent data={data} tilId={tilId} />}
         <PreNextWrapper>
           <PostButtonWrapper>
             <PreNextButton pre type="button"></PreNextButton>

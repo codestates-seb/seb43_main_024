@@ -26,19 +26,19 @@ function SearchTil() {
     setCurrentPage,
   } = useTilListStore();
 
-  const userId = null;
+  const memberId = null;
 
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/til/list?`;
 
-    if (isLogin && userId) {
-      url += `member_id=${userId}&`;
+    if (isLogin && memberId) {
+      url += `member_id=${memberId}&`;
     }
     if (keyword) {
       url += `searchKeyword=${keyword}&`;
     }
     fetchData(currentPage, url);
-  }, [currentPage, keyword, isLogin, userId]);
+  }, [currentPage, keyword, isLogin, memberId]);
 
   const handleSearchSubmit = (keyword) => {
     setKeyword(keyword);
@@ -74,7 +74,7 @@ function SearchTil() {
         {data &&
           data.map((data) => (
             <li key={data.tilId}>
-              <TilCard data={data} />
+              <TilCard data={data} memberId={memberId} />
             </li>
           ))}
       </TilList>

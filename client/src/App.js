@@ -23,7 +23,7 @@ import TilWrite from './pages/tilwrite/TilWrite';
 //TilList, TilPost, TilEdit 컴포넌트
 import SearchTil from './pages/tillist/SearchTil';
 import HotTil from './pages/tillist/HotTil';
-import FollowTil from './pages/tillist/FollowTil';
+//import FollowTil from './pages/tillist/FollowTil';
 import TilPost from './pages/tilpost/TilPost';
 import TilEdit from './pages/tilpost/TilEdit';
 
@@ -56,7 +56,7 @@ function App() {
           {/* 틸 리스트 화면 */}
           <Route path="/til/list" element={<SearchTil />} />
           <Route path="/til/list/hot" element={<HotTil />} />
-          <Route path="/til/list/following" element={<FollowTil />} />
+          {/*<Route path="/til/list/following" element={<FollowTil />} />*/}
           {/* 로그인, 회원가입 화면 */}
           <Route path="/account" element={<Account />}>
             <Route path="login" element={<LoginForm />} />

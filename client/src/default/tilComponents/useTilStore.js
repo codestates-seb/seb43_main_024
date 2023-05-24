@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import API from '../../API';
 
 export const useTilListStore = create((set, get) => ({
   data: [],
@@ -77,7 +78,7 @@ export const useTilStore = create((set) => ({
   },
   updateData: async (tilId, updatedData) => {
     try {
-      await axios.put(
+      await API.put(
         `${process.env.REACT_APP_API_URL}/til/${tilId}`,
         updatedData
       );
@@ -89,8 +90,7 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
-      console.log(tilId);
-      await axios.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
+      await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });
     } catch (error) {
       console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
@@ -102,33 +102,31 @@ export const useBookmarkStore = create((set) => ({
   data: [],
   getBookmarkData: async (memberId) => {
     try {
-      const response = await axios.get(
+      const response = await API.get(
         `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`
       );
       const { bookmarks } = response.data;
       set({ data: bookmarks });
+      return bookmarks;
     } catch (error) {
       console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
       return null;
     }
   },
-  updateData: async (tilId, updatedData) => {
+  addBookmarkData: async (memberId, tilId) => {
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/til/${tilId}`,
-        updatedData
+      await API.post(
+        `${process.env.REACT_APP_API_URL}/bookmark/${memberId}/til/${tilId}`
       );
-      console.log(updatedData);
-      set({ data: updatedData });
     } catch (error) {
       console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);
     }
   },
-  deleteData: async (tilId) => {
+  deleteData: async (bookmarkId) => {
     try {
-      console.log(tilId);
-      await axios.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
-      set({ data: [] });
+      await API.delete(
+        `${process.env.REACT_APP_API_URL}/bookmark/${bookmarkId}`
+      );
     } catch (error) {
       console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
     }
