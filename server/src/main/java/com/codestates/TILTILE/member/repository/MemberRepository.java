@@ -12,7 +12,12 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
+
     @Query("SELECT m FROM Member m LEFT JOIN FETCH m.bookmarks WHERE m.memberId = :memberId")
     MemberWithBookmarksDto findMemberWithBookmarksById(@Param("memberId") Long memberId);
+
+    void deleteByProviderAndProviderId(String provider, String providerId);
+
+    Member findByProviderAndProviderId(String provider, String providerId);
 }
 

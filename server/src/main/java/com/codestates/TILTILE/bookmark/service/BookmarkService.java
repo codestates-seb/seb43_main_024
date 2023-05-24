@@ -88,7 +88,6 @@ public class BookmarkService {
         return dto; // 완성된 DTO 반환
     }
 
-
     public void deleteBookmark(Long bookmarkId) {
         bookmarkRepository.deleteById(bookmarkId);
     }
