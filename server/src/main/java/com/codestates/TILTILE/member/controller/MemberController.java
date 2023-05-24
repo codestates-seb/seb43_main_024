@@ -91,4 +91,22 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId,
+                                               @RequestParam(value = "provider", required = false) String provider,
+                                               @RequestParam(value = "providerId", required = false) String providerId) {
+        boolean deleted;
+        if (provider != null && providerId != null) {
+            deleted = memberService.deleteOAuthMember(provider, providerId);
+        } else {
+            deleted = memberService.deleteMember(memberId);
+        }
+
+        if (deleted) {
+            return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
