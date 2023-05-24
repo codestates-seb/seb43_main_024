@@ -14,6 +14,7 @@ export function EditProfile() {
   const [newNickName, setNewNickName] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newAboutMe, setNewAboutMe] = useState('');
+  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
 
   const navigate = useNavigate();
 
@@ -67,6 +68,33 @@ export function EditProfile() {
     }
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file); // 이미지 파일 상태 업데이트
+  };
+
+  const uploadProfileImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('imageFile', imageFile);
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer {JWT}`, // JWT 값을 적절히 대체해야 합니다
+        },
+      };
+      await API.post('/uploadProfileImage', formData, config);
+      // 이미지 업로드 성공 시 실행되는 로직을 추가하세요
+    } catch (error) {
+      // 이미지 업로드 실패 시 실행되는 로직을 추가하세요
+    }
+  };
+
+  const handleUpdateImage = () => {
+    uploadProfileImage();
+  };
+
   const handleDeleteAccount = async () => {
     try {
       const memberId = localStorage.getItem('memberId'); // memberId 가져오기
@@ -88,6 +116,11 @@ export function EditProfile() {
   return (
     <>
       <h1>이미지 수정</h1>
+      <div>
+        <h1>프로필 이미지 변경</h1>
+        <input type="file" accept=".jpg, .png" onChange={handleImageChange} />
+        <button onClick={handleUpdateImage}>이미지 업데이트</button>
+      </div>
       <hr />
       <EditWrapper>
         <div>
