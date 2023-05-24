@@ -4,7 +4,6 @@ import { InputForm } from './Login';
 // eslint-disable-next-line import/named
 import { Modal } from './components/SignUpModal';
 import useStore from '../../default/useStore';
-import API from '../../API';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -49,7 +48,7 @@ function SignUpForm() {
 
   const handleCodeSend = async () => {
     try {
-      const response = await API.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/login/mailConfirm`,
         {
           email: email,
@@ -75,6 +74,12 @@ function SignUpForm() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <>
       <h1>회원가입</h1>
@@ -89,6 +94,7 @@ function SignUpForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력하세요"
               required
+              onKeyDown={handleKeyDown}
             />
             <button onClick={handleCodeSend} method="post">
               코드보내기
@@ -104,6 +110,7 @@ function SignUpForm() {
               onChange={handleSignUpNumberChange}
               placeholder="가입코드를 입력해주세요"
               required
+              onKeyDown={handleKeyDown}
             />
             <button onClick={handleVerification}>인증하기</button>
             {isCodeValid ? (
