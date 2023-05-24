@@ -40,6 +40,10 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
+    public boolean checkBookmarkExists(Member member, Til til) {
+        return bookmarkRepository.existsByMemberAndTil(member, til);
+    }
+
     public List<Bookmark> getBookmarksByMember(Member member) {
         return bookmarkRepository.findByMember(member);
     }

@@ -6,6 +6,7 @@ import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.entity.Til;
 import com.codestates.TILTILE.til.service.TilService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +27,35 @@ public class BookmarkController {
 
     @PostMapping("/member/{member-id}/til/{til-id}")
     public ResponseEntity<String> addBookmark(@PathVariable("member-id") Long memberId, @PathVariable("til-id") Long tilId) {
-        Member member = memberService.getMemberById(memberId);
-        Til til = tilService.getTilById(tilId);
+        try {
+            // 멤버와 TIL 존재 여부 확인
+            Member member = memberService.getMemberById(memberId);
+            if (member == null) {
+                String message = "멤버를 찾을 수 없습니다.";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
 
-        Bookmark bookmark = bookmarkService.addBookmark(member, til);
+            Til til = tilService.getTilById(tilId);
+            if (til == null) {
+                String message = "TIL을 찾을 수 없습니다.";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
 
-        String message = "북마크에 추가했습니다.";
+            // 북마크가 이미 존재하는지 확인
+            boolean isBookmarkExists = bookmarkService.checkBookmarkExists(member, til);
+            if (isBookmarkExists) {
+                String message = "이미 북마크에 추가된 항목입니다.";
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+            }
 
-        return ResponseEntity.ok(message);
+            Bookmark bookmark = bookmarkService.addBookmark(member, til);
+
+            String message = "북마크에 추가했습니다.";
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            String message = "북마크 추가 중에 오류가 발생했습니다.";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+        }
     }
 
     @DeleteMapping("/{bookmark-id}")
