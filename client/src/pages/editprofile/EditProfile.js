@@ -36,6 +36,7 @@ export function EditProfile() {
     fetch(url, {
       method: 'PATCH',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ newNickName }),
@@ -58,6 +59,7 @@ export function EditProfile() {
     fetch(url, {
       method: 'PATCH',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ newAboutMe }),
@@ -80,6 +82,7 @@ export function EditProfile() {
     fetch(url, {
       method: 'PATCH',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ newPassword }),
