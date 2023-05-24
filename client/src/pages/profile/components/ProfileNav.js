@@ -35,9 +35,6 @@ export function ProfileNav() {
         <NavLink to="/profile/bookmark">
           <TapMenu>북마크</TapMenu>
         </NavLink>
-        <NavLink to="/profile/followlist">
-          <TapMenu>팔로우목록</TapMenu>
-        </NavLink>
       </div>
     </Navbar>
   );
