@@ -74,7 +74,7 @@ const P = styled.p`
   font-weight: bold;
 `;
 
-function TilCard({ data }) {
+function TilCard({ data, memberId }) {
   const {
     tilId,
     tilTitle,
@@ -91,7 +91,11 @@ function TilCard({ data }) {
     <CardWrapper>
       <CardInfo>
         <P>{formattedDate}</P>
-        <TilBookmark checkBookmark={checkBookmark} />
+        <TilBookmark
+          checkBookmark={checkBookmark}
+          memberId={memberId}
+          tilId={tilId}
+        />
       </CardInfo>
       <Link to={`/til/${tilId}`}>
         <H2>{tilTitle}</H2>
