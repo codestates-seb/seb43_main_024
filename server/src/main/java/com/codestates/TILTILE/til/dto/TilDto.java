@@ -85,6 +85,7 @@ public class TilDto {
         private long tilViewCount;
         private LocalDateTime createdAt;
         private Timestamp modifiedAt;
+        private long memberId;
         private String memberNickname;
     }
 
