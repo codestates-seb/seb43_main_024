@@ -22,7 +22,7 @@ function TilEdit() {
 
   const [titleValue, setTitleValue] = useState('');
   const [value, setValue] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(null);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
 
@@ -32,7 +32,9 @@ function TilEdit() {
       if (postData) {
         setTitleValue(postData.tilTitle);
         setValue(postData.tilContent);
-        setIsPrivate(postData.tilStatus);
+        setIsPrivate(
+          postData.tilStatus !== undefined ? postData.tilStatus : false
+        ); // tilStatus 값이 undefined인 경우 기본값인 false로 설정
       }
     })();
   }, [getData, tilId]);
@@ -63,9 +65,8 @@ function TilEdit() {
       tilId: `${tilId}`,
       tilTitle: titleValue,
       tilContent: value,
-      tilStatus: isPrivate,
+      tilStatus: isPrivate === null ? false : isPrivate, // tilStatus 값이 null이면 기본값인 false로 설정
     };
-    console.log(updatedData);
     await updateData(tilId, updatedData); // 'tilId'를 인수로 전달하도록 수정
     closeModal();
     navigate(`/til/${updatedData.tilId}`);
