@@ -45,7 +45,6 @@ public class TilController {
             bookmarks = bookmarkService.getBookmarksByMember(member);
         } else {
             bookmarks = null;
-            System.out.println("bookmars is null");
         }
         pageResponseDto = tilService.findCards(pageable, bookmarks, searchKeyword, 16);
 
