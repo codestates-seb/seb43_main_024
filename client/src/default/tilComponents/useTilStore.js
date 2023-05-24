@@ -115,9 +115,14 @@ export const useBookmarkStore = create((set) => ({
   },
   addBookmarkData: async (memberId, tilId) => {
     try {
-      await API.post(
-        `${process.env.REACT_APP_API_URL}/bookmark/${memberId}/til/${tilId}`
-      );
+      const url = `${process.env.REACT_APP_API_URL}/bookmark/member/${memberId}/til/${tilId}`;
+
+      await API.post(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     } catch (error) {
       console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);
     }
