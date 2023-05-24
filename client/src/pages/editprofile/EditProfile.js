@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API from '../../API'; // API.js 파일의 경로에 맞게 import
 
 import styled from 'styled-components';
 
@@ -15,87 +16,53 @@ export function EditProfile() {
 
   // 값 변경 모음
 
-  const handleNickNameChange = (event) => {
-    setNewNickName(event.target.value);
+  const handleInputChange = (event, setter) => {
+    setter(event.target.value);
   };
 
-  const handleAboutMeChange = (event) => {
-    setNewAboutMe(event.target.value);
-  };
+  const handleUpdate = async () => {
+    try {
+      if (newNickName) {
+        await API.patch(
+          '/mypage/nickname',
+          { newNickName },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log('닉네임 업데이트 성공');
+      }
 
-  const handlePasswordChange = (event) => {
-    setNewPassword(event.target.value);
-  };
+      if (newAboutMe) {
+        await API.patch(
+          '/mypage/about-me',
+          { newAboutMe },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log('자기소개 업데이트 성공');
+      }
 
-  // api요청 모음
-
-  const handleUpdateNickName = () => {
-    const url = '/mypage/nickname';
-    const token = localStorage.getItem('token');
-
-    fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ newNickName }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 처리할 로직 작성
-        console.log('닉네임 업데이트 성공:', data);
-      })
-      .catch((error) => {
-        // 에러 처리 로직 작성
-        console.error('닉네임 업데이트 실패:', error);
-      });
-  };
-
-  const handleUpdateAboutMe = () => {
-    const url = '/mypage/about-me';
-    const token = localStorage.getItem('token');
-
-    fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ newAboutMe }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 처리할 로직 작성
-        console.log('자기소개 업데이트 성공:', data);
-      })
-      .catch((error) => {
-        // 에러 처리 로직 작성
-        console.error('자기소개 업데이트 실패:', error);
-      });
-  };
-
-  const handleUpdatePassword = () => {
-    const url = '/mypage/password';
-    const token = localStorage.getItem('token');
-
-    fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ newPassword }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 처리할 로직 작성
-        console.log('비밀번호 업데이트 성공:', data);
-      })
-      .catch((error) => {
-        // 에러 처리 로직 작성
-        console.error('비밀번호 업데이트 실패:', error);
-      });
+      if (newPassword) {
+        await API.patch(
+          '/mypage/password',
+          { newPassword },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log('비밀번호 업데이트 성공');
+      }
+    } catch (error) {
+      console.error('업데이트 실패:', error);
+    }
   };
 
   return (
@@ -104,20 +71,18 @@ export function EditProfile() {
         <h1>닉네임 변경</h1>
         <textarea
           value={newNickName}
-          onChange={handleNickNameChange}
+          onChange={(event) => handleInputChange(event, setNewNickName)}
           placeholder="변경할 닉네임"
         />
-        <button onClick={handleUpdateNickName}>업데이트</button>
       </div>
 
       <div>
         <h1>자기소개 변경</h1>
         <textarea
           value={newAboutMe}
-          onChange={handleAboutMeChange}
+          onChange={(event) => handleInputChange(event, setNewAboutMe)}
           placeholder="변경할 자기소개"
         />
-        <button onClick={handleUpdateAboutMe}>업데이트</button>
       </div>
 
       <div>
@@ -125,11 +90,12 @@ export function EditProfile() {
         <input
           type="password"
           value={newPassword}
-          onChange={handlePasswordChange}
+          onChange={(event) => handleInputChange(event, setNewPassword)}
           placeholder="변경할 비밀번호"
         />
-        <button onClick={handleUpdatePassword}>업데이트</button>
       </div>
+
+      <button onClick={handleUpdate}>업데이트</button>
     </EditWrapper>
   );
 }

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import API from '../../../API';
+import jwt_decode from 'jwt-decode';
 
 const UserProfileWrapper = styled.div`
   position: fixed;
@@ -31,8 +32,10 @@ export function UserProfile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const memberId = localStorage.getItem('memberId'); // 토큰의 값으로부터 Id를 가져온다.
-        const response = await axios.get(`/members/${memberId}`);
+        const token = localStorage.getItem('token');
+        const decodedToken = jwt_decode(token);
+        const memberId = decodedToken.memberId;
+        const response = await API.get(`/members/${memberId}`);
         const data = response.data;
         setProfileData(data);
         console.log('/profile에 대한 get요청이 완료되었습니다.');
@@ -48,7 +51,14 @@ export function UserProfile() {
 
   // null 에 대한 loading 처리
   if (!profileData) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <div>Loading...</div>;
+        <Link to="/editpass">
+          <button>정보수정</button>
+        </Link>
+      </>
+    );
   }
 
   return (

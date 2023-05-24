@@ -63,7 +63,6 @@ function SearchTil() {
       </TilFlexContainer>
       {data.length === 0 && <LoadingImage />}
       <TilList
-        data={data}
         currentPage={currentPage}
         totalPages={totalPages}
         fetchData={fetchData}
