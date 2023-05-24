@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
@@ -23,6 +22,7 @@ function TilWrite() {
   const navigate = useNavigate();
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
+  const memberId = localStorage.getItem('memberId');
 
   const handleOpenModal = () => {
     openModal({
@@ -59,7 +59,7 @@ function TilWrite() {
 
   const handleSubmit = async () => {
     const data = {
-      memberId: 1,
+      memberId: memberId,
       tilTitle: titleValue,
       tilContent: value,
       tilStatus: isPrivate,
@@ -74,6 +74,7 @@ function TilWrite() {
       navigate(-1); //! 이전페이지로 돌아가기, 추 후 작성한 게시글 페이지로 이동하도록 수정 필요
       //요청이 성공했을 때 처리
     } catch (error) {
+      console.log(memberId);
       console.log('Error: ', error); // 에러를 좀 더 자세하게 표시
       console.log('Error response: ', error.response); // 에러 응답 객체도 출력
       console.log('Error message: ', error.message); // errorMessage를 인쇄합니다.

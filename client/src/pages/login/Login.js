@@ -36,7 +36,6 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setLoginStatus } = useStore();
-  const { setCurrentUser } = useStore();
 
   const navigate = useNavigate();
 
@@ -55,9 +54,7 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      //(수정됨)
       const response = await API.post(
-        // eslint-disable-next-line no-undef
         `${process.env.REACT_APP_API_URL}/login`,
         {
           username: username,
@@ -66,19 +63,17 @@ function LoginForm() {
       );
       // 로컬스토리지에 저장하는 3개의 토큰
 
-      // (여기부터 수정됨)
-      // 서버에서 전달한 헤더의 Authorization에서 토큰 추출 (수정)
+      // 서버에서 전달한 헤더의 Authorization에서 토큰 추출
       const token = response.headers.authorization;
       // 헤더에 토큰이 있는 경우 로컬 스토리지에 저장
       if (token) {
         localStorage.setItem('token', token);
       }
-      // (여기까지)
 
       localStorage.setItem('username', username); // 이메일 정보
+
       // 로그인 상태
       setLoginStatus(true);
-      setCurrentUser(response.data);
       navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
