@@ -35,7 +35,6 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setLoginStatus } = useStore();
-  const { setCurrentUser } = useStore();
 
   const navigate = useNavigate();
 
@@ -54,10 +53,12 @@ function LoginForm() {
     e.preventDefault();
 
     try {
+
       const response = await handleSubmit(username, password);
 
       setLoginStatus(true);
       setCurrentUser(response);
+
       navigate('/profile');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');

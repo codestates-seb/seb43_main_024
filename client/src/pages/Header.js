@@ -11,8 +11,9 @@ import {
   NavLogo,
 } from '../default/styled';
 import useStore from '../default/useStore';
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect } from 'react';
+import API from '../API';
 
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
@@ -20,12 +21,12 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
+      await API.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
       localStorage.removeItem('token'); // 로컬 스토리지에서 액세스 토큰 삭제
       setLoginStatus(false);
 
       alert('로그아웃이 완료되었습니다.');
-      navigate('/account/login');
+      navigate('/');
       window.location.reload();
     } catch (error) {
       console.error(error);
