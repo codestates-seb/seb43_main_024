@@ -43,23 +43,28 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String provider = token.getAuthorizedClientRegistrationId();  // provider 구분 값
 
         String providerId = "";
+        String profileImageURL = null;
+
         if (provider.equals("google")) {
             providerId = String.valueOf(oAuth2User.getAttributes().get("sub")); // Google에서 제공하는 사용자 ID
+            profileImageURL = String.valueOf(oAuth2User.getAttributes().get("picture"));
         } else if (provider.equals("github")) {
             providerId = String.valueOf(oAuth2User.getAttributes().get("id"));
+            profileImageURL = String.valueOf(oAuth2User.getAttributes().get("avatar_url"));
         }
+
 
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // (3)
         List<String> authorities = authorityUtils.createRoles(email);           // (4)
 
         String name = String.valueOf(oAuth2User.getAttributes().get("name"));
 
-        saveMember(email, name, provider, providerId);  // (5)
+        saveMember(email, name, profileImageURL, provider, providerId);  // (5)
         redirect(request, response, email, authorities);  // (6)
     }
 
-    private void saveMember(String email, String name, String provider, String providerId) {
-        memberService.oauth2CreateMember(email, name, provider, providerId);
+    private void saveMember(String email, String name, String profileImageURL,String provider, String providerId) {
+        memberService.oauth2CreateMember(email, name, profileImageURL,provider, providerId);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
@@ -107,6 +112,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
+//                .host("ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com")
                 .host("localhost")
 //                .port(80)
                 .path("/receive-token.html") //
