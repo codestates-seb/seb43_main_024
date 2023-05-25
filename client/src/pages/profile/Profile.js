@@ -2,13 +2,14 @@ import { Outlet } from 'react-router-dom';
 import { UserProfile } from './components/UserProfile';
 import styled from 'styled-components';
 import { ProfileNav } from './components/ProfileNav';
+import { InnerWrapper } from '../../default/styled';
 
 const PageWrapper = styled.div`
-  position: relative;
-  displat: flex;
-  width: 100%;
+  position: absolute;
+  display: flex;
+  width: 905px;
   height: 100vh;
-  top: 110px;
+  top: 155px;
   left: 355px;
   box-sizing: border-box;
 `;
@@ -25,7 +26,7 @@ const ProfileContents = styled.div`
 
 function Profile() {
   return (
-    <>
+    <InnerWrapper>
       <UserProfile />
       <ProfileNav />
       <PageWrapper>
@@ -35,7 +36,7 @@ function Profile() {
           </ProfileContents>
         </ContentsPosition>
       </PageWrapper>
-    </>
+    </InnerWrapper>
   );
 }
 

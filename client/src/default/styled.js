@@ -22,6 +22,7 @@ export const InnerWrapper = styled.div`
       box-sizing: border-box;
       margin: 0 auto;
       padding: 80px 0;
+      position: relative;
     `}
   /* 헤더의 경우 InnerWrapper 스타일 */
   ${(props) =>
@@ -608,4 +609,84 @@ export const SendBtn = styled.button`
   top: 19px;
   color: var(--brand-color);
   font-weight: bold;
+`;
+
+/**
+ * @MyPage
+ */
+
+export const Navbar = styled.nav`
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  width: 905px;
+  position: absolute;
+  left: 355px;
+  padding-left: 60px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const UserProfileWrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 355px;
+  height: 100%;
+  padding: 60px 30px;
+  box-sizing: border-box;
+
+  background: white;
+  background: #ffffff;
+  border-right: 1px solid #ededed;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+    left: -354px;
+  }
+
+  & .flexCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & .user-photo {
+    width: 150px;
+    border-radius: 100%;
+  }
+
+  h2 {
+    margin: 32px;
+  }
+
+  p {
+    border-top: 1px solid #e3e3e3;
+    padding-top: 40px;
+    text-align: justify;
+  }
+
+  button {
+    color: #888;
+    padding-bottom: 60px;
+
+    & > img {
+      margin-right: 4px;
+    }
+  }
 `;
