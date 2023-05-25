@@ -37,6 +37,7 @@ public interface TilMapper {
 
         til.setTilTitle(post.getTilTitle() );
         til.setTilContent(post.getTilContent() );
+        til.setTilStatus(post.getTilStatus()); // 틸 상태 추가
         til.setMember(member);
 
         return til;
