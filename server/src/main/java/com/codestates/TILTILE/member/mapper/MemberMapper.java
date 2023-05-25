@@ -43,6 +43,7 @@ public interface MemberMapper {
         getResponse.setModifiedAt(til.getModifiedAt());
         getResponse.setMemberId(til.getMember().getMemberId());
         getResponse.setMemberNickname(til.getMember().getNickName());
+        getResponse.setMemberProfileImage(til.getMember().getProfileImage());
 
         return getResponse;
     }
