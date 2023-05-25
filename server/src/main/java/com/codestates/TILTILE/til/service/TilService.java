@@ -98,7 +98,7 @@ public class TilService {
         findTil.setTilViewCount(findTil.getTilViewCount()+1);
 
 //        tilRepository.save(findTil); 더티체킹
-        return tilMapper.tilToGetReponse(findTil);
+        return tilMapper.tilToGetResponse(findTil);
     }
 
 

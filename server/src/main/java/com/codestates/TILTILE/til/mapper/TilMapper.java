@@ -86,7 +86,7 @@ public interface TilMapper {
         return pageResponseDto;
     }
 
-    default TilDto.getResponse tilToGetReponse(Til til) {
+    default TilDto.getResponse tilToGetResponse(Til til) {
         if (til == null) {
             return null;
         }
@@ -95,7 +95,6 @@ public interface TilMapper {
         getResponse.setTilId(til.getTilId());
         getResponse.setTilTitle(til.getTilTitle());
         getResponse.setTilContent(til.getTilContent());
-        getResponse.setTilViewCount(til.getTilViewCount());
         getResponse.setTilViewCount(til.getTilViewCount());
         getResponse.setCreatedAt(til.getCreatedAt());
         getResponse.setModifiedAt(til.getModifiedAt());
