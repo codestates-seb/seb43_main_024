@@ -5,12 +5,12 @@ import useStore from '../../default/useStore';
 import styled from 'styled-components';
 import {
   TilWrapper,
-  // PreNextButton,
   GrayOutlineBtns,
   GrayFilledBtns,
 } from '../../default/styled';
 import PostContent from './components/PostContent';
 import WarningIcon from '../../default/image/icoWarning.svg';
+import HotTilTop from '../tillist/component/HotTilTop';
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -27,33 +27,6 @@ const Button = styled.button`
     color: var(--color-darkgreen);
   }
 `;
-
-// const PreNextWrapper = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin: 45px 0px 100px;
-// `;
-
-// const PostButtonWrapper = styled.div`
-//   display: flex;
-//   align-items: center;
-// `;
-
-// const PreContainer = styled(PostButtonWrapper)`
-//   flex-direction: column;
-//   margin-left: 13px;
-// `;
-
-// const NextContainer = styled(PreContainer)`
-//   margin: 0px 13px 0px 0px;
-// `;
-
-// const P = styled.p`
-//   margin-top: 7px;
-//   font-size: 15px;
-//   color: var(--color-black);
-// `;
 
 function TilPost() {
   const { tilId } = useParams();
@@ -102,21 +75,26 @@ function TilPost() {
   }
 
   return (
-    <TilWrapper>
+    <div>
+      <TilWrapper>
+        <div>
+          {tilData && tilData.memberId && tilData.memberId === memberId && (
+            <ButtonWrapper>
+              <Link to={`/edit/${tilId}`}>
+                <Button type="button">수정</Button>
+              </Link>
+              <Button type="button" onClick={handleOpenModal}>
+                삭제
+              </Button>
+            </ButtonWrapper>
+          )}
+          {tilData && <PostContent data={tilData} />}
+        </div>
+      </TilWrapper>
       <div>
-        {tilData && tilData.memberId && tilData.memberId === memberId && (
-          <ButtonWrapper>
-            <Link to={`/edit/${tilId}`}>
-              <Button type="button">수정</Button>
-            </Link>
-            <Button type="button" onClick={handleOpenModal}>
-              삭제
-            </Button>
-          </ButtonWrapper>
-        )}
-        {tilData && <PostContent data={tilData} />}
+        <HotTilTop />
       </div>
-    </TilWrapper>
+    </div>
   );
 }
 
