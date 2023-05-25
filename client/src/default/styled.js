@@ -84,6 +84,20 @@ export const OutlineBtns = styled.button`
   ${OutlineBtnsStyle};
 `;
 
+/* 취소버튼 */
+export const GetBackBtn = styled(NavLink)`
+  ${OutlineBtnsStyle};
+  border: 1px solid #ccc;
+  color: #555;
+  background-color: #e8e8e8;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: #f6f6f6;
+    color: #888;
+  }
+`;
+
 export const Tags = styled.span`
   font-size: 12px;
   display: inline-block;
@@ -481,6 +495,11 @@ export const AccountWrapper = styled.div`
   height: calc(100vh - 64px);
   box-sizing: border-box;
   background: #edf8f1;
+  ${(props) =>
+    props.bgGray &&
+    css`
+      background-color: #f8f8f8;
+    `}
 `;
 
 export const LoginWrap = styled.div`
@@ -492,6 +511,17 @@ export const LoginWrap = styled.div`
   border-radius: 8px;
   box-sizing: border-box;
   padding: 40px;
+  ${(props) =>
+    props.autoHeight &&
+    css`
+      min-height: auto;
+    `}
+  ${(props) =>
+    props.mypage &&
+    css`
+      min-height: auto;
+      min-width: 660px;
+    `}
 `;
 
 export const JoinBox = styled.div`
@@ -540,7 +570,8 @@ export const InputForm = styled.div`
   align-items: stretch;
   padding: 32px 0;
 
-  input {
+  input,
+  textarea {
     width: 100%;
     padding-top: 20px;
     border-left-width: 0;
@@ -550,7 +581,8 @@ export const InputForm = styled.div`
     padding-bottom: 8px;
     margin-bottom: 18px;
   }
-  input:focus {
+  input:focus,
+  textarea:focus {
     outline: none;
     border-bottom: 2px solid var(--brand-color);
   }
@@ -624,9 +656,9 @@ export const Navbar = styled.nav`
   z-index: 1;
   box-sizing: border-box;
   display: flex;
-  width: 905px;
+  width: 1005px;
   position: absolute;
-  left: 355px;
+  left: 255px;
   padding-left: 60px;
 
   div {
@@ -645,9 +677,9 @@ export const UserProfileWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 355px;
+  width: 255px;
   height: 100%;
-  padding: 60px 30px;
+  padding: 60px 30px 60px 0;
   box-sizing: border-box;
 
   background: white;
@@ -656,13 +688,13 @@ export const UserProfileWrapper = styled.div`
 
   &::after {
     content: '';
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background: #ffffff;
     position: absolute;
     z-index: 0;
     top: 0px;
-    left: -354px;
+    right: 254px;
   }
 
   & .flexCenter {
@@ -693,5 +725,52 @@ export const UserProfileWrapper = styled.div`
     & > img {
       margin-right: 4px;
     }
+  }
+`;
+
+export const PageWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  width: 1005px;
+  min-height: 500px;
+  top: 155px;
+  left: 255px;
+  box-sizing: border-box;
+`;
+
+export const ContentsPosition = styled.div`
+  width: 1005px;
+  padding: 0px 0 0 60px;
+  box-sizing: border-box;
+`;
+
+export const ProfileContents = styled.div`
+  box-sizing: border-box;
+`;
+
+/**
+ * @EditProfile
+ */
+
+export const EditProfileBox = styled.div`
+  margin-top: 20px;
+  span {
+    font-size: 11px;
+    color: #222;
+    position: relative;
+    top: 6px;
+    z-index: 1;
+  }
+  & .grayTxt {
+    font-size: 11px;
+    color: #888;
+    margin-top: 32px;
+    float: right;
+  }
+  & .right {
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 12px;
   }
 `;
