@@ -148,7 +148,23 @@ export function EditProfile() {
       localStorage.removeItem('token');
       localStorage.removeItem('memberId');
       localStorage.removeItem('username');
-      navigate('/main'); // 회원 탈퇴 후 로그인 페이지로 이동
+      openModal({
+        icon: <img src={WarningIcon} alt="경고 아이콘" />,
+        title: '탈퇴가 완료 되었습니다.',
+        content: '다음에 또 만나요!',
+        buttons: [
+          <GrayFilledBtns
+            key="Button"
+            onClick={() => {
+              closeModal(); // 회원 탈퇴 후 로그인 페이지로 이동
+              navigate('/');
+              window.location.reload();
+            }}
+          >
+            메인으로 돌아가기
+          </GrayFilledBtns>,
+        ],
+      });
     } catch (error) {
       console.error('회원 탈퇴 실패:', error);
     }
@@ -163,7 +179,7 @@ export function EditProfile() {
         <GrayOutlineBtns key="cancelButton" onClick={closeModal}>
           취소
         </GrayOutlineBtns>,
-        <GrayFilledBtns key="confirmButton" onClick={handleDeleteAccount}>
+        <GrayFilledBtns key="Button" onClick={handleDeleteAccount}>
           확인
         </GrayFilledBtns>,
       ],
@@ -211,6 +227,7 @@ export function EditProfile() {
         <button onClick={handleUpdate}>업데이트</button>
       </EditWrapper>
       <button onClick={handleOpenModalDeleteAccount}>회원탈퇴</button>
+
       <hr />
     </>
   );
