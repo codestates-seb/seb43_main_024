@@ -6,17 +6,12 @@ const Navbar = styled.nav`
   position: fixed;
   left: 355px;
   top: 60px;
-  padding-left: 60px;
-  padding-top: 40px;
-
+  padding-left: 65px;
+  padding-top: 100px;
   width: 100%;
   height: 90px;
-
   z-index: 1;
-
   box-sizing: border-box;
-
-  background: #f8f8f8;
 
   div {
     display: flex;
