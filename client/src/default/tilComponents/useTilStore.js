@@ -164,11 +164,11 @@ export const useMyTilStore = create((set, get) => ({
   endPage: 0,
 
   myTilData: async (page, url) => {
-    console.log(url);
     try {
       set({ isLoading: true, currentPage: page });
       const { pageSize } = get();
       const response = await API.get(`${url}?page=${page}&size=${pageSize}`);
+      console.log(response);
       const { cards, totalElements, totalPages, startPage, endPage } =
         response.data;
       set({
@@ -188,6 +188,46 @@ export const useMyTilStore = create((set, get) => ({
     }
   },
   //현재 페이지 정보를 업데이트
+  setCurrentPage: (page) => {
+    set({ currentPage: page });
+  },
+}));
+
+export const useMyBookmarkStore = create((set, get) => ({
+  data: [],
+  isLoading: false,
+  currentPage: 1,
+  pageSize: 12,
+  totalElements: 0,
+  totalPages: 0,
+  startPage: 0,
+  endPage: 0,
+
+  myBookmarkData: async (page, url) => {
+    console.log(url);
+    try {
+      set({ isLoading: true, currentPage: page });
+      const { pageSize } = get();
+      const response = await API.get(`${url}?page=${page}&size=${pageSize}`);
+      console.log(response);
+      const { bookmarks, totalElements, totalPages, startPage, endPage } =
+        response.data;
+      set({
+        data: bookmarks,
+        totalElements,
+        totalPages,
+        endPage,
+        startPage,
+        isLoading: false,
+      });
+    } catch (error) {
+      console.error(
+        `${page}페이지 데이터를 가져오는 중에 오류가 발생했습니다:`,
+        error
+      );
+      set({ isLoading: false });
+    }
+  },
   setCurrentPage: (page) => {
     set({ currentPage: page });
   },
