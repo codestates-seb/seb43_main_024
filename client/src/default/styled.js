@@ -494,6 +494,11 @@ export const JoinBox = styled.div`
   }
   & a {
     color: var(--brand-color);
+    margin-left: 4px;
+  }
+  & a:hover {
+    color: var(--brand-color);
+    font-weight: bold;
   }
   & > span {
     display: block;
@@ -537,7 +542,7 @@ export const InputForm = styled.div`
     border-top-width: 0;
     border-bottom: 1px solid #ccc;
     padding-bottom: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
   input:focus {
     outline: none;
@@ -580,4 +585,27 @@ export const OAuthBtn = styled.a`
     css`
       background: #fff;
     `}
+`;
+
+export const AuthInput = styled.div`
+  position: relative;
+  & p {
+    position: absolute;
+    bottom: 2px;
+    font-size: 12px;
+  }
+  .ok {
+    color: var(--brand-color);
+  }
+  .no {
+    color: #d83f36;
+  }
+`;
+
+export const SendBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 19px;
+  color: var(--brand-color);
+  font-weight: bold;
 `;

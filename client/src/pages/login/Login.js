@@ -67,9 +67,9 @@ function LoginForm() {
   return (
     <JoinBox>
       <div>
-        <h2>로그인</h2>
+        <h1>로그인</h1>
         <p>아직 회원이 아니신가요?</p>
-        <Link to="/signup"> 회원가입</Link>
+        <Link to="/signup">회원가입</Link>
       </div>
 
       <InputForm>
