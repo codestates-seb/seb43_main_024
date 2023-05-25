@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { InputForm } from './Login';
 // eslint-disable-next-line import/named
 import { Modal } from './components/SignUpModal';
 import useStore from '../../default/useStore';
+import { Link } from 'react-router-dom';
+import {
+  InputForm,
+  JoinBox,
+  FilledBtns,
+  SendBtn,
+  AuthInput,
+} from '../../default/styled';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -81,11 +88,15 @@ function SignUpForm() {
   };
 
   return (
-    <>
-      <h1>회원가입</h1>
+    <JoinBox>
+      <div>
+        <h1>회원가입</h1>
+        <p>계정이 이미 있으신가요?</p>
+        <Link to="/account/login">로그인</Link>
+      </div>
       <InputForm>
         <form onSubmit={handleSignUp} method="post">
-          <div>
+          <AuthInput>
             <input
               type="email"
               id="email"
@@ -96,12 +107,12 @@ function SignUpForm() {
               required
               onKeyDown={handleKeyDown}
             />
-            <button onClick={handleCodeSend} method="post">
+            <SendBtn onClick={handleCodeSend} method="post">
               코드보내기
-            </button>
-          </div>
+            </SendBtn>
+          </AuthInput>
 
-          <div>
+          <AuthInput>
             <input
               type="text"
               id="signupnumber"
@@ -112,13 +123,13 @@ function SignUpForm() {
               required
               onKeyDown={handleKeyDown}
             />
-            <button onClick={handleVerification}>인증하기</button>
+            <SendBtn onClick={handleVerification}>인증하기</SendBtn>
             {isCodeValid ? (
-              <p>유효한 가입코드입니다.</p>
+              <p className="ok">유효한 가입코드입니다.</p>
             ) : (
-              <p>유효하지 않은 가입코드입니다.</p>
+              <p className="no">유효하지 않은 가입코드입니다.</p>
             )}
-          </div>
+          </AuthInput>
 
           <div>
             <input
@@ -161,14 +172,15 @@ function SignUpForm() {
           </div>
 
           {errorMessage && <div className="error-message">{errorMessage}</div>}
-
-          <button type="submit" method="post">
-            회원가입
-          </button>
         </form>
+        <div className="right">
+          <FilledBtns type="submit" method="post">
+            회원가입
+          </FilledBtns>
+        </div>
       </InputForm>
       {showModal ? <Modal /> : null}
-    </>
+    </JoinBox>
   );
 }
 

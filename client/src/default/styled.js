@@ -463,3 +463,149 @@ export const GreenOutlineBtns = styled.button`
   }
 `;
 /* ---- */
+
+/**
+ * @loginStyle
+ */
+export const AccountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  background: #edf8f1;
+`;
+
+export const LoginWrap = styled.div`
+  background: white;
+  min-width: 420px;
+  min-height: 357px;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 40px;
+`;
+
+export const JoinBox = styled.div`
+  & p {
+    display: inline-block;
+  }
+  & a {
+    color: var(--brand-color);
+    margin-left: 4px;
+  }
+  & a:hover {
+    color: var(--brand-color);
+    font-weight: bold;
+  }
+  & > span {
+    display: block;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    color: #888;
+  }
+  & > span::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 0;
+    width: 90px;
+    height: 1px;
+    background-color: #ccc;
+  }
+  & > span::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 90px;
+    height: 1px;
+    background-color: #ccc;
+  }
+`;
+
+export const InputForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: stretch;
+  padding: 32px 0;
+
+  input {
+    width: 100%;
+    padding-top: 20px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--brand-color);
+  }
+
+  .right {
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: right;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+export const OauthBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`;
+
+export const OAuthBtn = styled.a`
+  color: white !important;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #f5f5f5;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.05);
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  ${(props) => props.google && css``}
+  ${(props) =>
+    props.github &&
+    css`
+      background: #fff;
+    `}
+`;
+
+export const AuthInput = styled.div`
+  position: relative;
+  & p {
+    position: absolute;
+    bottom: 2px;
+    font-size: 12px;
+  }
+  .ok {
+    color: var(--brand-color);
+  }
+  .no {
+    color: #d83f36;
+  }
+`;
+
+export const SendBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 19px;
+  color: var(--brand-color);
+  font-weight: bold;
+`;

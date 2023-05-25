@@ -1,35 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+  JoinBox,
+  FilledBtns,
+  InputForm,
+  OAuthBtn,
+  OauthBox,
+} from '../../default/styled';
 import useStore from '../../default/useStore';
 import API from '../../API';
+import logoGoogle from '../../default/image/google-logo.svg';
+import logoGithub from '../../default/image/github-mark.svg';
 
 // import { HeaderLink } from '../../default/styled';
 axios.defaults.withCredentials = true;
-
-export const InputForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  alight-items: stretch;
-
-  input {
-    width: 100%;
-    padding-top: 20px;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 1;
-  }
-
-  .right {
-    display: flex;
-    flex-direction: row-reverse;
-    text-align: right;
-    flex-direction: column;
-  }
-`;
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -80,9 +65,9 @@ function LoginForm() {
   };
 
   return (
-    <>
+    <JoinBox>
       <div>
-        <h2>로그인</h2>
+        <h1>로그인</h1>
         <p>아직 회원이 아니신가요?</p>
         <Link to="/signup">회원가입</Link>
       </div>
@@ -108,18 +93,30 @@ function LoginForm() {
             />
           </div>
           <div className="right">
-            <button type="submit">로그인</button>
+
+            <FilledBtns type="submit">로그인</FilledBtns>
+            {/* <p>계정을 잃어버리셨나요? 계정찾기</p> */}
+
           </div>
         </form>
       </InputForm>
-      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
-        구글로 로그인
-      </a>
-      <br />
-      <a href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/github">
-        GitHub 로그인
-      </a>
-    </>
+
+      <span>간편하게 SNS 로그인</span>
+      <OauthBox>
+        <OAuthBtn
+          google
+          href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
+        >
+          <img src={logoGoogle} alt="구글로고" />
+        </OAuthBtn>
+        <OAuthBtn
+          github
+          href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/github"
+        >
+          <img src={logoGithub} alt="구글로고" />
+        </OAuthBtn>
+      </OauthBox>
+    </JoinBox>
   );
 }
 
