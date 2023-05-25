@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -74,7 +73,7 @@ function LoginForm() {
 
       // 로그인 상태
       setLoginStatus(true);
-      navigate('/profile');
+      navigate('/profile/mytil');
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
     }

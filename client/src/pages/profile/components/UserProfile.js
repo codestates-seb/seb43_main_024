@@ -1,7 +1,8 @@
-import { HeaderLink } from '../../../default/styled';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../../API';
+import jwt_decode from 'jwt-decode';
 
 const UserProfileWrapper = styled.div`
   position: fixed;
@@ -31,7 +32,10 @@ export function UserProfile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/profile');
+        const token = localStorage.getItem('token');
+        const decodedToken = jwt_decode(token);
+        const memberId = decodedToken.memberId;
+        const response = await API.get(`/members/${memberId}`);
         const data = response.data;
         setProfileData(data);
         console.log('/profile에 대한 get요청이 완료되었습니다.');
@@ -47,17 +51,31 @@ export function UserProfile() {
 
   // null 에 대한 loading 처리
   if (!profileData) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <div>Loading...</div>;
+        <Link to="/editpass">
+          <button>정보수정</button>
+        </Link>
+      </>
+    );
   }
 
   return (
     <UserProfileWrapper>
-      <img src={profileData.profilePicture} alt="user profile" />
+      <img
+        src={profileData.img ? profileData.img : '/defaultprofile.png'}
+        alt="user profile"
+      />
       <h2>{profileData.nickName}</h2>
-      <h4>{profileData.rank}</h4>
-      {/* TODO: 팔로우 리스트에 추가되어있다면 팔로우 헤제로 조건 렌더링 */}
-      <HeaderLink>+팔로우</HeaderLink>
-      <p>{profileData.about_me}</p>
+      <p>
+        {profileData.aboutMe
+          ? profileData.aboutMe
+          : `저는 개발자가 되기위한 ${profileData.nickName} 입니다`}
+      </p>
+      <Link to="/editpass">
+        <button>정보수정</button>
+      </Link>
     </UserProfileWrapper>
   );
 }

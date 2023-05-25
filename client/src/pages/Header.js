@@ -27,6 +27,8 @@ function Header() {
       setLoginStatus(false);
 
       alert('로그아웃이 완료되었습니다.');
+      localStorage.removeItem('token');
+      localStorage.removeItem('memberId');
       navigate('/');
       window.location.reload();
     } catch (error) {
@@ -82,7 +84,7 @@ function Header() {
           {isLogin ? (
             <>
               <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
-              <HeaderLink to="/profile" userInfo>
+              <HeaderLink to="/profile/mytil" userInfo>
                 <UserPic></UserPic>
                 <span>{`${isLogin}`}</span>
               </HeaderLink>

@@ -16,7 +16,9 @@ import SignUpForm from './pages/login/Members';
 // profile 컴포넌트
 import { Profile } from './pages/profile/Profile';
 import { Bookmark } from './pages/profile/components/Bookmark';
-import { FollowList } from './pages/profile/components/Followlist';
+import { EditProfile } from './pages/editprofile/EditProfile';
+import { EditPass } from './pages/editprofile/EditPass';
+// import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 // TilWrite 컴포넌트
 import TilWrite from './pages/tilwrite/TilWrite';
@@ -65,9 +67,12 @@ function App() {
           {/* 프로필 화면 */}
           <Route path="/profile" element={<Profile />}>
             <Route path="bookmark" element={<Bookmark />} />
-            <Route path="followlist" element={<FollowList />} />
             <Route path="mytil" element={<MyTIL />} />
           </Route>
+
+          <Route path="/editpass" element={<EditPass />} />
+          <Route path="/editprofile" element={<EditProfile />} />
+
           <Route path="/write" element={<TilWrite />} />
           <Route path="/edit/:tilId" element={<TilEdit />} />
           <Route path="/til/:tilId" element={<TilPost />} />
