@@ -4,15 +4,18 @@ import API from '../../API'; // API.js 파일의 경로에 맞게 import
 import useStore from '../../default/useStore';
 import WarningIcon from '../../default/image/icoWarning.svg';
 import CheckIcon from '../../default/image/icoCheck.svg';
-import { GrayOutlineBtns, GrayFilledBtns } from '../../default/styled';
-
-import styled from 'styled-components';
-
-const EditWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import {
+  GrayOutlineBtns,
+  GrayFilledBtns,
+  EditProfileBox,
+  LoginWrap,
+  AccountWrapper,
+  InputForm,
+  AuthInput,
+  SendBtn,
+  FilledBtns,
+  GetBackBtn,
+} from '../../default/styled';
 
 export function EditProfile() {
   const [newNickName, setNewNickName] = useState('');
@@ -187,48 +190,58 @@ export function EditProfile() {
   };
 
   return (
-    <>
-      <div>
-        <h1>프로필 이미지 변경</h1>
-        <input type="file" accept=".jpg, .png" onChange={handleImageChange} />
-        <button onClick={handleUpdateImage}>이미지 업데이트</button>
-      </div>
+    <AccountWrapper bgGray>
+      <LoginWrap mypage>
+        <InputForm>
+          <h1>내 정보 수정</h1>
+          <EditProfileBox>
+            <span>프로필 이미지 변경</span>
+            <AuthInput>
+              <input
+                type="file"
+                accept=".jpg, .png"
+                onChange={handleImageChange}
+              />
+              <SendBtn onClick={handleUpdateImage}>이미지 업데이트</SendBtn>
+            </AuthInput>
 
-      <hr />
+            <span>닉네임 변경</span>
+            <AuthInput>
+              <input
+                value={newNickName}
+                onChange={(event) => handleInputChange(event, setNewNickName)}
+                placeholder="변경할 닉네임"
+              />
+            </AuthInput>
 
-      <EditWrapper>
-        <div>
-          <h1>닉네임 변경</h1>
-          <input
-            value={newNickName}
-            onChange={(event) => handleInputChange(event, setNewNickName)}
-            placeholder="변경할 닉네임"
-          />
-        </div>
+            <span>자기소개 변경</span>
+            <AuthInput>
+              <textarea
+                value={newAboutMe}
+                onChange={(event) => handleInputChange(event, setNewAboutMe)}
+                placeholder="변경할 자기소개"
+              />
+            </AuthInput>
 
-        <div>
-          <h1>자기소개 변경</h1>
-          <textarea
-            value={newAboutMe}
-            onChange={(event) => handleInputChange(event, setNewAboutMe)}
-            placeholder="변경할 자기소개"
-          />
-        </div>
-
-        <div>
-          <h1>비밀번호 변경</h1>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(event) => handleInputChange(event, setNewPassword)}
-            placeholder="변경할 비밀번호"
-          />
-        </div>
-        <button onClick={handleUpdate}>업데이트</button>
-      </EditWrapper>
-      <button onClick={handleOpenModalDeleteAccount}>회원탈퇴</button>
-
-      <hr />
-    </>
+            <span>비밀번호 변경</span>
+            <AuthInput>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(event) => handleInputChange(event, setNewPassword)}
+                placeholder="변경할 비밀번호"
+              />
+            </AuthInput>
+            <div className="right">
+              <GetBackBtn to="/profile/mytil">취소하기</GetBackBtn>
+              <FilledBtns onClick={handleUpdate}>업데이트</FilledBtns>
+            </div>
+            <button className="grayTxt" onClick={handleOpenModalDeleteAccount}>
+              회원탈퇴
+            </button>
+          </EditProfileBox>
+        </InputForm>
+      </LoginWrap>
+    </AccountWrapper>
   );
 }

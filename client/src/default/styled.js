@@ -22,6 +22,7 @@ export const InnerWrapper = styled.div`
       box-sizing: border-box;
       margin: 0 auto;
       padding: 80px 0;
+      position: relative;
     `}
   /* 헤더의 경우 InnerWrapper 스타일 */
   ${(props) =>
@@ -81,6 +82,20 @@ export const FilledBtns = styled.button`
 /* <OutlineBtns /> 형태로 사용하기 위한 코드 */
 export const OutlineBtns = styled.button`
   ${OutlineBtnsStyle};
+`;
+
+/* 취소버튼 */
+export const GetBackBtn = styled(NavLink)`
+  ${OutlineBtnsStyle};
+  border: 1px solid #ccc;
+  color: #555;
+  background-color: #e8e8e8;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: #f6f6f6;
+    color: #888;
+  }
 `;
 
 export const Tags = styled.span`
@@ -291,6 +306,11 @@ export const NavLogo = styled.div`
 export const TilWrapper = styled(InnerWrapper)`
   padding: 0;
   margin-top: 40px;
+
+  & > h1 {
+    margin-top: 80px;
+    text-align: center;
+  }
 `;
 
 export const TilFlexContainer = styled.section`
@@ -475,6 +495,11 @@ export const AccountWrapper = styled.div`
   height: calc(100vh - 64px);
   box-sizing: border-box;
   background: #edf8f1;
+  ${(props) =>
+    props.bgGray &&
+    css`
+      background-color: #f8f8f8;
+    `}
 `;
 
 export const LoginWrap = styled.div`
@@ -486,6 +511,17 @@ export const LoginWrap = styled.div`
   border-radius: 8px;
   box-sizing: border-box;
   padding: 40px;
+  ${(props) =>
+    props.autoHeight &&
+    css`
+      min-height: auto;
+    `}
+  ${(props) =>
+    props.mypage &&
+    css`
+      min-height: auto;
+      min-width: 660px;
+    `}
 `;
 
 export const JoinBox = styled.div`
@@ -534,7 +570,8 @@ export const InputForm = styled.div`
   align-items: stretch;
   padding: 32px 0;
 
-  input {
+  input,
+  textarea {
     width: 100%;
     padding-top: 20px;
     border-left-width: 0;
@@ -544,7 +581,8 @@ export const InputForm = styled.div`
     padding-bottom: 8px;
     margin-bottom: 18px;
   }
-  input:focus {
+  input:focus,
+  textarea:focus {
     outline: none;
     border-bottom: 2px solid var(--brand-color);
   }
@@ -608,4 +646,131 @@ export const SendBtn = styled.button`
   top: 19px;
   color: var(--brand-color);
   font-weight: bold;
+`;
+
+/**
+ * @MyPage
+ */
+
+export const Navbar = styled.nav`
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  width: 1005px;
+  position: absolute;
+  left: 255px;
+  padding-left: 60px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const UserProfileWrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 255px;
+  height: 100%;
+  padding: 60px 30px 60px 0;
+  box-sizing: border-box;
+
+  background: white;
+  background: #ffffff;
+  border-right: 1px solid #ededed;
+
+  &::after {
+    content: '';
+    width: 100vw;
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+    right: 254px;
+  }
+
+  & .flexCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & .user-photo {
+    width: 150px;
+    border-radius: 100%;
+  }
+
+  h2 {
+    margin: 32px;
+  }
+
+  p {
+    border-top: 1px solid #e3e3e3;
+    padding-top: 40px;
+    text-align: justify;
+  }
+
+  button {
+    color: #888;
+    padding-bottom: 60px;
+
+    & > img {
+      margin-right: 4px;
+    }
+  }
+`;
+
+export const PageWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  width: 1005px;
+  min-height: 500px;
+  top: 155px;
+  left: 255px;
+  box-sizing: border-box;
+`;
+
+export const ContentsPosition = styled.div`
+  width: 1005px;
+  padding: 0px 0 0 60px;
+  box-sizing: border-box;
+`;
+
+export const ProfileContents = styled.div`
+  box-sizing: border-box;
+`;
+
+/**
+ * @EditProfile
+ */
+
+export const EditProfileBox = styled.div`
+  margin-top: 20px;
+  span {
+    font-size: 11px;
+    color: #222;
+    position: relative;
+    top: 6px;
+    z-index: 1;
+  }
+  & .grayTxt {
+    font-size: 11px;
+    color: #888;
+    margin-top: 32px;
+    float: right;
+  }
+  & .right {
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 12px;
+  }
 `;

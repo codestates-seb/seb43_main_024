@@ -1,6 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import API from '../../API';
+import {
+  AccountWrapper,
+  LoginWrap,
+  InputForm,
+  FilledBtns,
+  JoinBox,
+} from '../../default/styled';
 
 export function EditPass() {
   const [username, setUsername] = useState('');
@@ -30,19 +37,31 @@ export function EditPass() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} method="post">
-        <div>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="비밀번호를 입력하세요. (최소 8자 이상, 영문+숫자 조합)"
-            required
-          />
-        </div>
-        <button type="submit">제출하기</button>
-      </form>
-    </>
+    <AccountWrapper bgGray>
+      <LoginWrap autoHeight>
+        <JoinBox>
+          <div>
+            <h1>인증 센터</h1>
+            <p>현재 사용중인 비밀번호를 먼저 입력해 주세요.</p>
+          </div>
+        </JoinBox>
+        <InputForm>
+          <form onSubmit={handleSubmit} method="post">
+            <div>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="현재 비밀번호를 입력하세요."
+                required
+              />
+            </div>
+            <div className="right">
+              <FilledBtns type="submit">확인</FilledBtns>
+            </div>
+          </form>
+        </InputForm>
+      </LoginWrap>
+    </AccountWrapper>
   );
 }
