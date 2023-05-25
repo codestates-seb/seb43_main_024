@@ -85,7 +85,7 @@ public class TilService {
         Member findMember = memberService.verifyExistsMemberId(til.getMember().getMemberId());
         til.setMember(findMember);
         til.setTilViewCount(0L);
-        til.setTilStatus(false);
+        til.setTilStatus(til.getTilStatus());
 
         Til createdTil = tilRepository.save(til);
         createdTil.getMember().setMemberId(findMember.getMemberId()); // memberId 값 설정
