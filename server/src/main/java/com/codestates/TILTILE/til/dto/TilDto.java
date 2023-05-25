@@ -102,6 +102,8 @@ public class TilDto {
         private Timestamp modifiedAt;
         private String memberNickname;
         private long memberId;
+        private String memberProfileImage;
+
         private Boolean checkBookmark;
     }
 
