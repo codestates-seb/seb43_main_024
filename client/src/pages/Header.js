@@ -11,13 +11,31 @@ import {
   NavLogo,
 } from '../default/styled';
 import useStore from '../default/useStore';
-// import axios from 'axios';
-import { useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
+import { useEffect, useState } from 'react';
 import API from '../API';
 
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState(null);
+
+  const fetchProfileData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const decodedToken = jwt_decode(token);
+      const memberId = decodedToken.memberId;
+      const response = await API.get(`/members/${memberId}`);
+      const data = response.data;
+      setProfileData(data);
+    } catch (error) {
+      console.error('프로필 데이터를 가져오는 중 오류가 발생했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -41,7 +59,6 @@ function Header() {
     window.location.reload();
   };
 
-  // page가 변경될때마다, token의 유무를 근거로 LoginStatus를 관리합니다.
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const hasToken = storedToken !== null;
@@ -70,9 +87,6 @@ function Header() {
                 핫틸
               </TapMenu>
             </NavLink>
-            {/* <NavLink to="/til/list/following" activeClassName="active">
-              <TapMenu>팔로우틸</TapMenu>
-            </NavLink> */}
           </TopNav>
         </NavLogo>
 
@@ -84,10 +98,17 @@ function Header() {
           {isLogin ? (
             <>
               <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
-              <HeaderLink to="/profile/mytil" userInfo>
-                <UserPic></UserPic>
-                <span>{`${isLogin}`}</span>
-              </HeaderLink>
+              {profileData && (
+                <HeaderLink to="/profile/mytil" userInfo>
+                  <UserPic
+                    src={
+                      profileData.img ? profileData.img : '/defaultprofile.png'
+                    }
+                    alt="프로필 사진"
+                  />
+                  <span>{profileData.nickName}</span>
+                </HeaderLink>
+              )}
             </>
           ) : (
             <>

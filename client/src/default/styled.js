@@ -267,10 +267,10 @@ export const HeaderLink = styled(NavLink)`
     `}
 `;
 
-export const UserPic = styled.div`
+export const UserPic = styled.img`
   width: 22px;
   height: 22px;
-  border-radius: 100px;
+  border-radius: 100%;
   background: black;
 `;
 
