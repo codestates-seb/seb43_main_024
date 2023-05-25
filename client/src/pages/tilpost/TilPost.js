@@ -58,7 +58,6 @@ const Button = styled.button`
 function TilPost() {
   const { tilId } = useParams();
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
   const { data, getData, deleteData } = useTilStore();
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);

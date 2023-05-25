@@ -38,12 +38,9 @@ export function UserProfile() {
         const response = await API.get(`/members/${memberId}`);
         const data = response.data;
         setProfileData(data);
-        console.log('/profile에 대한 get요청이 완료되었습니다.');
+        // console.log('/profile에 대한 get요청이 완료되었습니다.');
       } catch (error) {
-        console.error(
-          '프로필 데이터를 가져오는 중 오류가 발생했습니다.',
-          error
-        );
+        // console.error('프로필 데이터를 가져오는 중 오류가 발생했습니다.');
       }
     };
     fetchProfileData();
@@ -68,10 +65,11 @@ export function UserProfile() {
         alt="user profile"
       />
       <h2>{profileData.nickName}</h2>
+      <h3>나의 다짐</h3>
       <p>
         {profileData.aboutMe
           ? profileData.aboutMe
-          : `저는 개발자가 되기위한 ${profileData.nickName} 입니다`}
+          : `저는 개발자가 되기위한 ${profileData.nickName} 입니다 최고의 개발자가 되는날 까지 열심히 Til을 기록하겠습니다.`}
       </p>
       <Link to="/editpass">
         <button>정보수정</button>

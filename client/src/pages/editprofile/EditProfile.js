@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../../API'; // API.js 파일의 경로에 맞게 import
+import useStore from '../../default/useStore';
+import WarningIcon from '../../default/image/icoWarning.svg';
+import CheckIcon from '../../default/image/icoCheck.svg';
+import { GrayOutlineBtns, GrayFilledBtns } from '../../default/styled';
 
 import styled from 'styled-components';
 
@@ -15,6 +19,9 @@ export function EditProfile() {
   const [newPassword, setNewPassword] = useState('');
   const [newAboutMe, setNewAboutMe] = useState('');
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
+
+  const openModal = useStore((state) => state.openModal);
+  const closeModal = useStore((state) => state.closeModal);
 
   const navigate = useNavigate();
 
@@ -61,8 +68,23 @@ export function EditProfile() {
           }
         );
         console.log('비밀번호 업데이트 성공');
-        navigate('/profile');
       }
+      openModal({
+        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        title: '수정 완료!',
+        content: '회원정보가 수정 되었습니다.',
+        buttons: [
+          <GrayOutlineBtns
+            key="confirmButton"
+            onClick={() => {
+              closeModal();
+              navigate('/profile/mytil');
+            }}
+          >
+            확인
+          </GrayOutlineBtns>,
+        ],
+      });
     } catch (error) {
       console.error('업데이트 실패:', error);
     }
@@ -84,10 +106,27 @@ export function EditProfile() {
           Authorization: `Bearer {JWT}`, // JWT 값을 적절히 대체해야 합니다
         },
       };
+
       await API.post('/uploadProfileImage', formData, config);
-      // 이미지 업로드 성공 시 실행되는 로직을 추가하세요
+
+      openModal({
+        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        title: '수정 완료!',
+        content: '회원정보가 수정 되었습니다.',
+        buttons: [
+          <GrayOutlineBtns
+            key="confirmButton"
+            onClick={() => {
+              closeModal();
+              navigate('/profile/mytil');
+            }}
+          >
+            확인
+          </GrayOutlineBtns>,
+        ],
+      });
     } catch (error) {
-      // 이미지 업로드 실패 시 실행되는 로직을 추가하세요
+      console.log(error);
     }
   };
 
@@ -113,19 +152,36 @@ export function EditProfile() {
     }
   };
 
+  const handleOpenModalDeleteAccount = () => {
+    openModal({
+      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      title: '정말로 탈퇴 하시겠습니까?',
+      content: '가입하신 계정이 삭제됩니다.',
+      buttons: [
+        <GrayOutlineBtns key="cancelButton" onClick={closeModal}>
+          취소
+        </GrayOutlineBtns>,
+        <GrayFilledBtns key="confirmButton" onClick={handleDeleteAccount}>
+          확인
+        </GrayFilledBtns>,
+      ],
+    });
+  };
+
   return (
     <>
-      <h1>이미지 수정</h1>
       <div>
         <h1>프로필 이미지 변경</h1>
         <input type="file" accept=".jpg, .png" onChange={handleImageChange} />
         <button onClick={handleUpdateImage}>이미지 업데이트</button>
       </div>
+
       <hr />
+
       <EditWrapper>
         <div>
           <h1>닉네임 변경</h1>
-          <textarea
+          <input
             value={newNickName}
             onChange={(event) => handleInputChange(event, setNewNickName)}
             placeholder="변경할 닉네임"
@@ -150,13 +206,10 @@ export function EditProfile() {
             placeholder="변경할 비밀번호"
           />
         </div>
-
         <button onClick={handleUpdate}>업데이트</button>
       </EditWrapper>
+      <button onClick={handleOpenModalDeleteAccount}>회원탈퇴</button>
       <hr />
-      <button onClick={handleDeleteAccount}>
-        <h1>회원탈퇴</h1>
-      </button>
     </>
   );
 }
