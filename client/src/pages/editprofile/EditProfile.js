@@ -41,7 +41,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('닉네임 업데이트 성공');
+        // console.log('닉네임 업데이트 성공');
       }
 
       if (newAboutMe) {
@@ -54,7 +54,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('자기소개 업데이트 성공');
+        // console.log('자기소개 업데이트 성공');
       }
 
       if (newPassword) {
@@ -67,7 +67,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('비밀번호 업데이트 성공');
+        // console.log('비밀번호 업데이트 성공');
       }
       openModal({
         icon: <img src={CheckIcon} alt="완료 아이콘" />,
@@ -87,7 +87,7 @@ export function EditProfile() {
         ],
       });
     } catch (error) {
-      console.error('업데이트 실패:', error);
+      alert('회원 수정과정에 문제가 발생하였습니다.');
     }
   };
 
@@ -128,7 +128,7 @@ export function EditProfile() {
         ],
       });
     } catch (error) {
-      console.log(error);
+      alert('회원 수정과정에 문제가 발생하였습니다.');
     }
   };
 
@@ -166,7 +166,7 @@ export function EditProfile() {
         ],
       });
     } catch (error) {
-      console.error('회원 탈퇴 실패:', error);
+      alert('회원 수정 과정에 문제가 발생하였습니다.');
     }
   };
 

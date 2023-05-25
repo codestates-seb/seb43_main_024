@@ -108,7 +108,6 @@ function LoginForm() {
             />
           </div>
           <div className="right">
-            <p>계정을 잃어버리셨나요? 계정찾기</p>
             <button type="submit">로그인</button>
           </div>
         </form>
