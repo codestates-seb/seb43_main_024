@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { InputForm } from './Login';
+import { InputForm } from '../../default/styled';
 // eslint-disable-next-line import/named
 import { Modal } from './components/SignUpModal';
 import useStore from '../../default/useStore';

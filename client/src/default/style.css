@@ -87,10 +87,9 @@ h2 {
 }
 
 
-textarea::placeholder {
+textarea::placeholder, input::placeholder {
     color: #ccc;
 }
-
 
 .custom-checkbox {
     position: relative;
