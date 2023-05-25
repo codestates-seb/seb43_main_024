@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-//import axios from 'axios';
 import API from '../../API';
 
 export const useTilListStore = create((set, get) => ({
@@ -61,7 +60,7 @@ export const useHotTilListStore = create((set) => ({
 }));
 
 export const useTilStore = create((set) => ({
-  data: [],
+  data: null,
   getData: async (tilId) => {
     try {
       const response = await API.get(
@@ -89,6 +88,7 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
+      console.log(tilId);
       await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });
     } catch (error) {
