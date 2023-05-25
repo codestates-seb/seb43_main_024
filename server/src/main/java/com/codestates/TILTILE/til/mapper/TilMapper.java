@@ -53,6 +53,7 @@ public interface TilMapper {
         card.setModifiedAt(til.getModifiedAt());
         card.setMemberNickname(til.getMember().getNickName());
         card.setMemberId(til.getMember().getMemberId());
+        card.setMemberProfileImage(til.getMember().getProfileImage());
         card.setCheckBookmark(false);
         if (bookmarks != null) {
             for (Bookmark bookmark: bookmarks) {
@@ -95,7 +96,6 @@ public interface TilMapper {
         getResponse.setTilId(til.getTilId());
         getResponse.setTilTitle(til.getTilTitle());
         getResponse.setTilContent(til.getTilContent());
-        getResponse.setTilViewCount(til.getTilViewCount());
         getResponse.setTilViewCount(til.getTilViewCount());
         getResponse.setCreatedAt(til.getCreatedAt());
         getResponse.setModifiedAt(til.getModifiedAt());
