@@ -104,7 +104,6 @@ function TilCard({ data, memberId }) {
           <CardUserInfo>
             <Img src={memberImg} alt={memberNickname} />
             <p className="user-name">{memberNickname}</p>
-            <p>(12Til 🐥)</p>
           </CardUserInfo>
           <CardUserInfo>
             <View className="view-img" />

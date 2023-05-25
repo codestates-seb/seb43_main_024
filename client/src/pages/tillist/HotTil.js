@@ -18,18 +18,17 @@ const HotTilListWrapper = styled(TilListWrapper)`
 
 function HotTil() {
   const isLogin = useStore((state) => state.isLogin);
+  const memberId = localStorage.getItem('memberId');
   const { data, isLoading, getHotTilData } = useHotTilListStore();
 
-  const userId = null;
-  let url = `${process.env.REACT_APP_API_URL}/til/list`;
-
-  if (isLogin && userId) {
-    url = `${process.env.REACT_APP_API_URL}/til/list?member_id=${userId}`;
-  }
-
   useEffect(() => {
+    let url = `${process.env.REACT_APP_API_URL}/til/list?`;
+
+    if (memberId) {
+      url += `member_id=${memberId}`;
+    }
     getHotTilData(url);
-  }, [url]);
+  }, [isLogin, memberId]);
 
   if (isLoading) return <LoadingImage />;
 
@@ -41,7 +40,7 @@ function HotTil() {
       <TilWrapper>
         <TitleH1>가장 인기있는 틸</TitleH1>
       </TilWrapper>
-      <HotTilSwiper data={HotTilSwiperData} />
+      <HotTilSwiper data={HotTilSwiperData} memberId={memberId} />
       <TilWrapper>
         <HotTilListWrapper>
           <TilCardWrapper>
@@ -49,7 +48,7 @@ function HotTil() {
             {HotTilData &&
               HotTilData.map((data) => (
                 <li key={data.tilId}>
-                  <TilCard data={data} />
+                  <TilCard data={data} memberId={memberId} />
                 </li>
               ))}
           </TilCardWrapper>

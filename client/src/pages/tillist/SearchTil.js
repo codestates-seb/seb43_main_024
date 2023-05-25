@@ -14,6 +14,7 @@ const SearchResult = styled.div`
 
 function SearchTil() {
   const isLogin = useStore((state) => state.isLogin);
+  const memberId = localStorage.getItem('memberId');
   const [keyword, setKeyword] = useState('');
   const {
     data,
@@ -26,12 +27,10 @@ function SearchTil() {
     setCurrentPage,
   } = useTilListStore();
 
-  const memberId = null;
-
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/til/list?`;
 
-    if (isLogin && memberId) {
+    if (memberId) {
       url += `member_id=${memberId}&`;
     }
     if (keyword) {
@@ -63,7 +62,6 @@ function SearchTil() {
       </TilFlexContainer>
       {data.length === 0 && <LoadingImage />}
       <TilList
-        data={data}
         currentPage={currentPage}
         totalPages={totalPages}
         fetchData={fetchData}

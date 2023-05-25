@@ -23,6 +23,7 @@ function Header() {
     try {
       await API.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
       localStorage.removeItem('token'); // 로컬 스토리지에서 액세스 토큰 삭제
+      localStorage.removeItem('memberId');
       setLoginStatus(false);
 
       alert('로그아웃이 완료되었습니다.');

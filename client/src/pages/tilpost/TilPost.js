@@ -5,7 +5,7 @@ import useStore from '../../default/useStore';
 import styled from 'styled-components';
 import {
   TilWrapper,
-  PreNextButton,
+  // PreNextButton,
   GrayOutlineBtns,
   GrayFilledBtns,
 } from '../../default/styled';
@@ -28,32 +28,32 @@ const Button = styled.button`
   }
 `;
 
-const PreNextWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 45px 0px 100px;
-`;
+// const PreNextWrapper = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin: 45px 0px 100px;
+// `;
 
-const PostButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+// const PostButtonWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+// `;
 
-const PreContainer = styled(PostButtonWrapper)`
-  flex-direction: column;
-  margin-left: 13px;
-`;
+// const PreContainer = styled(PostButtonWrapper)`
+//   flex-direction: column;
+//   margin-left: 13px;
+// `;
 
-const NextContainer = styled(PreContainer)`
-  margin: 0px 13px 0px 0px;
-`;
+// const NextContainer = styled(PreContainer)`
+//   margin: 0px 13px 0px 0px;
+// `;
 
-const P = styled.p`
-  margin-top: 7px;
-  font-size: 15px;
-  color: var(--color-black);
-`;
+// const P = styled.p`
+//   margin-top: 7px;
+//   font-size: 15px;
+//   color: var(--color-black);
+// `;
 
 function TilPost() {
   const { tilId } = useParams();
@@ -103,7 +103,7 @@ function TilPost() {
           </ButtonWrapper>
         )}
         {data && <PostContent data={data} tilId={tilId} />}
-        <PreNextWrapper>
+        {/* <PreNextWrapper>
           <PostButtonWrapper>
             <PreNextButton pre type="button"></PreNextButton>
             <PreContainer>
@@ -118,7 +118,7 @@ function TilPost() {
             </NextContainer>
             <PreNextButton next type="button"></PreNextButton>
           </PostButtonWrapper>
-        </PreNextWrapper>
+        </PreNextWrapper> */}
       </div>
     </TilWrapper>
   );

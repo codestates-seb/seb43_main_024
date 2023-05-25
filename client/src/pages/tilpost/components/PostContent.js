@@ -1,8 +1,8 @@
-//import useStore from '../../../default/useStore';
 import { format } from 'date-fns';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { PostComponent, UserInfo } from '../../../default/styled';
-import TilBookmark from '../../../default/tilComponents/TilBookmark';
+import { useBookmarkStore } from '../../../default/tilComponents/useTilStore';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -28,30 +28,26 @@ const UserName = styled.p`
 `;
 
 function PostContent({ data, tilId }) {
-  //const isLogin = useStore((state) => state.isLogin);
-  const memberId = null;
-  const { tilTitle, tilContent, createdAt, checkBookmark, memberNickname } =
-    data;
+  const { getCheckBookmarkData } = useBookmarkStore();
+  const memberId = localStorage.getItem('memberId');
+  const { tilTitle, tilContent, createdAt, memberNickname } = data;
   const formattedDate = createdAt
     ? format(new Date(createdAt), 'yyyy.MM.dd')
     : '';
+
+  useEffect(() => {
+    getCheckBookmarkData(memberId, tilId);
+  }, [memberId]);
+
   return (
     <PostComponent>
       <div>
         <TitleWrapper>
           <h1>{tilTitle}</h1>
-          <TilBookmark
-            width="17px"
-            height="21px"
-            checkBookmark={checkBookmark}
-            memberId={memberId}
-            tilId={tilId}
-          />
         </TitleWrapper>
         <UserContainer>
           <UserInfo>
             <UserName>{memberNickname}</UserName>
-            <p>(12Til 🐥)</p>
           </UserInfo>
           <p>{formattedDate}</p>
         </UserContainer>
