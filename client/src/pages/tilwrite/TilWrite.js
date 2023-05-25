@@ -94,9 +94,9 @@ function TilWrite() {
 
         <MDEditor value={value} onChange={setValue} />
         {/* 아래가 글내용 */}
-        <div style={{ marginTop: '16px' }}>
+        {/* <div style={{ marginTop: '16px' }}>
           <MDEditor.Markdown source={value} />
-        </div>
+        </div> */}
       </WritrForm>
       <PostActions>
         <div>

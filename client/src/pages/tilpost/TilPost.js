@@ -28,6 +28,10 @@ const Button = styled.button`
   }
 `;
 
+const UnderPost = styled.div`
+  margin-bottom: 80px;
+`;
+
 function TilPost() {
   const { tilId } = useParams();
   const navigate = useNavigate();
@@ -90,10 +94,11 @@ function TilPost() {
           )}
           {tilData && <PostContent data={tilData} />}
         </div>
+        <h1>요즘 핫한 틸</h1>
       </TilWrapper>
-      <div>
+      <UnderPost>
         <HotTilTop />
-      </div>
+      </UnderPost>
     </div>
   );
 }
