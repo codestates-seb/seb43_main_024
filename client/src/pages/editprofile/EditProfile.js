@@ -149,7 +149,7 @@ export function EditProfile() {
       localStorage.removeItem('memberId');
       localStorage.removeItem('username');
       openModal({
-        icon: <img src={WarningIcon} alt="경고 아이콘" />,
+        icon: <img src={CheckIcon} alt="완료 아이콘" />,
         title: '탈퇴가 완료 되었습니다.',
         content: '다음에 또 만나요!',
         buttons: [
