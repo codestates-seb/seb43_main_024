@@ -79,6 +79,7 @@ export function EditProfile() {
             onClick={() => {
               closeModal();
               navigate('/profile/mytil');
+              window.location.reload();
             }}
           >
             확인
@@ -119,6 +120,7 @@ export function EditProfile() {
             onClick={() => {
               closeModal();
               navigate('/profile/mytil');
+              window.location.reload();
             }}
           >
             확인
