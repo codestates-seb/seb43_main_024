@@ -29,23 +29,24 @@ public interface MemberMapper {
         return member;
     }
 
-    default TilDto.getResponse tilToGetResponse(Til til) {
+    default TilDto.bookmarkCard tilToGetResponse(Til til,long bookmarkId) {
         if (til == null) {
             return null;
         }
 
-        TilDto.getResponse getResponse = new TilDto.getResponse();
-        getResponse.setTilId(til.getTilId());
-        getResponse.setTilTitle(til.getTilTitle());
-        getResponse.setTilContent(til.getTilContent());
-        getResponse.setTilViewCount(til.getTilViewCount());
-        getResponse.setCreatedAt(til.getCreatedAt());
-        getResponse.setModifiedAt(til.getModifiedAt());
-        getResponse.setMemberId(til.getMember().getMemberId());
-        getResponse.setMemberNickname(til.getMember().getNickName());
-        getResponse.setMemberProfileImage(til.getMember().getProfileImage());
+        TilDto.bookmarkCard bookmarkCard = new TilDto.bookmarkCard();
+        bookmarkCard.setBookmarkId(bookmarkId);
+        bookmarkCard.setTilId(til.getTilId());
+        bookmarkCard.setTilTitle(til.getTilTitle());
+        bookmarkCard.setTilContent(til.getTilContent());
+        bookmarkCard.setTilViewCount(til.getTilViewCount());
+        bookmarkCard.setCreatedAt(til.getCreatedAt());
+        bookmarkCard.setModifiedAt(til.getModifiedAt());
+        bookmarkCard.setMemberId(til.getMember().getMemberId());
+        bookmarkCard.setMemberNickname(til.getMember().getNickName());
+        bookmarkCard.setMemberProfileImage(til.getMember().getProfileImage());
 
-        return getResponse;
+        return bookmarkCard;
     }
 
     default MemberWithBookmarksDto.PageResponseDto toMemberWithBookmarksDto(List<Til> bookmarks,
@@ -54,9 +55,10 @@ public interface MemberMapper {
                                                                             int startPage,
                                                                             int endPage) {
 
-        List<TilDto.getResponse> tillist = new ArrayList<>( bookmarks2.getContent().size() );
-        for ( Til til : bookmarks ) {
-            tillist.add(tilToGetResponse(til));
+        List<TilDto.bookmarkCard> tillist = new ArrayList<>( bookmarks2.getContent().size() );
+//        for ( Til til : bookmarks ) {
+        for (int i =0; i<bookmarks2.getContent().size(); i++) {
+            tillist.add(tilToGetResponse(bookmarks.get(i), bookmarks2.getContent().get(i).getBookmarkId()));
         }
 
         MemberWithBookmarksDto.PageResponseDto dto = new MemberWithBookmarksDto.PageResponseDto();
