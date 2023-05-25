@@ -61,7 +61,7 @@ public class MemberService {
     }
 
     // OAUTH2
-    public Member oauth2CreateMember(String email, String name, String provider, String providerId) {
+    public Member oauth2CreateMember(String email, String name, String profileImageURL, String provider, String providerId) {
         Optional<Member> existingMember = memberRepository.findByEmail(email);
 
         if (existingMember.isPresent()) {
@@ -70,6 +70,7 @@ public class MemberService {
             String randomPassword = UUID.randomUUID().toString().substring(0, 10);
             String encodedPassword = passwordEncoder.encode(randomPassword);
             Member savedMember = new Member(email, name, encodedPassword, provider, providerId);
+            savedMember.setProfileImage(profileImageURL);
             return memberRepository.save(savedMember);
         }
     }
