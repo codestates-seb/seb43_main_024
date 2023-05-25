@@ -311,7 +311,7 @@ export const TilCardWrapper = styled.ul`
 `;
 
 export const PostComponent = styled.div`
-  height: 600px;
+  min-height: 300px;
   padding: 60px;
   border-radius: 8px;
   background-color: var(--color-white);

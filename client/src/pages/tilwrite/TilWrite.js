@@ -71,7 +71,8 @@ function TilWrite() {
         data
       );
       console.log(response);
-      navigate(-1); //! 이전페이지로 돌아가기, 추 후 작성한 게시글 페이지로 이동하도록 수정 필요
+      const postId = response.data.tilId; // 서버 응답에서 작성된 글의 ID 가져오기
+      navigate(`/til/${postId}`);
       //요청이 성공했을 때 처리
     } catch (error) {
       console.log(memberId);
