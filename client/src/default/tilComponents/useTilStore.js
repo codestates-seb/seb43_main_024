@@ -12,7 +12,6 @@ export const useTilListStore = create((set, get) => ({
   endPage: 0,
 
   fetchData: async (page, url) => {
-    console.log(url);
     try {
       set({ isLoading: true, currentPage: page });
       const { pageSize } = get();
@@ -99,20 +98,36 @@ export const useTilStore = create((set) => ({
 }));
 
 export const useBookmarkStore = create((set) => ({
-  data: [],
+  bookmarksData: [],
   getBookmarkData: async (memberId) => {
     try {
       const response = await API.get(
         `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`
       );
       const { bookmarks } = response.data;
-      set({ data: bookmarks });
+      set({ bookmarksData: bookmarks });
       return bookmarks;
     } catch (error) {
       console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
       return null;
     }
   },
+
+  getCheckBookmarkData: async (memberId, tilId) => {
+    console.log(tilId);
+    try {
+      const response = await API.get(
+        `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`
+      );
+      const { bookmarks } = response.data;
+      set({ bookmarksData: bookmarks });
+      return bookmarks;
+    } catch (error) {
+      console.error(`데이터를 가져오는 중에 오류가 발생했습니다: `, error);
+      return null;
+    }
+  },
+
   addBookmarkData: async (memberId, tilId) => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/bookmark/member/${memberId}/til/${tilId}`;
@@ -135,5 +150,45 @@ export const useBookmarkStore = create((set) => ({
     } catch (error) {
       console.error(`데이터 삭제 중에 오류가 발생했습니다:`, error);
     }
+  },
+}));
+
+export const useMyTilStore = create((set, get) => ({
+  data: [],
+  isLoading: false,
+  currentPage: 1,
+  pageSize: 12,
+  totalElements: 0,
+  totalPages: 0,
+  startPage: 0,
+  endPage: 0,
+
+  myTilData: async (page, url) => {
+    console.log(url);
+    try {
+      set({ isLoading: true, currentPage: page });
+      const { pageSize } = get();
+      const response = await API.get(`${url}?page=${page}&size=${pageSize}`);
+      const { cards, totalElements, totalPages, startPage, endPage } =
+        response.data;
+      set({
+        data: cards,
+        totalElements,
+        totalPages,
+        endPage,
+        startPage,
+        isLoading: false,
+      });
+    } catch (error) {
+      console.error(
+        `${page}페이지 데이터를 가져오는 중에 오류가 발생했습니다:`,
+        error
+      );
+      set({ isLoading: false });
+    }
+  },
+  //현재 페이지 정보를 업데이트
+  setCurrentPage: (page) => {
+    set({ currentPage: page });
   },
 }));

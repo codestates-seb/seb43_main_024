@@ -37,7 +37,6 @@ function FollowTil() {
         <TitleH1>내가 팔로우한 틸</TitleH1>
         {data.length === 0 && <LoadingImage />}
         <TilList
-          data={data}
           currentPage={currentPage}
           totalPages={totalPages}
           fetchData={fetchData}

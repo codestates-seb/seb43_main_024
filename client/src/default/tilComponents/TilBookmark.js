@@ -21,29 +21,24 @@ const StyledCheckBookmarkIcon = styled(CheckBookmarkIcon)`
   height: 100%;
 `;
 
-function TilBookmark({ checkBookmark, tilId, width, height }) {
-  //memberId를 받아와야함
-  const memberId = 1;
-  // eslint-disable-next-line no-unused-vars
-  const { getBookmarkData, data, deleteData, addBookmarkData } =
+function TilBookmark({ checkBookmark, memberId, tilId, width, height }) {
+  const { getBookmarkData, bookmarksData, deleteData, addBookmarkData } =
     useBookmarkStore();
   const [bookmarkCheck, setBookmarkCheck] = useState(checkBookmark);
-  //const bookmarkItem = data.find(item => item.bookmarkId === bookmarkId);
-  const toggleBookmark = () => {
+
+  const toggleBookmark = async () => {
     if (bookmarkCheck) {
-      deleteData(); // bookmarkId에는 삭제할 북마크의 ID를 전달해야 합니다.
+      const deleteItem = bookmarksData.find((item) => item.til.tilId === tilId);
+      const { bookmarkId } = deleteItem;
+      await deleteData(bookmarkId); // 북마크 삭제 API 요청 완료까지 대기
     } else {
-      addBookmarkData(memberId, tilId); // memberId와 tilId를 전달하여 북마크 추가
+      await addBookmarkData(memberId, tilId); // 북마크 추가 API 요청 완료까지 대기
     }
     setBookmarkCheck((prevCheck) => !prevCheck);
   };
-  // console.log(memberId);
-  // console.log(tilId);
-  // console.log(bookmarkCheck);
-  // console.log(data);
 
   useEffect(() => {
-    getBookmarkData(memberId, tilId);
+    getBookmarkData(memberId);
   }, [memberId, tilId]);
 
   return (

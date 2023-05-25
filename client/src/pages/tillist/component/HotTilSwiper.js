@@ -56,7 +56,7 @@ const StyledPagination = styled.div`
   }
 `;
 
-function HotTilSwiper({ data }) {
+function HotTilSwiper({ data, memberId }) {
   return (
     <SwiperWrapper>
       <SwiperInner>
@@ -88,7 +88,7 @@ function HotTilSwiper({ data }) {
               return (
                 <SlideContainer key={data.tilId}>
                   <li>
-                    <TilCard data={data} />
+                    <TilCard data={data} memberId={memberId} />
                   </li>
                 </SlideContainer>
               );
