@@ -66,6 +66,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/members/**/til/**").permitAll() // 마이페이지 틸 조회(*)
                         .antMatchers(HttpMethod.GET, "/members/**/bookmark/**").hasRole("USER") // 마이페이지 북마크 조회(USER)
                         .antMatchers(HttpMethod.GET, "/members/**").permitAll() // member 정보 조회(*)
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER") // member 삭제(USER)
                         .antMatchers(HttpMethod.POST, "/login/mailConfirm").permitAll()  // 이메일 인증(*)
                         .antMatchers(HttpMethod.POST, "/til").hasRole("USER") // Til 작성(USER)
                         .antMatchers(HttpMethod.PUT, "/til/**").hasRole("USER") // Til 수정(USER)
@@ -73,7 +74,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.DELETE, "/til/**").hasRole("USER") // Til 삭제(USER)
                         .antMatchers(HttpMethod.POST, "/bookmark/**").hasRole("USER") // 북마크 추가(USER)
                         .antMatchers(HttpMethod.DELETE, "/bookmark/**").hasRole("USER") // 북마크 삭제(USER)
-                        .antMatchers(HttpMethod.POST,"/follow/**").hasRole("USER") // follow 추가(USER)
+//                        .antMatchers(HttpMethod.POST,"/follow/**").hasRole("USER") // follow 추가(USER)
                         .antMatchers(HttpMethod.PATCH,"/mypage/**").hasRole("USER") // mypage 변경 추가(USER)
                         .anyRequest().permitAll() // 모든 HTTP request 요청에 대해서 접근을 허용
                 )

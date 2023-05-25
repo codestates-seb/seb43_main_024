@@ -12,6 +12,7 @@ import com.codestates.TILTILE.til.dto.TilDto;
 import com.codestates.TILTILE.til.service.TilService;
 import com.codestates.TILTILE.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -63,13 +64,14 @@ public class MemberController {
 
 
     @GetMapping("/members/{member-id}/bookmark")
-    public ResponseEntity<MemberWithBookmarksDto> getMyPageWithBookmarks(
-            @PathVariable("member-id") Long memberId,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "pageSize", defaultValue = "12") int pageSize) {
-        MemberWithBookmarksDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(memberId, page, pageSize);
+    public ResponseEntity<MemberWithBookmarksDto.PageResponseDto> getMyPageWithBookmarks(@PathVariable("member-id") Long memberId,
+                                                                                        @PageableDefault(page = 1) Pageable pageable) {
+
+        Member member = memberService.getMemberById(memberId);
+        MemberWithBookmarksDto.PageResponseDto memberWithBookmarksDto = bookmarkService.getMemberWithBookmarks(pageable,memberId, 12);
         return ResponseEntity.ok(memberWithBookmarksDto);
     }
+
 
     @GetMapping("/members/{memberId}")
     public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable("memberId") Long memberId) {
@@ -92,7 +94,7 @@ public class MemberController {
         }
     }
 
-    @DeleteMapping("/{memberId}")
+    @DeleteMapping("/members/{memberId}")
     public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId,
                                                @RequestParam(value = "provider", required = false) String provider,
                                                @RequestParam(value = "providerId", required = false) String providerId) {
