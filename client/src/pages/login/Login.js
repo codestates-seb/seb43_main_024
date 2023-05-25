@@ -69,11 +69,11 @@ function LoginForm() {
         localStorage.setItem('token', token);
       }
 
-      localStorage.setItem('username', username); // 이메일 정보
+      localStorage.setItem('username', username);
 
-      // 로그인 상태
       setLoginStatus(true);
       navigate('/profile/mytil');
+      window.location.reload();
     } catch (error) {
       alert('로그인 정보가 올바르지 않습니다.');
     }
