@@ -2,11 +2,9 @@ package com.codestates.TILTILE.member.dto;
 
 import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.til.dto.TilDto;
-import com.codestates.TILTILE.til.entity.Til;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
