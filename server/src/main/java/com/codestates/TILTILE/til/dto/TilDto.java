@@ -87,6 +87,7 @@ public class TilDto {
         private Timestamp modifiedAt;
         private long memberId;
         private String memberNickname;
+        private String memberProfileImage;
     }
 
     @Getter
