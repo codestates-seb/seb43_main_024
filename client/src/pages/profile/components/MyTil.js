@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useMyTilStore } from '../../../default/tilComponents/useTilStore';
 import LoadingImage from '../../../default/LoadingImage';
 import TilCard from '../../../default/tilComponents/TilCard';
@@ -28,7 +29,13 @@ export function MyTIL() {
 
   return (
     <>
-      {data.length === 0 && <LoadingImage />}
+      {data.length === 0 && (
+        <>
+          <Link to="/write">
+            작성한 TIL이 없습니다! til을 작성하러 가볼까요?
+          </Link>
+        </>
+      )}
       <TilList
         currentPage={currentPage}
         totalPages={totalPages}
