@@ -748,6 +748,33 @@ export const ProfileContents = styled.div`
   box-sizing: border-box;
 `;
 
+export const ImgBox = styled.div`
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  & img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const NoPosts = styled.div`
+  text-align: center;
+  & img {
+    width: 50%;
+    height: 50%;
+  }
+  & h1 {
+    margin: 24px 0 32px 0;
+  }
+`;
+
+/* Link 전용 */
+export const LinkFilledBtns = styled(NavLink)`
+  ${FilledBtnsStyle};
+`;
+
 /**
  * @EditProfile
  */
