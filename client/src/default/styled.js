@@ -22,6 +22,7 @@ export const InnerWrapper = styled.div`
       box-sizing: border-box;
       margin: 0 auto;
       padding: 80px 0;
+      position: relative;
     `}
   /* 헤더의 경우 InnerWrapper 스타일 */
   ${(props) =>
@@ -81,6 +82,20 @@ export const FilledBtns = styled.button`
 /* <OutlineBtns /> 형태로 사용하기 위한 코드 */
 export const OutlineBtns = styled.button`
   ${OutlineBtnsStyle};
+`;
+
+/* 취소버튼 */
+export const GetBackBtn = styled(NavLink)`
+  ${OutlineBtnsStyle};
+  border: 1px solid #ccc;
+  color: #555;
+  background-color: #e8e8e8;
+  display: inline-block;
+  margin-right: 8px;
+  &:hover {
+    background: #f6f6f6;
+    color: #888;
+  }
 `;
 
 export const Tags = styled.span`
@@ -291,6 +306,11 @@ export const NavLogo = styled.div`
 export const TilWrapper = styled(InnerWrapper)`
   padding: 0;
   margin-top: 40px;
+
+  & > h1 {
+    margin-top: 80px;
+    text-align: center;
+  }
 `;
 
 export const TilFlexContainer = styled.section`
@@ -463,3 +483,294 @@ export const GreenOutlineBtns = styled.button`
   }
 `;
 /* ---- */
+
+/**
+ * @loginStyle
+ */
+export const AccountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  background: #edf8f1;
+  ${(props) =>
+    props.bgGray &&
+    css`
+      background-color: #f8f8f8;
+    `}
+`;
+
+export const LoginWrap = styled.div`
+  background: white;
+  min-width: 420px;
+  min-height: 357px;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 40px;
+  ${(props) =>
+    props.autoHeight &&
+    css`
+      min-height: auto;
+    `}
+  ${(props) =>
+    props.mypage &&
+    css`
+      min-height: auto;
+      min-width: 660px;
+    `}
+`;
+
+export const JoinBox = styled.div`
+  & p {
+    display: inline-block;
+  }
+  & a {
+    color: var(--brand-color);
+    margin-left: 4px;
+  }
+  & a:hover {
+    color: var(--brand-color);
+    font-weight: bold;
+  }
+  & > span {
+    display: block;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    color: #888;
+  }
+  & > span::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 0;
+    width: 90px;
+    height: 1px;
+    background-color: #ccc;
+  }
+  & > span::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 90px;
+    height: 1px;
+    background-color: #ccc;
+  }
+`;
+
+export const InputForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: stretch;
+  padding: 32px 0;
+
+  input,
+  textarea {
+    width: 100%;
+    padding-top: 20px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-bottom: 2px solid var(--brand-color);
+  }
+
+  .right {
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: right;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+export const OauthBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`;
+
+export const OAuthBtn = styled.a`
+  color: white !important;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #f5f5f5;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.05);
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  ${(props) => props.google && css``}
+  ${(props) =>
+    props.github &&
+    css`
+      background: #fff;
+    `}
+`;
+
+export const AuthInput = styled.div`
+  position: relative;
+  & p {
+    position: absolute;
+    bottom: 2px;
+    font-size: 12px;
+  }
+  .ok {
+    color: var(--brand-color);
+  }
+  .no {
+    color: #d83f36;
+  }
+`;
+
+export const SendBtn = styled.button`
+  position: absolute;
+  right: 0;
+  top: 19px;
+  color: var(--brand-color);
+  font-weight: bold;
+`;
+
+/**
+ * @MyPage
+ */
+
+export const Navbar = styled.nav`
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  width: 1005px;
+  position: absolute;
+  left: 255px;
+  padding-left: 60px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const UserProfileWrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 255px;
+  height: 100%;
+  padding: 60px 30px 60px 0;
+  box-sizing: border-box;
+
+  background: white;
+  background: #ffffff;
+  border-right: 1px solid #ededed;
+
+  &::after {
+    content: '';
+    width: 100vw;
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+    right: 254px;
+  }
+
+  & .flexCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & .user-photo {
+    width: 150px;
+    border-radius: 100%;
+  }
+
+  h2 {
+    margin: 32px;
+  }
+
+  p {
+    border-top: 1px solid #e3e3e3;
+    padding-top: 40px;
+    text-align: justify;
+  }
+
+  button {
+    color: #888;
+    padding-bottom: 60px;
+
+    & > img {
+      margin-right: 4px;
+    }
+  }
+`;
+
+export const PageWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  width: 1005px;
+  min-height: 500px;
+  top: 155px;
+  left: 255px;
+  box-sizing: border-box;
+`;
+
+export const ContentsPosition = styled.div`
+  width: 1005px;
+  padding: 0px 0 0 60px;
+  box-sizing: border-box;
+`;
+
+export const ProfileContents = styled.div`
+  box-sizing: border-box;
+`;
+
+/**
+ * @EditProfile
+ */
+
+export const EditProfileBox = styled.div`
+  margin-top: 20px;
+  span {
+    font-size: 11px;
+    color: #222;
+    position: relative;
+    top: 6px;
+    z-index: 1;
+  }
+  & .grayTxt {
+    font-size: 11px;
+    color: #888;
+    margin-top: 32px;
+    float: right;
+  }
+  & .right {
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 12px;
+  }
+`;

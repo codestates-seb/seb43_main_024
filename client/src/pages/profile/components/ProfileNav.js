@@ -1,24 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-import { TapMenu } from '../../../default/styled';
-
-const Navbar = styled.nav`
-  position: fixed;
-  left: 355px;
-  top: 60px;
-  padding-left: 65px;
-  padding-top: 100px;
-  width: 100%;
-  height: 90px;
-  z-index: 1;
-  box-sizing: border-box;
-
-  div {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-`;
+import { TapMenu, Navbar } from '../../../default/styled';
 
 export function ProfileNav() {
   return (

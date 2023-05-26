@@ -4,15 +4,18 @@ import API from '../../API'; // API.js 파일의 경로에 맞게 import
 import useStore from '../../default/useStore';
 import WarningIcon from '../../default/image/icoWarning.svg';
 import CheckIcon from '../../default/image/icoCheck.svg';
-import { GrayOutlineBtns, GrayFilledBtns } from '../../default/styled';
-
-import styled from 'styled-components';
-
-const EditWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import {
+  GrayOutlineBtns,
+  GrayFilledBtns,
+  EditProfileBox,
+  LoginWrap,
+  AccountWrapper,
+  InputForm,
+  AuthInput,
+  SendBtn,
+  FilledBtns,
+  GetBackBtn,
+} from '../../default/styled';
 
 export function EditProfile() {
   const [newNickName, setNewNickName] = useState('');
@@ -41,7 +44,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('닉네임 업데이트 성공');
+        // console.log('닉네임 업데이트 성공');
       }
 
       if (newAboutMe) {
@@ -54,7 +57,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('자기소개 업데이트 성공');
+        // console.log('자기소개 업데이트 성공');
       }
 
       if (newPassword) {
@@ -67,7 +70,7 @@ export function EditProfile() {
             },
           }
         );
-        console.log('비밀번호 업데이트 성공');
+        // console.log('비밀번호 업데이트 성공');
       }
       openModal({
         icon: <img src={CheckIcon} alt="완료 아이콘" />,
@@ -87,7 +90,7 @@ export function EditProfile() {
         ],
       });
     } catch (error) {
-      console.error('업데이트 실패:', error);
+      alert('회원 수정과정에 문제가 발생하였습니다.');
     }
   };
 
@@ -128,7 +131,7 @@ export function EditProfile() {
         ],
       });
     } catch (error) {
-      console.log(error);
+      alert('회원 수정과정에 문제가 발생하였습니다.');
     }
   };
 
@@ -148,9 +151,25 @@ export function EditProfile() {
       localStorage.removeItem('token');
       localStorage.removeItem('memberId');
       localStorage.removeItem('username');
-      navigate('/main'); // 회원 탈퇴 후 로그인 페이지로 이동
+      openModal({
+        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        title: '탈퇴가 완료 되었습니다.',
+        content: '다음에 또 만나요!',
+        buttons: [
+          <GrayFilledBtns
+            key="Button"
+            onClick={() => {
+              closeModal(); // 회원 탈퇴 후 로그인 페이지로 이동
+              navigate('/');
+              window.location.reload();
+            }}
+          >
+            메인으로 돌아가기
+          </GrayFilledBtns>,
+        ],
+      });
     } catch (error) {
-      console.error('회원 탈퇴 실패:', error);
+      alert('회원 수정 과정에 문제가 발생하였습니다.');
     }
   };
 
@@ -163,7 +182,7 @@ export function EditProfile() {
         <GrayOutlineBtns key="cancelButton" onClick={closeModal}>
           취소
         </GrayOutlineBtns>,
-        <GrayFilledBtns key="confirmButton" onClick={handleDeleteAccount}>
+        <GrayFilledBtns key="Button" onClick={handleDeleteAccount}>
           확인
         </GrayFilledBtns>,
       ],
@@ -171,47 +190,58 @@ export function EditProfile() {
   };
 
   return (
-    <>
-      <div>
-        <h1>프로필 이미지 변경</h1>
-        <input type="file" accept=".jpg, .png" onChange={handleImageChange} />
-        <button onClick={handleUpdateImage}>이미지 업데이트</button>
-      </div>
+    <AccountWrapper bgGray>
+      <LoginWrap mypage>
+        <InputForm>
+          <h1>내 정보 수정</h1>
+          <EditProfileBox>
+            <span>프로필 이미지 변경</span>
+            <AuthInput>
+              <input
+                type="file"
+                accept=".jpg, .png"
+                onChange={handleImageChange}
+              />
+              <SendBtn onClick={handleUpdateImage}>이미지 업데이트</SendBtn>
+            </AuthInput>
 
-      <hr />
+            <span>닉네임 변경</span>
+            <AuthInput>
+              <input
+                value={newNickName}
+                onChange={(event) => handleInputChange(event, setNewNickName)}
+                placeholder="변경할 닉네임"
+              />
+            </AuthInput>
 
-      <EditWrapper>
-        <div>
-          <h1>닉네임 변경</h1>
-          <input
-            value={newNickName}
-            onChange={(event) => handleInputChange(event, setNewNickName)}
-            placeholder="변경할 닉네임"
-          />
-        </div>
+            <span>자기소개 변경</span>
+            <AuthInput>
+              <textarea
+                value={newAboutMe}
+                onChange={(event) => handleInputChange(event, setNewAboutMe)}
+                placeholder="변경할 자기소개"
+              />
+            </AuthInput>
 
-        <div>
-          <h1>자기소개 변경</h1>
-          <textarea
-            value={newAboutMe}
-            onChange={(event) => handleInputChange(event, setNewAboutMe)}
-            placeholder="변경할 자기소개"
-          />
-        </div>
-
-        <div>
-          <h1>비밀번호 변경</h1>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(event) => handleInputChange(event, setNewPassword)}
-            placeholder="변경할 비밀번호"
-          />
-        </div>
-        <button onClick={handleUpdate}>업데이트</button>
-      </EditWrapper>
-      <button onClick={handleOpenModalDeleteAccount}>회원탈퇴</button>
-      <hr />
-    </>
+            <span>비밀번호 변경</span>
+            <AuthInput>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(event) => handleInputChange(event, setNewPassword)}
+                placeholder="변경할 비밀번호"
+              />
+            </AuthInput>
+            <div className="right">
+              <GetBackBtn to="/profile/mytil">취소하기</GetBackBtn>
+              <FilledBtns onClick={handleUpdate}>업데이트</FilledBtns>
+            </div>
+            <button className="grayTxt" onClick={handleOpenModalDeleteAccount}>
+              회원탈퇴
+            </button>
+          </EditProfileBox>
+        </InputForm>
+      </LoginWrap>
+    </AccountWrapper>
   );
 }

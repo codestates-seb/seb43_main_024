@@ -87,10 +87,14 @@ h2 {
 }
 
 
-textarea::placeholder {
+textarea::placeholder, input::placeholder {
     color: #ccc;
 }
 
+input:autofill {
+  box-shadow: 0 0 0px 1000px var(--light-background-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
 .custom-checkbox {
     position: relative;

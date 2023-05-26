@@ -1,30 +1,9 @@
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../../API';
 import jwt_decode from 'jwt-decode';
-
-const UserProfileWrapper = styled.div`
-  position: fixed;
-  z-index: 1;
-  top: 70px;
-
-  display: flex;
-  flex-direction: column;
-
-  width: 355px;
-  height: 100%;
-
-  background: white;
-  background: #ffffff;
-  border-right: 1px solid #ededed;
-
-  img {
-    width: 150px;
-    border-radius: 100%;
-    background: black;
-  }
-`;
+import { UserProfileWrapper } from '../../../default/styled';
+import IconPencil from '../../../default/image/ico-pencil.svg';
 
 export function UserProfile() {
   const [profileData, setProfileData] = useState(null);
@@ -60,19 +39,25 @@ export function UserProfile() {
 
   return (
     <UserProfileWrapper>
-      <img
-        src={profileData.img ? profileData.img : '/defaultprofile.png'}
-        alt="user profile"
-      />
-      <h2>{profileData.nickName}</h2>
-      <h3>나의 다짐</h3>
-      <p>
-        {profileData.aboutMe
-          ? profileData.aboutMe
-          : `저는 개발자가 되기위한 ${profileData.nickName} 입니다 최고의 개발자가 되는날 까지 열심히 Til을 기록하겠습니다.`}
-      </p>
+      <div className="flexCenter">
+        <img
+          className="user-photo"
+          src={profileData.img ? profileData.img : '/defaultprofile.png'}
+          alt="user profile"
+        />
+        <h2>{profileData.nickName}</h2>
+        {/* <h3>나의 다짐</h3> */}
+        <p>
+          {profileData.aboutMe
+            ? profileData.aboutMe
+            : `저는 개발자가 되기위한 ${profileData.nickName} 입니다 최고의 개발자가 되는날 까지 열심히 Til을 기록하겠습니다.`}
+        </p>
+      </div>
       <Link to="/editpass">
-        <button>정보수정</button>
+        <button>
+          <img src={IconPencil} alt="pencil icon" />
+          정보수정
+        </button>
       </Link>
     </UserProfileWrapper>
   );
