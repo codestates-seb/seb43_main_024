@@ -20,7 +20,7 @@ function HotTilTop() {
 
   if (isLoading) return <LoadingImage />;
 
-  const HotTilSwiperData = data.slice(0, 10);
+  const HotTilSwiperData = data.slice(0, 8);
 
   return (
     <>

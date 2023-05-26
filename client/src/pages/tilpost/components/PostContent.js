@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { PostComponent, UserInfo } from '../../../default/styled';
 import { useBookmarkStore } from '../../../default/tilComponents/useTilStore';
+import MDEditor from '@uiw/react-md-editor';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -52,7 +53,9 @@ function PostContent({ data, tilId }) {
           <p>{formattedDate}</p>
         </UserContainer>
       </div>
-      <BodyWrapper>{tilContent}</BodyWrapper>
+      <BodyWrapper>
+        <MDEditor.Markdown source={tilContent} />
+      </BodyWrapper>
     </PostComponent>
   );
 }

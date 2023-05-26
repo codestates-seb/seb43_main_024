@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import removeMarkdown from 'remove-markdown';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import TilBookmark from './TilBookmark';
@@ -82,10 +83,11 @@ function TilCard({ data, memberId }) {
     tilViewCount,
     createdAt,
     memberNickname,
-    memberImg,
+    memberProfileImage,
     checkBookmark,
   } = data;
   const formattedDate = format(new Date(createdAt), 'yyyy.MM.dd');
+  const plainText = removeMarkdown(tilContent);
 
   return (
     <CardWrapper>
@@ -99,10 +101,10 @@ function TilCard({ data, memberId }) {
       </CardInfo>
       <Link to={`/til/${tilId}`}>
         <H2>{tilTitle}</H2>
-        <CardContent>{tilContent}</CardContent>
+        <CardContent>{plainText}</CardContent>
         <CardInfo>
           <CardUserInfo>
-            <Img src={memberImg} alt={memberNickname} />
+            <Img src={memberProfileImage} alt={memberNickname} />
             <p className="user-name">{memberNickname}</p>
           </CardUserInfo>
           <CardUserInfo>

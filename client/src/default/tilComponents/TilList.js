@@ -56,7 +56,6 @@ const PageArrowButton = styled.button`
 function TilList({
   currentPage,
   totalPages,
-  fetchData,
   setCurrentPage,
   endPage,
   startPage,
@@ -65,7 +64,6 @@ function TilList({
   const handlePageClick = (pageNum) => {
     if (pageNum !== currentPage) {
       setCurrentPage(pageNum);
-      fetchData(pageNum);
     }
   };
 

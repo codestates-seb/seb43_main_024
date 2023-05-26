@@ -19,7 +19,6 @@ export const useTilListStore = create((set, get) => ({
       //cards(틸 리스트), 전체 틸 숫자, 전체페이지번호, 시작페이지번호, 끝나는페이지번호(페이지가 5페이지씩 나눠옴)
       const { cards, totalElements, totalPages, startPage, endPage } =
         response.data;
-      console.log(cards);
       set({
         data: cards,
         totalElements,
@@ -59,6 +58,23 @@ export const useHotTilListStore = create((set) => ({
   },
 }));
 
+export const useMainTilStore = create((set) => ({
+  data: [],
+  isLoading: false,
+  getMainTilData: async () => {
+    try {
+      const response = await API.get(
+        `${process.env.REACT_APP_API_URL}/til/list?`
+      );
+      const { cards } = response.data;
+      set({ data: cards });
+    } catch (error) {
+      console.error(`데이터를 가져오는 중에 오류가 발생했습니다:`, error);
+      set({ isLoading: false });
+    }
+  },
+}));
+
 export const useTilStore = create((set) => ({
   data: null,
   getData: async (tilId) => {
@@ -88,7 +104,6 @@ export const useTilStore = create((set) => ({
   },
   deleteData: async (tilId) => {
     try {
-      console.log(tilId);
       await API.delete(`${process.env.REACT_APP_API_URL}/til/${tilId}`);
       set({ data: [] });
     } catch (error) {
@@ -112,7 +127,6 @@ export const useBookmarkStore = create((set) => ({
       return null;
     }
   },
-
   getCheckBookmarkData: async (memberId, tilId) => {
     console.log(tilId);
     try {
@@ -168,7 +182,6 @@ export const useMyTilStore = create((set, get) => ({
       set({ isLoading: true, currentPage: page });
       const { pageSize } = get();
       const response = await API.get(`${url}?page=${page}&size=${pageSize}`);
-      console.log(response);
       const { cards, totalElements, totalPages, startPage, endPage } =
         response.data;
       set({
@@ -187,7 +200,6 @@ export const useMyTilStore = create((set, get) => ({
       set({ isLoading: false });
     }
   },
-  //현재 페이지 정보를 업데이트
   setCurrentPage: (page) => {
     set({ currentPage: page });
   },
@@ -204,12 +216,10 @@ export const useMyBookmarkStore = create((set, get) => ({
   endPage: 0,
 
   myBookmarkData: async (page, url) => {
-    console.log(url);
     try {
       set({ isLoading: true, currentPage: page });
       const { pageSize } = get();
       const response = await API.get(`${url}?page=${page}&size=${pageSize}`);
-      console.log(response);
       const { bookmarks, totalElements, totalPages, startPage, endPage } =
         response.data;
       set({

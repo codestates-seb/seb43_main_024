@@ -64,7 +64,6 @@ function SearchTil() {
       <TilList
         currentPage={currentPage}
         totalPages={totalPages}
-        fetchData={fetchData}
         startPage={startPage}
         endPage={endPage}
         setCurrentPage={setCurrentPage}

@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { format } from 'date-fns';
+import { useMainTilStore } from '../default/tilComponents/useTilStore';
 import {
   MainWrapper,
   InnerWrapper,
@@ -7,7 +10,22 @@ import {
 import MainImg from '../default/MainImg.png';
 
 function Main() {
-  const todayTil = `2,308`;
+  const { data, getMainTilData } = useMainTilStore();
+  const today = new Date();
+  const formattedDate = format(today, 'yyyy-MM-dd');
+  let filteredData = null;
+
+  if (Array.isArray(data)) {
+    filteredData = data.filter(
+      (item) => formattedDate === format(new Date(item.createdAt), 'yyyy-MM-dd')
+    );
+  }
+
+  const todayTil = filteredData ? filteredData.length : 0;
+
+  useEffect(() => {
+    getMainTilData();
+  }, []);
 
   return (
     <MainWrapper>
