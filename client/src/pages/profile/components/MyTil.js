@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useMyTilStore } from '../../../default/tilComponents/useTilStore';
 import LoadingImage from '../../../default/LoadingImage';
 import TilCard from '../../../default/tilComponents/TilCard';
 import TilList from '../../../default/tilComponents/TilList';
 import useStore from '../../../default/useStore';
+import Blogging from '../../../default/image/Blogging-cuate.svg';
+import { NoPosts, LinkFilledBtns } from '../../../default/styled';
 
 export function MyTIL() {
   const isLogin = useStore((state) => state.isLogin);
@@ -30,11 +32,11 @@ export function MyTIL() {
   return (
     <>
       {data.length === 0 && (
-        <>
-          <Link to="/write">
-            작성한 TIL이 없습니다! til을 작성하러 가볼까요?
-          </Link>
-        </>
+        <NoPosts>
+          <img src={Blogging} alt="no-til" />
+          <h1>작성한 TIL이 없습니다! 지금 작성하러 가볼까요?</h1>
+          <LinkFilledBtns to="/write">TIL 작성하러 가기 →</LinkFilledBtns>
+        </NoPosts>
       )}
       <TilList
         currentPage={currentPage}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../../API';
 import jwt_decode from 'jwt-decode';
-import { UserProfileWrapper } from '../../../default/styled';
+import { UserProfileWrapper, ImgBox } from '../../../default/styled';
 import IconPencil from '../../../default/image/ico-pencil.svg';
 
 export function UserProfile() {
@@ -40,11 +40,13 @@ export function UserProfile() {
   return (
     <UserProfileWrapper>
       <div className="flexCenter">
-        <img
-          className="user-photo"
-          src={profileData.img ? profileData.img : '/defaultprofile.png'}
-          alt="user profile"
-        />
+        <ImgBox>
+          <img
+            className="user-photo"
+            src={profileData.img ? profileData.img : '/defaultprofile.png'}
+            alt="user profile"
+          />
+        </ImgBox>
         <h2>{profileData.nickName}</h2>
         {/* <h3>나의 다짐</h3> */}
         <p>
