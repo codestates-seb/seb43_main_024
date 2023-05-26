@@ -18,14 +18,11 @@ export function Bookmark() {
     setCurrentPage,
     myBookmarkData,
   } = useMyBookmarkStore();
-  const bookmarkTilData = data.map((item) => item.til);
-  console.log(bookmarkTilData);
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_API_URL}/members/${memberId}/bookmark`;
     myBookmarkData(currentPage, url);
   }, [currentPage, isLogin, memberId]);
-
   if (isLoading) return <LoadingImage />;
 
   return (
@@ -34,16 +31,15 @@ export function Bookmark() {
       <TilList
         currentPage={currentPage}
         totalPages={totalPages}
-        myBookmarkData={myBookmarkData}
         startPage={startPage}
         endPage={endPage}
         setCurrentPage={setCurrentPage}
       >
-        {bookmarkTilData &&
-          bookmarkTilData.map((data) => (
-            <li key={bookmarkTilData.tilId}>
+        {data &&
+          data.map((item) => (
+            <li key={item.tilId}>
               <TilCard
-                data={{ ...data, checkBookmark: true }}
+                data={{ ...item, checkBookmark: true }}
                 memberId={memberId}
                 checkBookmark={true}
               />

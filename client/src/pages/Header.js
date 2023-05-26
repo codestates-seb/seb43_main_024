@@ -1,4 +1,5 @@
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   HeaderWrapper,
   InnerWrapper,
@@ -15,9 +16,20 @@ import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import API from '../API';
 
+const NavStyle = styled(NavLink)`
+  :hover {
+    color: #222222;
+  }
+  &.active {
+    color: #222222;
+    transform: scaleX(1);
+  }
+`;
+
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
   const [profileData, setProfileData] = useState(null);
 
   const fetchProfileData = async () => {
@@ -56,7 +68,7 @@ function Header() {
 
   const handleNavigation = (path) => {
     navigate(path, { replace: true });
-    window.location.reload();
+    //window.location.reload();
   };
 
   useEffect(() => {
@@ -77,16 +89,16 @@ function Header() {
           </Link>
 
           <TopNav>
-            <NavLink to="/til/list">
+            <NavStyle to="/til/list" activeClassName="active">
               <TapMenu onClick={() => handleNavigation('/til/list')}>
                 탐색
               </TapMenu>
-            </NavLink>
-            <NavLink to="/til/list/hot">
+            </NavStyle>
+            <NavStyle to="/til/list/hot" activeClassName="active">
               <TapMenu onClick={() => handleNavigation('/til/list/hot')}>
                 핫틸
               </TapMenu>
-            </NavLink>
+            </NavStyle>
           </TopNav>
         </NavLogo>
 

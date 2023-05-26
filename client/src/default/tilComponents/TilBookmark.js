@@ -28,7 +28,7 @@ function TilBookmark({ checkBookmark, memberId, tilId, width, height }) {
 
   const toggleBookmark = async () => {
     if (bookmarkCheck) {
-      const deleteItem = bookmarksData.find((item) => item.til.tilId === tilId);
+      const deleteItem = bookmarksData.find((item) => item.tilId === tilId);
       const { bookmarkId } = deleteItem;
       await deleteData(bookmarkId); // 북마크 삭제 API 요청 완료까지 대기
     } else {

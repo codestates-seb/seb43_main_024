@@ -32,7 +32,6 @@ export function MyTIL() {
       <TilList
         currentPage={currentPage}
         totalPages={totalPages}
-        myTilData={myTilData}
         startPage={startPage}
         endPage={endPage}
         setCurrentPage={setCurrentPage}

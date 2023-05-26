@@ -32,8 +32,8 @@ function HotTil() {
 
   if (isLoading) return <LoadingImage />;
 
-  const HotTilSwiperData = data.slice(0, 10);
-  const HotTilData = data.slice(10, 30);
+  const HotTilSwiperData = data.slice(0, 8);
+  const HotTilData = data.slice(9, 28);
 
   return (
     <div>
