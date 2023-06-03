@@ -4,7 +4,7 @@
 
 - **`Team name` :** 24시간이 모자라
 - `Project` :TILTIL-E
-- **`Project duration` :** 2023.04.28 - 2023.05.30
+- **`Project duration` :** 2023.04.28 - 2023.05.25
 - **`Team members` :** 홍권표(프로젝트팀장, BE팀장), 홍다은(FE팀장), 정제우(FE), 이정민(FE), 서현준(BE), 공희배(BE)
 - **`Link` :** [🌐 TILTIL-E ] (http://tiltil2-images.s3-website.ap-northeast-2.amazonaws.com/)
 
