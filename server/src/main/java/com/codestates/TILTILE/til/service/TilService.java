@@ -43,6 +43,7 @@ public class TilService {
         this.tilMapper = tilMapper;
     }
 
+    // "/til/list", 틸 탐색 페이지에서 사용되는 findCards.
     public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, String searchKeyword, int pageLimit) {
 
         int page = pageable.getPageNumber() -1 ;
@@ -63,6 +64,7 @@ public class TilService {
         return tilMapper.toPageResponseDto(EntityTils, page, bookmarks,startPage,endPage);
     }
 
+    // 마이페이지 - 틸 작성 목록에서 사용되는 findCards
     public TilDto.PageResponseDto findCards(Pageable pageable, List<Bookmark> bookmarks, long memberId, int pageLimit) {
 
         int page = pageable.getPageNumber() -1 ;
