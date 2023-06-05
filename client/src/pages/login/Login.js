@@ -93,10 +93,8 @@ function LoginForm() {
             />
           </div>
           <div className="right">
-
             <FilledBtns type="submit">로그인</FilledBtns>
             {/* <p>계정을 잃어버리셨나요? 계정찾기</p> */}
-
           </div>
         </form>
       </InputForm>
