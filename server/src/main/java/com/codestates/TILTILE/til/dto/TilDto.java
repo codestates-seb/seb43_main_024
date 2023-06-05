@@ -93,6 +93,22 @@ public class TilDto {
     @Getter
     @Setter
     @NoArgsConstructor
+    public static class bookmarkCard {
+        private long bookmarkId;
+        private long tilId;
+        private String tilTitle;
+        private String tilContent;
+        private long tilViewCount;
+        private LocalDateTime createdAt;
+        private Timestamp modifiedAt;
+        private long memberId;
+        private String memberNickname;
+        private String memberProfileImage;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
     public static class Card { // 틸 리스트 조회시 화면에 카드처럼 나오는 틸을 'card'라고 표현
         // card -> getConten에 북마크여부추가, status 삭ㅅ
         private long tilId;

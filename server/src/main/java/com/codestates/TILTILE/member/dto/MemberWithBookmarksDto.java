@@ -2,11 +2,9 @@ package com.codestates.TILTILE.member.dto;
 
 import com.codestates.TILTILE.bookmark.entity.Bookmark;
 import com.codestates.TILTILE.til.dto.TilDto;
-import com.codestates.TILTILE.til.entity.Til;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class MemberWithBookmarksDto {
     @Setter
     @NoArgsConstructor
     public static class PageResponseDto { // 틸 리스트 조회시 나오는 카드 전체와, 부가적인 정보를 담음
-        private List<TilDto.getResponse> bookmarks;
+        private List<TilDto.bookmarkCard> bookmarks;
         private int pageNumber;
         private int totalPages;
         private long totalElements;
