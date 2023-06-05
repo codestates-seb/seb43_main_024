@@ -89,6 +89,7 @@ public interface TilMapper {
         return pageResponseDto;
     }
 
+    // 한개 게시글 조회 매퍼
     default TilDto.getResponse tilToGetResponse(Til til) {
         if (til == null) {
             return null;
@@ -103,6 +104,7 @@ public interface TilMapper {
         getResponse.setModifiedAt(til.getModifiedAt());
         getResponse.setMemberId(til.getMember().getMemberId());
         getResponse.setMemberNickname(til.getMember().getNickName());
+        getResponse.setMemberProfileImage(til.getMember().getProfileImage());
 
         return getResponse;
     }
