@@ -67,6 +67,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/members/**/bookmark/**").hasRole("USER") // 마이페이지 북마크 조회(USER)
                         .antMatchers(HttpMethod.GET, "/members/**").permitAll() // member 정보 조회(*)
                         .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER") // 회원 탈퇴(USER)
+                        .antMatchers(HttpMethod.POST, "/login").permitAll() // 로그인(*)
                         .antMatchers(HttpMethod.POST, "/login/mailConfirm").permitAll()  // 이메일 인증(*)
                         .antMatchers(HttpMethod.POST, "/til").hasRole("USER") // Til 작성(USER)
                         .antMatchers(HttpMethod.PUT, "/til/**").hasRole("USER") // Til 수정(USER)

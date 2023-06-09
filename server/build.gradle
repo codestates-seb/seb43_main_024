@@ -53,7 +53,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
     // 스프링 배치
-    implementation 'org.springframework.boot:spring-boot-starter-batch'
+//    implementation 'org.springframework.boot:spring-boot-starter-batch'
     // 배치를 주기적으로 실행시키기 위한 트리거로 사용하기 위해서 추가
-    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+//    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+    // API 문서화
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.10'
 }
