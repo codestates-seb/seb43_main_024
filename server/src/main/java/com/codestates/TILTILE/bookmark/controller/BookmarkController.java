@@ -6,11 +6,14 @@ import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.entity.Til;
 import com.codestates.TILTILE.til.service.TilService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+@Tag(name = "Bookmark", description = "북마크 관련 api 입니다.")
 @RequestMapping("/bookmark")
 @RestController
 public class BookmarkController {
@@ -25,6 +28,7 @@ public class BookmarkController {
         this.tilService = tilService;
     }
 
+    @Operation(summary = "북마크추가", description = "북마크에 추가합니다.")
     @PostMapping("/member/{member-id}/til/{til-id}")
     public ResponseEntity<String> addBookmark(@PathVariable("member-id") Long memberId, @PathVariable("til-id") Long tilId) {
         try {
@@ -58,6 +62,7 @@ public class BookmarkController {
         }
     }
 
+    @Operation(summary = "북마크삭제", description = "북마크에서 삭제합니다.")
     @DeleteMapping("/{bookmark-id}")
     public ResponseEntity<String> deleteBookmark(@PathVariable("bookmark-id") Long bookmarkId) {
         bookmarkService.deleteBookmark(bookmarkId);

@@ -11,6 +11,8 @@ import com.codestates.TILTILE.member.service.MemberService;
 import com.codestates.TILTILE.til.dto.TilDto;
 import com.codestates.TILTILE.til.service.TilService;
 import com.codestates.TILTILE.utils.UriCreator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+@Tag(name = "Member", description = "회원 관련 api 입니다.")
 @RestController
 @Validated
 @Slf4j
@@ -41,8 +44,9 @@ public class MemberController {
         this.tilService = tilService;
     }
 
+    @Operation(summary = "회원가입", description = "회원가입합니다.")
     @PostMapping("/members")
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberDto.MemberPost requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
         Member createdMember = memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
@@ -52,6 +56,7 @@ public class MemberController {
         return ResponseEntity.created(location).body(message);
     }
 
+    @Operation(summary = "회원Til조회", description = "특정 회원의 Til리스트를 조회합니다.")
     @GetMapping("/members/{member_id}/til")
     public ResponseEntity<TilDto.PageResponseDto> getMyPageWithTils(@PathVariable("member_id") Long memberId,
                                                                     @PageableDefault(page = 1)Pageable pageable) {
@@ -62,7 +67,7 @@ public class MemberController {
         return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
     }
 
-
+    @Operation(summary = "회원북마크조회", description = "특정 회원의 북마크리스트를 조회합니다.")
     @GetMapping("/members/{member-id}/bookmark")
     public ResponseEntity<MemberWithBookmarksDto.PageResponseDto> getMyPageWithBookmarks(@PathVariable("member-id") Long memberId,
                                                                                         @PageableDefault(page = 1) Pageable pageable) {
@@ -72,7 +77,7 @@ public class MemberController {
         return ResponseEntity.ok(memberWithBookmarksDto);
     }
 
-
+    @Operation(summary = "회원조회", description = "특정 회원을 조회합니다.")
     @GetMapping("/members/{memberId}")
     public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable("memberId") Long memberId) {
         Member member = memberService.getMemberInfo(memberId);
@@ -94,6 +99,7 @@ public class MemberController {
         }
     }
 
+    @Operation(summary = "회원삭제", description = "특정 회원을 삭제합니다.")
     @DeleteMapping("/members/{memberId}")
     public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId,
                                                @RequestParam(value = "provider", required = false) String provider,

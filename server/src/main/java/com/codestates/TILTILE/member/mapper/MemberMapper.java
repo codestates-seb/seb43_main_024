@@ -16,7 +16,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MemberMapper {
-    default Member memberPostToMember(MemberDto.Post memberDto) {
+    default Member memberPostToMember(MemberDto.MemberPost memberDto) {
         if (memberDto == null) {
             return null;
         }

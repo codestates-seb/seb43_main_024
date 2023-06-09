@@ -1,10 +1,13 @@
 package com.codestates.TILTILE.image.controller;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.codestates.TILTILE.amazon.s3.dto.S3FileDto;
 import com.codestates.TILTILE.amazon.s3.service.Amazon3SService;
 import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 
+@Tag(name = "Image", description = "이미지 관련 api 입니다.")
 @RestController
 public class ImageController {
 
@@ -28,8 +32,11 @@ public class ImageController {
     @Autowired
     private Amazon3SService amazon3SService;
 
+    @Operation(summary = "이미지업로드", description = "이미지를 업로드합니다.")
     @PostMapping("/uploadProfileImage")
-    public ResponseEntity<String> uploadProfileImage(@RequestParam("imageFile") MultipartFile imageFile, Principal principal) {
+    public ResponseEntity<String> uploadProfileImage(
+            @Parameter(description = "업로드할 이미지 파일", required = true, schema = @Schema(type = "string", format = "binary"))
+            @RequestParam("imageFile")MultipartFile imageFile, Principal principal) {
         // 사용자 정보 가져오기
         String email = principal.getName();
         Member member = memberService.findByEmail(email);
@@ -55,6 +62,7 @@ public class ImageController {
         }
     }
 
+    @Operation(summary = "이미지삭제", description = "이미지를 삭제합니다.")
     @DeleteMapping("/deleteProfileImage")
     public ResponseEntity<String> deleteProfileImage(Principal principal) {
         // 사용자 정보 가져오기
