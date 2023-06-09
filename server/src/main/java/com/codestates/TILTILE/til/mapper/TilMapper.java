@@ -43,6 +43,7 @@ public interface TilMapper {
         return til;
     }
 
+    // 하나의 카드(썸네일 게시글) 매퍼
     default TilDto.Card toCard(Til til,List<Bookmark> bookmarks) {
         TilDto.Card card = new TilDto.Card();
         long til_id = til.getTilId();
@@ -66,6 +67,7 @@ public interface TilMapper {
         return card;
     }
 
+    // 여러개의 카드(썸네일 게시글) + 그외 페이지 정보 매퍼
     default TilDto.PageResponseDto toPageResponseDto(Page<Til> tils, int page, List<Bookmark> bookmarks,int startPage, int endPage) {
         if ( tils == null ) {
             return null;
@@ -88,6 +90,7 @@ public interface TilMapper {
         return pageResponseDto;
     }
 
+    // 한개 게시글 조회 매퍼
     default TilDto.getResponse tilToGetResponse(Til til) {
         if (til == null) {
             return null;
@@ -102,6 +105,7 @@ public interface TilMapper {
         getResponse.setModifiedAt(til.getModifiedAt());
         getResponse.setMemberId(til.getMember().getMemberId());
         getResponse.setMemberNickname(til.getMember().getNickName());
+        getResponse.setMemberProfileImage(til.getMember().getProfileImage());
 
         return getResponse;
     }
