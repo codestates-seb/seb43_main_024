@@ -1,8 +1,8 @@
 package com.codestates.TILTILE.batch.jobs;
 
 import com.codestates.TILTILE.batch.streamreader.ContextAwareListItemReader;
-import com.codestates.TILTILE.hottil.entity.HotTil;
-import com.codestates.TILTILE.hottil.service.HotTilService;
+import com.codestates.TILTILE.til.entity.HotTil;
+import com.codestates.TILTILE.til.service.HotTilService;
 import com.codestates.TILTILE.til.entity.Til;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

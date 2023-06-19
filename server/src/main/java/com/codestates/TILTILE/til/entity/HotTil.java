@@ -1,4 +1,4 @@
-package com.codestates.TILTILE.hottil.entity;
+package com.codestates.TILTILE.til.entity;
 
 import com.codestates.TILTILE.til.entity.Til;
 import lombok.Data;

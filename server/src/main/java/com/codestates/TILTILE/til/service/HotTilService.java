@@ -1,6 +1,6 @@
-package com.codestates.TILTILE.hottil.service;
+package com.codestates.TILTILE.til.service;
 
-import com.codestates.TILTILE.hottil.repository.HotTilRepository;
+import com.codestates.TILTILE.til.repository.HotTilRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

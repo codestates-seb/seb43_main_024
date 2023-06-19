@@ -1,6 +1,6 @@
-package com.codestates.TILTILE.hottil.repository;
+package com.codestates.TILTILE.til.repository;
 
-import com.codestates.TILTILE.hottil.entity.HotTil;
+import com.codestates.TILTILE.til.entity.HotTil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
