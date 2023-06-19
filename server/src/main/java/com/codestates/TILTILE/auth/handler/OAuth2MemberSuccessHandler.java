@@ -2,6 +2,7 @@ package com.codestates.TILTILE.auth.handler;
 
 import com.codestates.TILTILE.auth.jwt.JwtTokenizer;
 import com.codestates.TILTILE.auth.utils.CustomAuthorityUtils;
+import com.codestates.TILTILE.member.entity.Member;
 import com.codestates.TILTILE.member.service.MemberService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -59,16 +60,16 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         String name = String.valueOf(oAuth2User.getAttributes().get("name"));
 
-        saveMember(email, name, profileImageURL, provider, providerId);  // (5)
-        redirect(request, response, email, authorities);  // (6)
+        Member member = saveMember(email, name, profileImageURL, provider, providerId);  // (5)
+        redirect(request, response, email, authorities, member);  // (6)
     }
 
-    private void saveMember(String email, String name, String profileImageURL,String provider, String providerId) {
-        memberService.oauth2CreateMember(email, name, profileImageURL,provider, providerId);
+    private Member saveMember(String email, String name, String profileImageURL, String provider, String providerId) {
+        return memberService.oauth2CreateMember(email, name, profileImageURL,provider, providerId);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);  // (6-1)
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities, Member member) throws IOException {
+        String accessToken = delegateAccessToken(username, authorities, member);  // (6-1)
         String refreshToken = delegateRefreshToken(username);     // (6-2)
 
 //        response.setHeader("Authorization", "Bearer " + accessToken);  // (4-4)
@@ -79,10 +80,12 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         getRedirectStrategy().sendRedirect(request, response, uri);   // (6-4)
     }
 
-    private String delegateAccessToken(String username, List<String> authorities) {
+    private String delegateAccessToken(String username, List<String> authorities, Member member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("roles", authorities);
+        claims.put("memberId", member.getMemberId());
+        claims.put("nickName", member.getNickName());
 
         String subject = username;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());

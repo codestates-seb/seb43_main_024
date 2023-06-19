@@ -36,7 +36,7 @@ public class HotTilJobConfiguration {
     private final List<Til> topTils = new ArrayList<>();
 
     @Bean
-    public Job jpaItemWriterJob() {
+    public Job hotTilJob() {
         return jobBuilderFactory.get("jpaItemWriterJob2")
                 .incrementer(new RunIdIncrementer())
                 .start(clearHotTilStep(hotTilService))

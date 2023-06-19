@@ -117,7 +117,7 @@ public class TilDto {
     @Setter
     @NoArgsConstructor
     public static class Card { // 틸 리스트 조회시 화면에 카드처럼 나오는 틸을 'card'라고 표현
-        // card -> getConten에 북마크여부추가, status 삭ㅅ
+        // card -> getConten에 북마크여부추가, status 없음
         private long tilId;
         @Schema(description = "제목", example = "제목입니다.")
         private String tilTitle;
