@@ -15,7 +15,7 @@ public class scheduler {
     private final Job jpaItemWriterJob;
 
     @Scheduled(cron = "0 0 1 * * ?")
-    public void launchJob() throws Exception {
+    public void hotTilJob() throws Exception {
         JobParameters params = new JobParametersBuilder()
                 .addString("JobID", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
