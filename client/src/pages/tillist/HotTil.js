@@ -44,7 +44,7 @@ function HotTil() {
       <TilWrapper>
         <HotTilListWrapper>
           <TilCardWrapper>
-            {data.length === 0 && <LoadingImage />}
+            {!data && <LoadingImage />}
             {HotTilData &&
               HotTilData.map((data) => (
                 <li key={data.tilId}>

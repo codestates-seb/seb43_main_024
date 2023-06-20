@@ -105,6 +105,11 @@ input:autofill {
 
   .custom-checkbox p {margin-left: 28px;}
   
+  @media (max-width: 900px) {
+    .custom-checkbox p {margin-left: 25px;}
+  }
+  
+    
   input[type='checkbox'] {
     position: absolute;
     opacity: 0;
@@ -122,6 +127,13 @@ input:autofill {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 100px;
+  }
+
+  @media (max-width: 900px) {
+  .checkmark {
+    height: 15px;
+    width: 15px;
+    }
   }
   
   input[type='checkbox']:checked ~ .checkmark {

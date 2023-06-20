@@ -2,6 +2,7 @@ import './default/style.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import MobileHeader from './pages/mobileHeader/MobileHeader';
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
@@ -28,10 +29,13 @@ import HotTil from './pages/tillist/HotTil';
 //import FollowTil from './pages/tillist/FollowTil';
 import TilPost from './pages/tilpost/TilPost';
 import TilEdit from './pages/tilpost/TilEdit';
+import { useMediaQuery } from 'react-responsive';
+import OauthLoading from './pages/login/OauthLoading';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const isMoblie = useMediaQuery({ query: '(max-width: 800px)' });
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -50,20 +54,21 @@ function App() {
   return (
     <>
       <Modal />
-      <Header />
+      {isMoblie ? <MobileHeader /> : <Header />}
       <Wrapper>
         <Routes>
           {/* 메인 화면 */}
           <Route path="/" element={<Main />} />
           {/* 틸 리스트 화면 */}
           <Route path="/til/list" element={<SearchTil />} />
-          <Route path="/til/list/hot" element={<HotTil />} />
+          <Route path="/til/hotlist" element={<HotTil />} />
           {/*<Route path="/til/list/following" element={<FollowTil />} />*/}
           {/* 로그인, 회원가입 화면 */}
           <Route path="/account" element={<Account />}>
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignUpForm />} />
           </Route>
+          <Route path="/oauthloading" element={<OauthLoading />} />
           {/* 프로필 화면 */}
           <Route path="/profile" element={<Profile />}>
             <Route path="bookmark" element={<Bookmark />} />

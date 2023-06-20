@@ -12,6 +12,7 @@ import {
   WritrForm,
   PostActions,
   GreenOutlineBtns,
+  ModalIcon,
 } from '../../default/styled';
 
 function TilEdit() {
@@ -41,7 +42,7 @@ function TilEdit() {
 
   const handleOpenModal = () => {
     openModal({
-      icon: <img src={CheckIcon} alt="수정완료 아이콘" />,
+      icon: <ModalIcon src={CheckIcon} alt="수정완료 아이콘" />,
       title: '수정이 완료 되었습니다.',
       content: '아래 버튼을 클릭하면 게시물 화면으로 돌아갑니다.',
       buttons: [

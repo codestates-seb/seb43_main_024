@@ -1,21 +1,15 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
-  HeaderWrapper,
-  InnerWrapper,
-  TextLogo,
-  BtnGroup,
-  HeaderLink,
-  UserPic,
-  TopNav,
-  NavLogo,
-  NavStyle,
-} from '../default/styled';
-import useStore from '../default/useStore';
+  NavStyleMobile,
+  DropdownWrapper,
+  DropdownBorder,
+} from '../../default/styled';
+import useStore from '../../default/useStore';
 import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import API from '../API';
+import API from '../../API';
 
-function Header() {
+function Dropdown({ closeMemu }) {
   const { isLogin, setLoginStatus } = useStore();
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,58 +66,44 @@ function Header() {
       setLoginStatus(true);
     }
   }, [location.pathname]);
-
   return (
-    <HeaderWrapper>
-      <InnerWrapper flex>
-        <NavLogo>
-          <Link to="/">
-            <TextLogo>TilTile</TextLogo>
-          </Link>
+    <DropdownWrapper>
+      <NavStyleMobile
+        to="/til/list"
+        onClick={() => handleNavigation('/til/list')}
+      >
+        탐색
+      </NavStyleMobile>
+      <NavStyleMobile to="/til/hotlist" onClick={closeMemu}>
+        핫틸
+      </NavStyleMobile>
+      <DropdownBorder>
+        <NavStyleMobile to="/write" light onClick={closeMemu}>
+          TIL 작성하기
+        </NavStyleMobile>
+      </DropdownBorder>
 
-          <TopNav>
-            <NavStyle
-              to="/til/list"
-              onClick={() => handleNavigation('/til/list')}
-            >
-              탐색
-            </NavStyle>
-            <NavStyle to="/til/hotlist">핫틸</NavStyle>
-          </TopNav>
-        </NavLogo>
-
-        <BtnGroup>
-          <HeaderLink to="/write" light>
-            TIL 작성하기
-          </HeaderLink>
-
-          {isLogin ? (
-            <>
-              <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
-              {profileData && (
-                <HeaderLink to="/profile/mytil" userInfo>
-                  <UserPic
-                    src={
-                      profileData.img ? profileData.img : '/defaultprofile.png'
-                    }
-                    alt="프로필 사진"
-                  />
-                  <span>{profileData.nickName}</span>
-                </HeaderLink>
-              )}
-            </>
-          ) : (
-            <>
-              <HeaderLink to="/account/login">로그인</HeaderLink>
-              <HeaderLink to="/account/signup" outline>
-                회원가입
-              </HeaderLink>
-            </>
+      {isLogin ? (
+        <>
+          {profileData && (
+            <NavStyleMobile to="/profile/mytil" onClick={closeMemu}>
+              마이페이지
+            </NavStyleMobile>
           )}
-        </BtnGroup>
-      </InnerWrapper>
-    </HeaderWrapper>
+          <NavStyleMobile onClick={handleLogout}>로그아웃</NavStyleMobile>
+        </>
+      ) : (
+        <>
+          <NavStyleMobile to="/account/login" onClick={closeMemu}>
+            로그인
+          </NavStyleMobile>
+          <NavStyleMobile to="/account/signup" outline onClick={closeMemu}>
+            회원가입
+          </NavStyleMobile>
+        </>
+      )}
+    </DropdownWrapper>
   );
 }
 
-export default Header;
+export default Dropdown;

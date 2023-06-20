@@ -7,6 +7,7 @@ import {
   TilWrapper,
   GrayOutlineBtns,
   GrayFilledBtns,
+  ModalIcon,
 } from '../../default/styled';
 import PostContent from './components/PostContent';
 import WarningIcon from '../../default/image/icoWarning.svg';
@@ -16,6 +17,9 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 70px 0px 30px 0px;
+  @media (max-width: 900px) {
+    margin: 70px 0px 20px 0px;
+  }
 `;
 
 const Button = styled.button`
@@ -25,6 +29,16 @@ const Button = styled.button`
   font-weight: bold;
   &:hover {
     color: var(--color-darkgreen);
+  }
+  @media (max-width: 900px) {
+    margin-left: 13px;
+    font-size: 13px;
+  }
+`;
+
+const H1 = styled.h1`
+  @media (max-width: 900px) {
+    font-size: 21px;
   }
 `;
 
@@ -60,7 +74,7 @@ function TilPost() {
 
   const handleOpenModal = () => {
     openModal({
-      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      icon: <ModalIcon src={WarningIcon} alt="경고 아이콘" />,
       title: '정말로 삭제 하시겠습니까?',
       content: '작성한 게시물이 영구적으로 삭제됩니다.',
       buttons: [
@@ -94,7 +108,7 @@ function TilPost() {
           )}
           {tilData && <PostContent data={tilData} />}
         </div>
-        <h1>요즘 핫한 틸</h1>
+        <H1>요즘 핫한 틸</H1>
       </TilWrapper>
       <UnderPost>
         <HotTilTop />

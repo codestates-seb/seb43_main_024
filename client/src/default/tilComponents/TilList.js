@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TilListWrapper, TilCardWrapper } from '../styled';
+import { TilListWrapper } from '../styled';
 import LeftArrow from '../image/leftArrow.svg';
 import RightArrow from '../image/rightArrow.svg';
 import LeftArrowHover from '../image/leftArrowHover.svg';
@@ -87,7 +87,7 @@ function TilList({
   return (
     <TilListWrapper>
       {/*TilCard를 prop으로 전달 */}
-      <TilCardWrapper>{children}</TilCardWrapper>
+      {children}
       <PageButtonWrapper>
         <PageArrowButton left onClick={handlePrevClick}></PageArrowButton>
         {pageNumbers &&

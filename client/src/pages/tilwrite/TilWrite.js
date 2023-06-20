@@ -11,6 +11,7 @@ import {
   InnerWrapper,
   WritrForm,
   PostActions,
+  ModalIcon,
 } from '../../default/styled';
 import WarningIcon from '../../default/image/icoWarning.svg';
 import API from '../../API';
@@ -26,7 +27,7 @@ function TilWrite() {
 
   const handleOpenModal = () => {
     openModal({
-      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      icon: <ModalIcon src={WarningIcon} alt="경고 아이콘" />,
       title: '정말로 삭제 하시겠습니까?',
       content: '작성중인 내용은 저장되지 않습니다.',
       buttons: [

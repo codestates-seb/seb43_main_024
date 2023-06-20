@@ -172,12 +172,12 @@ function SignUpForm() {
           </div>
 
           {errorMessage && <div className="error-message">{errorMessage}</div>}
+          <div className="right">
+            <FilledBtns type="submit" method="post">
+              회원가입
+            </FilledBtns>
+          </div>
         </form>
-        <div className="right">
-          <FilledBtns type="submit" method="post">
-            회원가입
-          </FilledBtns>
-        </div>
       </InputForm>
       {showModal ? <Modal /> : null}
     </JoinBox>
