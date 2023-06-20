@@ -117,7 +117,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .scheme("http")
                 .host("tiltil2-images.s3-website.ap-northeast-2.amazonaws.com")
 //                .port(80)
-                .path("/til/list") //
+                .path("/oauthloading") //
 //                .path(uriPath)
                 .queryParams(queryParams)
                 .build()
