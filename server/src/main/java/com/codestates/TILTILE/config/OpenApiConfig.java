@@ -100,7 +100,7 @@ import java.util.List;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI openAPI(@Value("${springdoc.version}") String springdocVersion) {
+    public OpenAPI openAPI(@Value("${springdoc_version}") String springdocVersion) {
         Info info = new Info()
                 .title("TilTile API")
                 .version(springdocVersion)
