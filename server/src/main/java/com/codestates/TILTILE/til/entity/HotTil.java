@@ -18,4 +18,7 @@ public class HotTil {
     @OneToOne
     @JoinColumn(name = "TIL_ID")
     private Til til;
+
+    @Column
+    private Long tilViewCount;
 }

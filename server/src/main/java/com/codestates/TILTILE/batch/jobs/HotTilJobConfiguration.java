@@ -106,6 +106,7 @@ public class HotTilJobConfiguration {
         return til -> {
             HotTil hotTil = new HotTil();
             hotTil.setTil(til);
+            hotTil.setTilViewCount(til.getTilViewCount());
 
             return hotTil;
         };
