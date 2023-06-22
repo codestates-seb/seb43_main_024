@@ -12,8 +12,11 @@ import java.util.List;
 public class MemberWithBookmarksDto {
     private Long memberId;
     private String nickName;
-//    private long tilTier;
-//    private String aboutMe;
+
+    private long tilTier;
+
+    private String aboutMe;
+
     private List<Bookmark> bookmarks;
 
     public Long getMemberId() {
