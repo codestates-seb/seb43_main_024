@@ -12,13 +12,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Configuration
 public class scheduler {
     private final JobLauncher jobLauncher;
-    private final Job jpaItemWriterJob;
+    private final Job hotTilJob;
 
-    @Scheduled(cron = "0 0 1 * * ?")
+    @Scheduled(cron = "0 29 20 * * ?")
     public void hotTilJob() throws Exception {
         JobParameters params = new JobParametersBuilder()
                 .addString("JobID", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
-        jobLauncher.run(jpaItemWriterJob, params);
+        jobLauncher.run(hotTilJob, params);
     }
 }

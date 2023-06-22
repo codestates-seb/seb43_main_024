@@ -37,7 +37,7 @@ public class HotTilJobConfiguration {
 
     @Bean
     public Job hotTilJob() {
-        return jobBuilderFactory.get("jpaItemWriterJob2")
+        return jobBuilderFactory.get("hotTilJob")
                 .incrementer(new RunIdIncrementer())
                 .start(clearHotTilStep(hotTilService))
                 .next(find7DaysTopTilsStep())
