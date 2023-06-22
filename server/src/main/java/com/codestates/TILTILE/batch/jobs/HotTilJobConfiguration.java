@@ -13,6 +13,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,7 +28,9 @@ import java.util.List;
 @Configuration
 public class HotTilJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
+
     private final StepBuilderFactory stepBuilderFactory;
+
     private final EntityManagerFactory entityManagerFactory;
     private final HotTilService hotTilService;
 
@@ -36,8 +39,9 @@ public class HotTilJobConfiguration {
     private final List<Til> topTils = new ArrayList<>();
 
     @Bean
+    @Qualifier("hotTilJob")
     public Job hotTilJob() {
-        return jobBuilderFactory.get("jpaItemWriterJob2")
+        return jobBuilderFactory.get("hotTilJob")
                 .incrementer(new RunIdIncrementer())
                 .start(clearHotTilStep(hotTilService))
                 .next(find7DaysTopTilsStep())
