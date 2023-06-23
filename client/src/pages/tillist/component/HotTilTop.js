@@ -10,7 +10,7 @@ function HotTilTop() {
   const { data, isLoading, getHotTilData } = useHotTilListStore();
 
   useEffect(() => {
-    let url = `${process.env.REACT_APP_API_URL}/til/list?`;
+    let url = `${process.env.REACT_APP_API_URL}/hotTil/list?`;
 
     if (memberId) {
       url += `member_id=${memberId}`;
@@ -20,11 +20,13 @@ function HotTilTop() {
 
   if (isLoading) return <LoadingImage />;
 
-  const HotTilSwiperData = data.slice(0, 8);
-
   return (
     <>
-      <HotTilSwiper data={HotTilSwiperData} memberId={memberId} />
+      {data && data.length > 8 ? (
+        <HotTilSwiper data={data.slice(0, 8)} memberId={memberId} />
+      ) : (
+        data && <HotTilSwiper data={data} memberId={memberId} />
+      )}
     </>
   );
 }

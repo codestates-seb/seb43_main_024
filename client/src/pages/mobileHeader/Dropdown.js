@@ -40,12 +40,7 @@ function Dropdown({ closeMemu }) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       setLoginStatus(false);
-
       alert('로그아웃이 완료되었습니다.');
-      localStorage.removeItem('token');
-      localStorage.removeItem('memberId');
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
       navigate('/');
       window.location.reload();
     } catch (error) {
@@ -66,6 +61,7 @@ function Dropdown({ closeMemu }) {
       setLoginStatus(true);
     }
   }, [location.pathname]);
+
   return (
     <DropdownWrapper>
       <NavStyleMobile
@@ -74,7 +70,10 @@ function Dropdown({ closeMemu }) {
       >
         탐색
       </NavStyleMobile>
-      <NavStyleMobile to="/til/hotlist" onClick={closeMemu}>
+      <NavStyleMobile
+        to="/til/hotlist"
+        onClick={() => handleNavigation('/til/hotlist')}
+      >
         핫틸
       </NavStyleMobile>
       <DropdownBorder>

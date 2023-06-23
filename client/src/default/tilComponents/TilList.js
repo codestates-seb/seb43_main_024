@@ -81,7 +81,9 @@ function TilList({
 
   const pageNumbers = [];
   for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
+    if (i !== 0) {
+      pageNumbers.push(i);
+    }
   }
 
   return (
@@ -89,7 +91,9 @@ function TilList({
       {/*TilCard를 prop으로 전달 */}
       {children}
       <PageButtonWrapper>
-        <PageArrowButton left onClick={handlePrevClick}></PageArrowButton>
+        {startPage > 0 && (
+          <PageArrowButton left onClick={handlePrevClick}></PageArrowButton>
+        )}
         {pageNumbers &&
           pageNumbers.map((pageNum) => (
             <PageButton
@@ -100,7 +104,9 @@ function TilList({
               {pageNum}
             </PageButton>
           ))}
-        <PageArrowButton right onClick={handleNextClick}></PageArrowButton>
+        {startPage > 0 && (
+          <PageArrowButton right onClick={handleNextClick}></PageArrowButton>
+        )}
       </PageButtonWrapper>
     </TilListWrapper>
   );

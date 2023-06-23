@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useTilStore } from '../../default/tilComponents/useTilStore';
+import { useMediaQuery } from 'react-responsive';
 import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -13,6 +14,7 @@ import {
   PostActions,
   GreenOutlineBtns,
   ModalIcon,
+  EditorMDEditor,
 } from '../../default/styled';
 
 function TilEdit() {
@@ -26,6 +28,7 @@ function TilEdit() {
   const [isPrivate, setIsPrivate] = useState(null);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
+  const isMoblie = useMediaQuery({ query: '(max-width: 500px)' });
 
   useEffect(() => {
     (async () => {
@@ -85,7 +88,11 @@ function TilEdit() {
           value={titleValue}
           onChange={onTitleChange}
         ></textarea>
-        <MDEditor value={value} onChange={setValue} />
+        {isMoblie ? (
+          <EditorMDEditor tiledit value={value} onChange={setValue} />
+        ) : (
+          <MDEditor value={value} onChange={setValue} />
+        )}
       </WritrForm>
       <PostActions>
         <div>

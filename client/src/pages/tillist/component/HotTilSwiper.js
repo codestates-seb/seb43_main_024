@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
+import SwiperCore, { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 import { TilWrapper, PreNextButton } from '../../../default/styled';
 import TilCard from '../../../default/tilComponents/TilCard';
 
-SwiperCore.use([Navigation, Pagination, A11y]);
+SwiperCore.use([Navigation, Pagination, A11y, Autoplay]);
 
 const SwiperWrapper = styled.section`
   position: relative;
@@ -38,7 +39,7 @@ const SwiperInner = styled(TilWrapper)`
     width: 600px;
   }
   @media (max-width: 600px) {
-    width: 370px;
+    width: 350px;
   }
 `;
 
@@ -81,6 +82,7 @@ const StyledPagination = styled.div`
 
 function HotTilSwiper({ data, memberId }) {
   const [slideCount, setSlideCount] = useState(4);
+  const isMobile = useMediaQuery({ maxWidth: 600 });
 
   useEffect(() => {
     const handelResize = () => {
@@ -101,7 +103,7 @@ function HotTilSwiper({ data, memberId }) {
     return () => {
       window.removeEventListener('resize', handelResize);
     };
-  });
+  }, [slideCount]);
 
   return (
     <SwiperWrapper>
@@ -110,10 +112,11 @@ function HotTilSwiper({ data, memberId }) {
         <PreNextButtonWrapper className="my-swiper-prev">
           <PreNextButton pre />
         </PreNextButtonWrapper>
-        <TilWrapper>
+        <TilWrapper hotlist>
           <Swiper
             spaceBetween={3}
-            slidesPerView={slideCount}
+            slidesPerView={isMobile ? 1 : slideCount}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             navigation={{
               prevEl: '.my-swiper-prev',
               nextEl: '.my-swiper-next',

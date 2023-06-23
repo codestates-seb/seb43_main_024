@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import MDEditor from '@uiw/react-md-editor';
 import PreArrow from './image/preArrow.svg';
 import PreArrowHover from './image/preArrowHover.svg';
 import NextArrow from './image/nextArrow.svg';
@@ -76,6 +77,10 @@ const defaultBtnStyles = css`
   @media (max-width: 900px) {
     font-size: 11px;
     padding: 9px 15px;
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
+    padding: 8px 13px;
   }
 `;
 
@@ -318,7 +323,6 @@ export const FlexContainer = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 450px;
     }
     & h1 {
       text-align: center;
@@ -333,6 +337,8 @@ export const FlexContainer = styled.div`
     }
     & p {
       font-size: 11px;
+      width: 360px;
+      text-align: center;
     }
     & img {
       width: 300px;
@@ -502,10 +508,17 @@ export const TilWrapper = styled(InnerWrapper)`
     width: 550px;
   }
   @media (max-width: 600px) {
-    width: 280px;
+    width: 330px;
     & > h1 {
       margin-top: 50px;
   }
+  ${(props) =>
+    props.hotlist &&
+    css`
+      @media (max-width: 600px) {
+        width: 280px;
+      }
+    `}
 `;
 
 export const TilFlexContainer = styled.section`
@@ -553,6 +566,9 @@ export const PostComponent = styled.div`
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   @media (max-width: 900px) {
     padding: 50px;
+  }
+  @media (max-width: 500px) {
+    padding: 35px;
   }
 `;
 
@@ -653,6 +669,9 @@ export const WritrForm = styled.form`
       font-size: 21px;
     }
   }
+  @media (max-width: 500px) {
+    padding: 35px;
+  }
 `;
 
 export const PostActions = styled.div`
@@ -663,12 +682,34 @@ export const PostActions = styled.div`
 
   & button {
     margin-left: 12px;
+    @media (max-width: 500px) {
+      margin-left: 8px;
+    }
   }
   @media (max-width: 1300px) {
     margin-bottom: 60px;
   }
   @media (max-width: 900px) {
     font-size: 11px;
+  }
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    & div {
+      margin-bottom: 10px;
+    }
+  }
+`;
+
+export const EditorMDEditor = styled(MDEditor)`
+  .w-md-editor-preview {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+  .w-md-editor-input {
+    width: 100%;
   }
 `;
 
@@ -717,16 +758,18 @@ export const ModalContainer = styled.div`
       margin-bottom: 30px;
     }
   }
-  @media (max-width: 700px) {
-    padding: 40px;
+  @media (max-width: 600px) {
+    padding: 35px;
     & h1 {
-      font-size: 17px;
-      padding-top: 20px;
-      line-height: 1.3;
+      font-size: 15px;
+      padding-top: 15px;
+      line-height: 1;
     }
     & p {
-      font-size: 12px;
-      margin-bottom: 25px;
+      font-size: 11px;
+      margin-bottom: 20px;
+      width: 190px;
+      line-height: 1.3;
     }
   }
 `;
@@ -736,9 +779,9 @@ export const ModalIcon = styled.img`
     width: 52px;
     height: 52px;
   }
-  @media (max-width: 700px) {
-    width: 45px;
-    height: 45px;
+  @media (max-width: 600px) {
+    width: 40px;
+    height: 40px;
   }
 `;
 
@@ -840,6 +883,10 @@ export const LoginWrap = styled.div`
         box-shadow: none;
       }
     `}
+    @media (max-width: 500px) {
+    min-width: 320px;
+    padding: 30px;
+  }
 `;
 
 export const JoinBox = styled.div`
@@ -878,6 +925,19 @@ export const JoinBox = styled.div`
     width: 90px;
     height: 1px;
     background-color: #ccc;
+  }
+  @media (max-width: 500px) {
+    & h1 {
+      font-size: 21px;
+    }
+    & p,
+    a {
+      font-size: 11px;
+    }
+    & > span {
+      font-size: 11px;
+      margin-bottom: 20px;
+    }
   }
 `;
 
@@ -926,6 +986,13 @@ export const InputForm = styled.div`
       margin-bottom: 15px;
     }
   }
+  @media (max-width: 500px) {
+    padding: 17px 0;
+    input,
+    textarea {
+      font-size: 11px;
+    }
+  }
 `;
 
 export const OauthBox = styled.div`
@@ -955,6 +1022,10 @@ export const OAuthBtn = styled.a`
     css`
       background: #fff;
     `}
+    @media (max-width: 500px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const AuthInput = styled.div`
@@ -970,6 +1041,11 @@ export const AuthInput = styled.div`
   .no {
     color: #d83f36;
   }
+  @media (max-width: 500px) {
+    & p {
+      font-size: 11px;
+    }
+  }
 `;
 
 export const SendBtn = styled.button`
@@ -979,8 +1055,10 @@ export const SendBtn = styled.button`
   color: var(--brand-color);
   font-weight: bold;
   @media (max-width: 900px) {
-    font-size: 12px;
-    top: 24px;
+    top: 16px;
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
   }
 `;
 
@@ -1022,7 +1100,8 @@ export const Navbar = styled.nav`
     padding-left: 30px;
   }
   @media (max-width: 600px) {
-    padding-left: 150px;
+    width: 340px;
+    padding-left: 10px;
   }
 `;
 
@@ -1151,6 +1230,7 @@ export const UserProfileWrapper = styled.div`
   }
     @media (max-width: 600px) {
         width: 100%;
+        padding: 40px 30px;
     }
 `;
 
@@ -1171,6 +1251,10 @@ export const PageWrapper = styled.div`
   @media (max-width: 800px) {
     position: static;
     width: 600px;
+  }
+  @media (max-width: 600px) {
+    position: static;
+    width: 340px;
   }
 `;
 
@@ -1213,6 +1297,7 @@ export const ImgBox = styled.div`
 
 export const NoPosts = styled.div`
   text-align: center;
+  width: 100%;
   & img {
     width: 50%;
     height: 50%;
@@ -1242,8 +1327,13 @@ export const NoPosts = styled.div`
     }
   }
   @media (max-width: 600px) {
+    & img {
+      width: 50%;
+      height: 50%;
+    }
     & h1 {
-      font-size: 15px;
+      margin: 20px 0 27px 0;
+      font-size: 13px;
     }
   }
 `;
@@ -1294,4 +1384,13 @@ export const EditProfileBox = styled.div`
       gap: 7px;
     }
   }
+`;
+
+export const FooterWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: var(--color-white);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 `;

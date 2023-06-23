@@ -88,7 +88,12 @@ function Header() {
             >
               탐색
             </NavStyle>
-            <NavStyle to="/til/hotlist">핫틸</NavStyle>
+            <NavStyle
+              to="/til/hotlist"
+              onClick={() => handleNavigation('/til/hotlist')}
+            >
+              핫틸
+            </NavStyle>
           </TopNav>
         </NavLogo>
 

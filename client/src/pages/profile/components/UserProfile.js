@@ -7,6 +7,9 @@ import IconPencil from '../../../default/image/ico-pencil.svg';
 
 export function UserProfile() {
   const [profileData, setProfileData] = useState(null);
+  const token = localStorage.getItem('token');
+  const isAuthenticated = token && token.startsWith('Bearer ');
+  const editProfilePath = isAuthenticated ? '/editpass' : '/editprofile';
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -30,7 +33,7 @@ export function UserProfile() {
     return (
       <>
         <div>Loading...</div>;
-        <Link to="/editpass">
+        <Link to={editProfilePath}>
           <button>정보수정</button>
         </Link>
       </>
@@ -57,7 +60,7 @@ export function UserProfile() {
             : `저는 개발자가 되기위한 ${profileData.nickName} 입니다 최고의 개발자가 되는날 까지 열심히 Til을 기록하겠습니다.`}
         </p>
       </div>
-      <Link to="/editpass">
+      <Link to={editProfilePath}>
         <button>
           <img src={IconPencil} alt="pencil icon" />
           정보수정

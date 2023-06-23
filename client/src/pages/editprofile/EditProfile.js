@@ -28,6 +28,8 @@ export function EditProfile() {
   const closeModal = useStore((state) => state.closeModal);
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const isAuthenticated = token && token.startsWith('Bearer ');
 
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
@@ -223,16 +225,21 @@ export function EditProfile() {
                 placeholder="변경할 자기소개"
               />
             </AuthInput>
-
-            <span>비밀번호 변경</span>
-            <AuthInput>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(event) => handleInputChange(event, setNewPassword)}
-                placeholder="변경할 비밀번호"
-              />
-            </AuthInput>
+            {isAuthenticated && (
+              <>
+                <span>비밀번호 변경</span>
+                <AuthInput>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(event) =>
+                      handleInputChange(event, setNewPassword)
+                    }
+                    placeholder="변경할 비밀번호"
+                  />
+                </AuthInput>
+              </>
+            )}
             <div className="right">
               <GetBackBtn to="/profile/mytil">취소하기</GetBackBtn>
               <FilledBtns onClick={handleUpdate}>업데이트</FilledBtns>

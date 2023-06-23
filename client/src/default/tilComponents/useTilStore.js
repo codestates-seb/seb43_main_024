@@ -47,10 +47,8 @@ export const useHotTilListStore = create((set) => ({
   getHotTilData: async (url) => {
     try {
       const response = await API.get(`${url}`);
-      const { cards } = response.data;
-      const sortedCards = cards.sort((a, b) => b.tilViewCount - a.tilViewCount);
-      const hotTilCards = sortedCards.slice(0, 30);
-      set({ data: hotTilCards });
+      const data = response.data;
+      set({ data: data });
     } catch (error) {
       console.error(`데이터를 가져오는 중에 오류가 발생했습니다:`, error);
       set({ isLoading: false });

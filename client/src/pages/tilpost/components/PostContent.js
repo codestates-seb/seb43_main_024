@@ -8,7 +8,7 @@ import MDEditor from '@uiw/react-md-editor';
 const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   @media (max-width: 900px) {
     > h1 {
       font-size: 21px;
@@ -25,6 +25,9 @@ const UserContainer = styled(TitleWrapper)`
     margin: 17px 0px;
     > p {
       font-size: 12px;
+      @media (max-width: 500px) {
+        font-size: 11px;
+      }
     }
   }
 `;
