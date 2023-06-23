@@ -7,6 +7,10 @@ const LoadingImg = styled.div`
   height: 100px;
   margin-top: 100px;
   background-image: url(${loading});
+  @media (max-width: 500px) {
+    width: 30px;
+    height: 30x;
+  }
 `;
 
 function LoadingImage() {

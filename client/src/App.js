@@ -1,7 +1,9 @@
 import './default/style.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
+import MobileHeader from './pages/mobileHeader/MobileHeader';
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
@@ -18,20 +20,21 @@ import { Profile } from './pages/profile/Profile';
 import { Bookmark } from './pages/profile/components/Bookmark';
 import { EditProfile } from './pages/editprofile/EditProfile';
 import { EditPass } from './pages/editprofile/EditPass';
-// import { FollowList } from './pages/profile/components/Followlist';
 import { MyTIL } from './pages/profile/components/MyTil';
 // TilWrite 컴포넌트
 import TilWrite from './pages/tilwrite/TilWrite';
 //TilList, TilPost, TilEdit 컴포넌트
 import SearchTil from './pages/tillist/SearchTil';
 import HotTil from './pages/tillist/HotTil';
-//import FollowTil from './pages/tillist/FollowTil';
 import TilPost from './pages/tilpost/TilPost';
 import TilEdit from './pages/tilpost/TilEdit';
+import OauthLoading from './pages/login/OauthLoading';
+//import Footer from './pages/Footer';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const isMoblie = useMediaQuery({ query: '(max-width: 800px)' });
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -50,20 +53,20 @@ function App() {
   return (
     <>
       <Modal />
-      <Header />
+      {isMoblie ? <MobileHeader /> : <Header />}
       <Wrapper>
         <Routes>
           {/* 메인 화면 */}
           <Route path="/" element={<Main />} />
           {/* 틸 리스트 화면 */}
           <Route path="/til/list" element={<SearchTil />} />
-          <Route path="/til/list/hot" element={<HotTil />} />
-          {/*<Route path="/til/list/following" element={<FollowTil />} />*/}
+          <Route path="/til/hotlist" element={<HotTil />} />
           {/* 로그인, 회원가입 화면 */}
           <Route path="/account" element={<Account />}>
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignUpForm />} />
           </Route>
+          <Route path="/oauthloading" element={<OauthLoading />} />
           {/* 프로필 화면 */}
           <Route path="/profile" element={<Profile />}>
             <Route path="bookmark" element={<Bookmark />} />

@@ -1,5 +1,4 @@
-import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   HeaderWrapper,
   InnerWrapper,
@@ -7,24 +6,14 @@ import {
   BtnGroup,
   HeaderLink,
   UserPic,
-  TapMenu,
   TopNav,
   NavLogo,
+  NavStyle,
 } from '../default/styled';
 import useStore from '../default/useStore';
 import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import API from '../API';
-
-const NavStyle = styled(NavLink)`
-  :hover {
-    color: #222222;
-  }
-  &.active {
-    color: #222222;
-    transform: scaleX(1);
-  }
-`;
 
 function Header() {
   const { isLogin, setLoginStatus } = useStore();
@@ -54,11 +43,15 @@ function Header() {
       await API.post(`${process.env.REACT_APP_API_URL}/logout`); //api 요청
       localStorage.removeItem('token'); // 로컬 스토리지에서 액세스 토큰 삭제
       localStorage.removeItem('memberId');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
       setLoginStatus(false);
 
       alert('로그아웃이 완료되었습니다.');
       localStorage.removeItem('token');
       localStorage.removeItem('memberId');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
       navigate('/');
       window.location.reload();
     } catch (error) {
@@ -68,7 +61,7 @@ function Header() {
 
   const handleNavigation = (path) => {
     navigate(path, { replace: true });
-    //window.location.reload();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -89,15 +82,17 @@ function Header() {
           </Link>
 
           <TopNav>
-            <NavStyle to="/til/list" activeClassName="active">
-              <TapMenu onClick={() => handleNavigation('/til/list')}>
-                탐색
-              </TapMenu>
+            <NavStyle
+              to="/til/list"
+              onClick={() => handleNavigation('/til/list')}
+            >
+              탐색
             </NavStyle>
-            <NavStyle to="/til/list/hot" activeClassName="active">
-              <TapMenu onClick={() => handleNavigation('/til/list/hot')}>
-                핫틸
-              </TapMenu>
+            <NavStyle
+              to="/til/hotlist"
+              onClick={() => handleNavigation('/til/hotlist')}
+            >
+              핫틸
             </NavStyle>
           </TopNav>
         </NavLogo>

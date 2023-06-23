@@ -6,20 +6,23 @@ import {
   PageWrapper,
   ContentsPosition,
   ProfileContents,
+  MyPageMedia,
 } from '../../default/styled';
 
 function Profile() {
   return (
-    <InnerWrapper>
-      <UserProfile />
-      <ProfileNav />
-      <PageWrapper>
-        <ContentsPosition>
-          <ProfileContents>
-            <Outlet />
-          </ProfileContents>
-        </ContentsPosition>
-      </PageWrapper>
+    <InnerWrapper mypage>
+      <MyPageMedia>
+        <UserProfile />
+        <ProfileNav />
+        <PageWrapper>
+          <ContentsPosition>
+            <ProfileContents>
+              <Outlet />
+            </ProfileContents>
+          </ContentsPosition>
+        </PageWrapper>
+      </MyPageMedia>
     </InnerWrapper>
   );
 }

@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import MDEditor from '@uiw/react-md-editor';
 import PreArrow from './image/preArrow.svg';
 import PreArrowHover from './image/preArrowHover.svg';
 import NextArrow from './image/nextArrow.svg';
@@ -36,6 +37,36 @@ export const InnerWrapper = styled.div`
       justify-content: space-between;
       align-items: center;
     `}
+  @media (max-width: 1300px) {
+    width: 1250px;
+    padding: 0 30px;
+  }
+  @media (max-width: 1200px) {
+    width: 1100px;
+  }
+  @media (max-width: 1100px) {
+    width: 900px;
+  }
+  @media (max-width: 900px) {
+    width: 800px;
+  }
+  @media (max-width: 800px) {
+    width: 600px;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+  ${(props) =>
+    props.mypage &&
+    css`
+      @media (max-width: 1100px) {
+        margin: 0;
+        padding: 0;
+      }
+      @media (max-width: 800px) {
+        width: 100%;
+      }
+    `}
 `;
 
 /* 기본적인 버튼 스타일 */
@@ -43,6 +74,14 @@ const defaultBtnStyles = css`
   padding: 10px 16px;
   border-radius: 50px;
   transition: all 0.125s ease-in 0s;
+  @media (max-width: 900px) {
+    font-size: 11px;
+    padding: 9px 15px;
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
+    padding: 8px 13px;
+  }
 `;
 
 /* 버튼1 스타일 (css) */
@@ -150,6 +189,46 @@ export const TapMenu = styled.button`
   }
 `;
 
+export const NavStyle = styled(NavLink)`
+  padding: 10px 12px 25px 10px;
+  margin-right: 20px;
+  font-weight: 800;
+  color: var(--color-lightgray);
+  font-size: 18px;
+  :hover {
+    color: var(--color-black);
+  }
+  &.active {
+    border-bottom: 3px solid rgb(34, 34, 34);
+    padding: 10px 12px 19px;
+    color: var(--color-black);
+    transform: scaleX(1);
+    transition: transform 0.2s ease-in-out;
+  }
+  @media (max-width: 800px) {
+    color: var(--color-black);
+    padding: 10px 0px 10px;
+    font-weight: 600;
+    font-size: 13px;
+    :hover {
+      color: var(--brand-color);
+    }
+    &.active {
+      color: var(--brand-color);
+    }
+  }
+`;
+
+export const NavStyleMobile = styled(NavLink)`
+  color: var(--color-black);
+  padding: 10px 0px 10px;
+  font-weight: 600;
+  font-size: 12px;
+  :hover {
+    color: var(--brand-color);
+  }
+`;
+
 export const FollowListComponent = styled.li``;
 
 /**
@@ -202,6 +281,70 @@ export const FlexContainer = styled.div`
     height: 460px;
     animation: ${FloatingAnimation} 2s ease-in-out infinite;
   }
+  @media (max-width: 1200px) {
+    justify-content: space-around;
+    & h1 {
+      font-size: 52px;
+      margin-bottom: 15px;
+    }
+    & p {
+      font-size: 15px;
+    }
+    & a {
+      font-size: 15px;
+      margin-top: 32px;
+    }
+    & img {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  @media (max-width: 1100px) {
+    & h1 {
+      font-size: 41px;
+      margin-bottom: 15px;
+    }
+    & p {
+      font-size: 12px;
+    }
+    & a {
+      font-size: 12px;
+      margin-top: 30px;
+    }
+    & img {
+      width: 350px;
+      height: 350px;
+    }
+  }
+  @media (max-width: 800px) {
+    flex-direction: column;
+    justify-content: space-evenly;
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    & h1 {
+      text-align: center;
+    }
+    & a {
+      margin-top: 27px;
+    }
+  }
+  @media (max-width: 500px) {
+    & h1 {
+      font-size: 32px;
+    }
+    & p {
+      font-size: 11px;
+      width: 360px;
+      text-align: center;
+    }
+    & img {
+      width: 300px;
+      height: 300px;
+    }
+  }
 `;
 
 export const PostLink = styled(NavLink)`
@@ -220,7 +363,7 @@ export const HeaderWrapper = styled.div`
   box-sizing: border-box;
   background: white;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const TextLogo = styled.div`
@@ -235,6 +378,9 @@ export const TextLogo = styled.div`
   &:hover {
     color: var(--brand-color);
   }
+  @media (max-width: 700px) {
+    font-size: 25px;
+  }
 `;
 
 export const BtnGroup = styled.div`
@@ -242,6 +388,9 @@ export const BtnGroup = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
+  @media (max-width: 800px) {
+    gap: 9px;
+  }
 `;
 
 export const HeaderLink = styled(NavLink)`
@@ -280,6 +429,15 @@ export const HeaderLink = styled(NavLink)`
         color: white;
       }
     `}
+    @media (max-width: 700px) {
+    font-size: 11px;
+    padding: 9px 15px;
+    ${(props) =>
+      props.userInfo &&
+      css`
+        padding: 6px;
+      `}
+  }
 `;
 
 export const UserPic = styled.img`
@@ -287,17 +445,49 @@ export const UserPic = styled.img`
   height: 22px;
   border-radius: 100%;
   background: black;
+  @media (max-width: 700px) {
+    width: 17px;
+    height: 17px;
+  }
 `;
 
 export const TopNav = styled.div`
   position: relative;
-  top: 6px;
+  top: 2px;
 `;
 
 export const NavLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 48px;
+  @media (max-width: 700px) {
+    gap: 30px;
+  }
+`;
+
+export const DropdownWrapper = styled.div`
+  position: fixed;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 64px;
+  padding: 10px 50px;
+  width: 100%;
+  height: 220px;
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-title-linegray);
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+  z-index: 2;
+`;
+
+export const DropdownBorder = styled.div`
+  width: 100%;
+  padding: 10px 0px 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--color-title-linegray);
 `;
 
 /**
@@ -311,6 +501,24 @@ export const TilWrapper = styled(InnerWrapper)`
     margin-top: 80px;
     text-align: center;
   }
+  @media (max-width: 1300px) {
+    width: 825px;
+  }
+  @media (max-width: 900px) {
+    width: 550px;
+  }
+  @media (max-width: 600px) {
+    width: 330px;
+    & > h1 {
+      margin-top: 50px;
+  }
+  ${(props) =>
+    props.hotlist &&
+    css`
+      @media (max-width: 600px) {
+        width: 280px;
+      }
+    `}
 `;
 
 export const TilFlexContainer = styled.section`
@@ -328,6 +536,26 @@ export const TilCardWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  @media (max-width: 1300px) {
+    width: 825px;
+  }
+  @media (max-width: 900px) {
+    width: 550px;
+  }
+  @media (max-width: 600px) {
+    width: 270px;
+  }
+  ${(props) =>
+    props.mypage &&
+    css`
+      @media (max-width: 1200px) {
+        width: 560px;
+        gap: 7px;
+      }
+      @media (max-width: 600px) {
+        width: 270px;
+      }
+    `}
 `;
 
 export const PostComponent = styled.div`
@@ -336,6 +564,12 @@ export const PostComponent = styled.div`
   border-radius: 8px;
   background-color: var(--color-white);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  @media (max-width: 900px) {
+    padding: 50px;
+  }
+  @media (max-width: 500px) {
+    padding: 35px;
+  }
 `;
 
 export const UserInfo = styled.div`
@@ -346,6 +580,12 @@ export const UserInfo = styled.div`
 
 export const TitleH1 = styled.h1`
   margin: 0px 10px;
+  @media (max-width: 900px) {
+    font-size: 21px;
+  }
+  @media (max-width: 500px) {
+    font-size: 18px;
+  }
 `;
 
 export const PreNextButton = styled.button`
@@ -353,6 +593,10 @@ export const PreNextButton = styled.button`
   width: 35px;
   height: 35px;
   transition: background-image 0.3s ease;
+  @media (max-width: 1200px) {
+    width: 30px;
+    height: 30px;
+  }
   /* 이전 버튼 */
   ${(props) =>
     props.pre &&
@@ -369,6 +613,25 @@ export const PreNextButton = styled.button`
       background-image: url(${NextArrow});
       &:hover {
         background-image: url(${NextArrowHover});
+      }
+    `}
+`;
+
+export const MemberImg = styled.img`
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 4px;
+  ${(props) =>
+    props.post &&
+    css`
+      width: 25px;
+      height: 25px;
+      margin-right: 8px;
+      @media (max-width: 900px) {
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
       }
     `}
 `;
@@ -395,6 +658,20 @@ export const WritrForm = styled.form`
   & .w-md-editor {
     height: 500px !important;
   }
+  @media (max-width: 1300px) {
+    margin-top: 64px;
+  }
+  @media (max-width: 900px) {
+    padding: 50px;
+    & > textarea {
+      height: 40px;
+      margin-bottom: 25px;
+      font-size: 21px;
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 35px;
+  }
 `;
 
 export const PostActions = styled.div`
@@ -405,6 +682,34 @@ export const PostActions = styled.div`
 
   & button {
     margin-left: 12px;
+    @media (max-width: 500px) {
+      margin-left: 8px;
+    }
+  }
+  @media (max-width: 1300px) {
+    margin-bottom: 60px;
+  }
+  @media (max-width: 900px) {
+    font-size: 11px;
+  }
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    & div {
+      margin-bottom: 10px;
+    }
+  }
+`;
+
+export const EditorMDEditor = styled(MDEditor)`
+  .w-md-editor-preview {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+  .w-md-editor-input {
+    width: 100%;
   }
 `;
 
@@ -441,6 +746,43 @@ export const ModalContainer = styled.div`
   & b {
     color: var(--brand-color);
   }
+  @media (max-width: 900px) {
+    padding: 50px;
+    & h1 {
+      font-size: 18px;
+      padding-top: 22px;
+      line-height: 1.3;
+    }
+    & p {
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+  }
+  @media (max-width: 600px) {
+    padding: 35px;
+    & h1 {
+      font-size: 15px;
+      padding-top: 15px;
+      line-height: 1;
+    }
+    & p {
+      font-size: 11px;
+      margin-bottom: 20px;
+      width: 190px;
+      line-height: 1.3;
+    }
+  }
+`;
+
+export const ModalIcon = styled.img`
+  @media (max-width: 900px) {
+    width: 52px;
+    height: 52px;
+  }
+  @media (max-width: 600px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 /**
@@ -455,6 +797,9 @@ export const GrayFilledBtns = styled.button`
     background: #999;
     color: white;
   }
+  @media (max-width: 900px) {
+    padding: 8px 25px;
+  }
 `;
 
 export const GrayOutlineBtns = styled.button`
@@ -467,6 +812,9 @@ export const GrayOutlineBtns = styled.button`
   &:hover {
     background: #f6f6f6;
     color: #888;
+  }
+  @media (max-width: 900px) {
+    padding: 9px 25px;
   }
 `;
 
@@ -500,6 +848,15 @@ export const AccountWrapper = styled.div`
     css`
       background-color: #f8f8f8;
     `}
+  ${(props) =>
+    props.edit &&
+    css`
+      @media (max-width: 700px) {
+        background-color: var(--color-white);
+        height: 100vh;
+        align-items: flex-start;
+      }
+    `}
 `;
 
 export const LoginWrap = styled.div`
@@ -521,7 +878,15 @@ export const LoginWrap = styled.div`
     css`
       min-height: auto;
       min-width: 660px;
+      @media (max-width: 700px) {
+        min-width: 100%;
+        box-shadow: none;
+      }
     `}
+    @media (max-width: 500px) {
+    min-width: 320px;
+    padding: 30px;
+  }
 `;
 
 export const JoinBox = styled.div`
@@ -561,6 +926,19 @@ export const JoinBox = styled.div`
     height: 1px;
     background-color: #ccc;
   }
+  @media (max-width: 500px) {
+    & h1 {
+      font-size: 21px;
+    }
+    & p,
+    a {
+      font-size: 11px;
+    }
+    & > span {
+      font-size: 11px;
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 export const InputForm = styled.div`
@@ -594,6 +972,27 @@ export const InputForm = styled.div`
     flex-direction: column;
     align-items: flex-end;
   }
+  @media (max-width: 900px) {
+    padding: 25px 0;
+    & h1 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+    input,
+    textarea {
+      width: 100%;
+      padding-top: 17px;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 17px 0;
+    input,
+    textarea {
+      font-size: 11px;
+    }
+  }
 `;
 
 export const OauthBox = styled.div`
@@ -623,6 +1022,10 @@ export const OAuthBtn = styled.a`
     css`
       background: #fff;
     `}
+    @media (max-width: 500px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const AuthInput = styled.div`
@@ -638,6 +1041,11 @@ export const AuthInput = styled.div`
   .no {
     color: #d83f36;
   }
+  @media (max-width: 500px) {
+    & p {
+      font-size: 11px;
+    }
+  }
 `;
 
 export const SendBtn = styled.button`
@@ -646,6 +1054,12 @@ export const SendBtn = styled.button`
   top: 19px;
   color: var(--brand-color);
   font-weight: bold;
+  @media (max-width: 900px) {
+    top: 16px;
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
+  }
 `;
 
 /**
@@ -664,6 +1078,30 @@ export const Navbar = styled.nav`
   div {
     display: flex;
     align-items: center;
+  }
+  @media (max-width: 1300px) {
+    width: 500px;
+    top: 80px;
+    left: 310px;
+  }
+  @media (max-width: 1200px) {
+    left: 330px;
+  }
+  @media (max-width: 1100px) {
+    left: 235px;
+  }
+  @media (max-width: 900px) {
+    left: 230px;
+  }
+  @media (max-width: 800px) {
+    position: static;
+    margin-top: 60px;
+    width: 600px;
+    padding-left: 30px;
+  }
+  @media (max-width: 600px) {
+    width: 340px;
+    padding-left: 10px;
   }
 `;
 
@@ -697,7 +1135,8 @@ export const UserProfileWrapper = styled.div`
     right: 254px;
   }
 
-  & .flexCenter {
+  & .flexCenter,
+  & .media {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -716,6 +1155,7 @@ export const UserProfileWrapper = styled.div`
     border-top: 1px solid #e3e3e3;
     padding-top: 40px;
     text-align: justify;
+    line-height: 19px;
   }
 
   button {
@@ -726,6 +1166,72 @@ export const UserProfileWrapper = styled.div`
       margin-right: 4px;
     }
   }
+  @media (max-width: 1100px) {
+    width: 250px;
+    padding: 60px 40px;
+    &::after {
+      display: none;
+    }
+    & .user-photo {
+      width: 130px;
+    }
+    h2 {
+      margin: 25px;
+      font-size: 15px;
+    }
+    p {
+      padding-top: 25px;
+      font-size: 12px;
+      line-height: 17px;
+    }
+    button {
+      font-size: 12px;
+      & > img {
+        width: 11px;
+        height: 11px;
+      }
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    position: static;
+    width: 100vw;
+    height: 250px;
+    padding: 40px 70px;
+    box-sizing: border-box;
+    border-right: none;
+    display: flex;
+    align-items: baseline;
+
+    &::after {
+      display: none;
+    }
+    & .flexCenter {
+      flex-direction: row;
+    }
+    & .media {
+      border-right: 1px solid #e3e3e3;
+      padding-right: 35px;
+    }
+    h2 {
+      margin: 20px;
+      font-size: 13px;
+    }
+    & .user-photo {
+      width: 100px;
+    }
+    p {
+      margin-left: 35px;
+      border-top: none;
+    }
+    button {
+      padding: 0px 0px 0px 15px;
+    }
+  }
+    @media (max-width: 600px) {
+        width: 100%;
+        padding: 40px 30px;
+    }
 `;
 
 export const PageWrapper = styled.div`
@@ -736,12 +1242,34 @@ export const PageWrapper = styled.div`
   top: 155px;
   left: 255px;
   box-sizing: border-box;
+  @media (max-width: 1200px) {
+    width: 800px;
+  }
+  @media (max-width: 1100px) {
+    left: 160px;
+  }
+  @media (max-width: 800px) {
+    position: static;
+    width: 600px;
+  }
+  @media (max-width: 600px) {
+    position: static;
+    width: 340px;
+  }
 `;
 
 export const ContentsPosition = styled.div`
   width: 1005px;
   padding: 0px 0 0 60px;
   box-sizing: border-box;
+  @media (max-width: 1000px) {
+    padding: 0;
+    width: 1000px;
+  }
+  @media (max-width: 800px) {
+    padding: 0;
+    width: 600px;
+  }
 `;
 
 export const ProfileContents = styled.div`
@@ -757,16 +1285,64 @@ export const ImgBox = styled.div`
     width: 100%;
     height: 100%;
   }
+  @media (max-width: 1100px) {
+    width: 130px;
+    height: 130px;
+  }
+  @media (max-width: 800px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const NoPosts = styled.div`
   text-align: center;
+  width: 100%;
   & img {
     width: 50%;
     height: 50%;
   }
   & h1 {
     margin: 24px 0 32px 0;
+  }
+  @media (max-width: 1100px) {
+    & img {
+      width: 45%;
+      height: 45%;
+    }
+    & h1 {
+      margin: 20px 0 32px 0;
+      font-size: 21px;
+    }
+  }
+  @media (max-width: 900px) {
+    & img {
+      margin-top: 15px;
+      width: 40%;
+      height: 40%;
+    }
+    & h1 {
+      margin: 18px 0 30px 0;
+      font-size: 18px;
+    }
+  }
+  @media (max-width: 600px) {
+    & img {
+      width: 50%;
+      height: 50%;
+    }
+    & h1 {
+      margin: 20px 0 27px 0;
+      font-size: 13px;
+    }
+  }
+`;
+
+export const MyPageMedia = styled.div`
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -800,4 +1376,21 @@ export const EditProfileBox = styled.div`
     flex-direction: row;
     gap: 12px;
   }
+  @media (max-width: 900px) {
+    & .grayTxt {
+      margin-top: 27px;
+    }
+    & .right {
+      gap: 7px;
+    }
+  }
+`;
+
+export const FooterWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: var(--color-white);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 `;

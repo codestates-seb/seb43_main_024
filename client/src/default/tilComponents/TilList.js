@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TilListWrapper, TilCardWrapper } from '../styled';
+import { TilListWrapper } from '../styled';
 import LeftArrow from '../image/leftArrow.svg';
 import RightArrow from '../image/rightArrow.svg';
 import LeftArrowHover from '../image/leftArrowHover.svg';
@@ -81,15 +81,19 @@ function TilList({
 
   const pageNumbers = [];
   for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
+    if (i !== 0) {
+      pageNumbers.push(i);
+    }
   }
 
   return (
     <TilListWrapper>
       {/*TilCard를 prop으로 전달 */}
-      <TilCardWrapper>{children}</TilCardWrapper>
+      {children}
       <PageButtonWrapper>
-        <PageArrowButton left onClick={handlePrevClick}></PageArrowButton>
+        {startPage > 0 && (
+          <PageArrowButton left onClick={handlePrevClick}></PageArrowButton>
+        )}
         {pageNumbers &&
           pageNumbers.map((pageNum) => (
             <PageButton
@@ -100,7 +104,9 @@ function TilList({
               {pageNum}
             </PageButton>
           ))}
-        <PageArrowButton right onClick={handleNextClick}></PageArrowButton>
+        {startPage > 0 && (
+          <PageArrowButton right onClick={handleNextClick}></PageArrowButton>
+        )}
       </PageButtonWrapper>
     </TilListWrapper>
   );

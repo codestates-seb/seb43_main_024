@@ -15,6 +15,7 @@ import {
   SendBtn,
   FilledBtns,
   GetBackBtn,
+  ModalIcon,
 } from '../../default/styled';
 
 export function EditProfile() {
@@ -27,6 +28,8 @@ export function EditProfile() {
   const closeModal = useStore((state) => state.closeModal);
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const isAuthenticated = token && token.startsWith('Bearer ');
 
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
@@ -73,7 +76,7 @@ export function EditProfile() {
         // console.log('비밀번호 업데이트 성공');
       }
       openModal({
-        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        icon: <ModalIcon src={CheckIcon} alt="완료 아이콘" />,
         title: '수정 완료!',
         content: '회원정보가 수정 되었습니다.',
         buttons: [
@@ -114,7 +117,7 @@ export function EditProfile() {
       await API.post('/uploadProfileImage', formData, config);
 
       openModal({
-        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        icon: <ModalIcon src={CheckIcon} alt="완료 아이콘" />,
         title: '수정 완료!',
         content: '회원정보가 수정 되었습니다.',
         buttons: [
@@ -152,7 +155,7 @@ export function EditProfile() {
       localStorage.removeItem('memberId');
       localStorage.removeItem('username');
       openModal({
-        icon: <img src={CheckIcon} alt="완료 아이콘" />,
+        icon: <ModalIcon src={CheckIcon} alt="완료 아이콘" />,
         title: '탈퇴가 완료 되었습니다.',
         content: '다음에 또 만나요!',
         buttons: [
@@ -175,7 +178,7 @@ export function EditProfile() {
 
   const handleOpenModalDeleteAccount = () => {
     openModal({
-      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      icon: <ModalIcon src={WarningIcon} alt="경고 아이콘" />,
       title: '정말로 탈퇴 하시겠습니까?',
       content: '가입하신 계정이 삭제됩니다.',
       buttons: [
@@ -190,7 +193,7 @@ export function EditProfile() {
   };
 
   return (
-    <AccountWrapper bgGray>
+    <AccountWrapper bgGray edit>
       <LoginWrap mypage>
         <InputForm>
           <h1>내 정보 수정</h1>
@@ -222,16 +225,21 @@ export function EditProfile() {
                 placeholder="변경할 자기소개"
               />
             </AuthInput>
-
-            <span>비밀번호 변경</span>
-            <AuthInput>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(event) => handleInputChange(event, setNewPassword)}
-                placeholder="변경할 비밀번호"
-              />
-            </AuthInput>
+            {isAuthenticated && (
+              <>
+                <span>비밀번호 변경</span>
+                <AuthInput>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(event) =>
+                      handleInputChange(event, setNewPassword)
+                    }
+                    placeholder="변경할 비밀번호"
+                  />
+                </AuthInput>
+              </>
+            )}
             <div className="right">
               <GetBackBtn to="/profile/mytil">취소하기</GetBackBtn>
               <FilledBtns onClick={handleUpdate}>업데이트</FilledBtns>

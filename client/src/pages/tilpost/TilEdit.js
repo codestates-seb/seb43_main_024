@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useTilStore } from '../../default/tilComponents/useTilStore';
+import { useMediaQuery } from 'react-responsive';
 import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -12,6 +13,8 @@ import {
   WritrForm,
   PostActions,
   GreenOutlineBtns,
+  ModalIcon,
+  EditorMDEditor,
 } from '../../default/styled';
 
 function TilEdit() {
@@ -25,6 +28,7 @@ function TilEdit() {
   const [isPrivate, setIsPrivate] = useState(null);
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
+  const isMoblie = useMediaQuery({ query: '(max-width: 500px)' });
 
   useEffect(() => {
     (async () => {
@@ -41,7 +45,7 @@ function TilEdit() {
 
   const handleOpenModal = () => {
     openModal({
-      icon: <img src={CheckIcon} alt="수정완료 아이콘" />,
+      icon: <ModalIcon src={CheckIcon} alt="수정완료 아이콘" />,
       title: '수정이 완료 되었습니다.',
       content: '아래 버튼을 클릭하면 게시물 화면으로 돌아갑니다.',
       buttons: [
@@ -84,7 +88,11 @@ function TilEdit() {
           value={titleValue}
           onChange={onTitleChange}
         ></textarea>
-        <MDEditor value={value} onChange={setValue} />
+        {isMoblie ? (
+          <EditorMDEditor tiledit value={value} onChange={setValue} />
+        ) : (
+          <MDEditor value={value} onChange={setValue} />
+        )}
       </WritrForm>
       <PostActions>
         <div>

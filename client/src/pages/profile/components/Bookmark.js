@@ -5,7 +5,11 @@ import TilCard from '../../../default/tilComponents/TilCard';
 import TilList from '../../../default/tilComponents/TilList';
 import useStore from '../../../default/useStore';
 import Blogging from '../../../default/image/Blogging-cuate.svg';
-import { NoPosts, LinkFilledBtns } from '../../../default/styled';
+import {
+  NoPosts,
+  LinkFilledBtns,
+  TilCardWrapper,
+} from '../../../default/styled';
 
 export function Bookmark() {
   const isLogin = useStore((state) => state.isLogin);
@@ -43,16 +47,18 @@ export function Bookmark() {
         endPage={endPage}
         setCurrentPage={setCurrentPage}
       >
-        {data &&
-          data.map((item) => (
-            <li key={item.tilId}>
-              <TilCard
-                data={{ ...item, checkBookmark: true }}
-                memberId={memberId}
-                checkBookmark={true}
-              />
-            </li>
-          ))}
+        <TilCardWrapper mypage>
+          {data &&
+            data.map((item) => (
+              <li key={item.tilId}>
+                <TilCard
+                  data={{ ...item, checkBookmark: true }}
+                  memberId={memberId}
+                  checkBookmark={true}
+                />
+              </li>
+            ))}
+        </TilCardWrapper>
       </TilList>
     </>
   );

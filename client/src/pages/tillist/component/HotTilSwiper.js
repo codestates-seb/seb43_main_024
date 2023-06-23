@@ -1,11 +1,13 @@
-import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
+import { useState, useEffect } from 'react';
+import SwiperCore, { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 import { TilWrapper, PreNextButton } from '../../../default/styled';
 import TilCard from '../../../default/tilComponents/TilCard';
 
-SwiperCore.use([Navigation, Pagination, A11y]);
+SwiperCore.use([Navigation, Pagination, A11y, Autoplay]);
 
 const SwiperWrapper = styled.section`
   position: relative;
@@ -13,6 +15,9 @@ const SwiperWrapper = styled.section`
   height: 310px;
   margin-top: 30px;
   background-color: var(--light-background-color);
+  @media (max-width: 1200px) {
+    height: 280px;
+  }
 `;
 
 const SwiperInner = styled(TilWrapper)`
@@ -21,6 +26,21 @@ const SwiperInner = styled(TilWrapper)`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 1400px) {
+    width: 1240px;
+  }
+  @media (max-width: 1300px) {
+    width: 900px;
+  }
+  @media (max-width: 1100px) {
+    width: 640px;
+  }
+  @media (max-width: 700px) {
+    width: 600px;
+  }
+  @media (max-width: 600px) {
+    width: 350px;
+  }
 `;
 
 const SlideContainer = styled(SwiperSlide)`
@@ -35,6 +55,10 @@ const PreNextButtonWrapper = styled.div`
   justify-content: space-around;
   width: 50px;
   height: 50px;
+  @media (max-width: 1400px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 const StyledPagination = styled.div`
@@ -57,6 +81,30 @@ const StyledPagination = styled.div`
 `;
 
 function HotTilSwiper({ data, memberId }) {
+  const [slideCount, setSlideCount] = useState(4);
+  const isMobile = useMediaQuery({ maxWidth: 600 });
+
+  useEffect(() => {
+    const handelResize = () => {
+      const windowWidth = window.innerWidth;
+      if (windowWidth > 1300) {
+        setSlideCount(4);
+      } else if (windowWidth >= 900 && windowWidth <= 1300) {
+        setSlideCount(3);
+      } else if (windowWidth >= 600 && windowWidth < 900) {
+        setSlideCount(2);
+      } else {
+        setSlideCount(1);
+      }
+    };
+
+    window.addEventListener('resize', handelResize);
+
+    return () => {
+      window.removeEventListener('resize', handelResize);
+    };
+  }, [slideCount]);
+
   return (
     <SwiperWrapper>
       <SwiperInner>
@@ -64,10 +112,11 @@ function HotTilSwiper({ data, memberId }) {
         <PreNextButtonWrapper className="my-swiper-prev">
           <PreNextButton pre />
         </PreNextButtonWrapper>
-        <TilWrapper>
+        <TilWrapper hotlist>
           <Swiper
             spaceBetween={3}
-            slidesPerView={4}
+            slidesPerView={isMobile ? 1 : slideCount}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             navigation={{
               prevEl: '.my-swiper-prev',
               nextEl: '.my-swiper-next',

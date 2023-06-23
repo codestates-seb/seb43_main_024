@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../default/useStore';
 import MDEditor from '@uiw/react-md-editor';
+import { useMediaQuery } from 'react-responsive';
 import '@uiw/react-md-editor/markdown-editor.css';
 import {
   FilledBtns,
@@ -11,6 +12,8 @@ import {
   InnerWrapper,
   WritrForm,
   PostActions,
+  ModalIcon,
+  EditorMDEditor,
 } from '../../default/styled';
 import WarningIcon from '../../default/image/icoWarning.svg';
 import API from '../../API';
@@ -23,10 +26,11 @@ function TilWrite() {
   const openModal = useStore((state) => state.openModal);
   const closeModal = useStore((state) => state.closeModal);
   const memberId = localStorage.getItem('memberId');
+  const isMoblie = useMediaQuery({ query: '(max-width: 500px)' });
 
   const handleOpenModal = () => {
     openModal({
-      icon: <img src={WarningIcon} alt="경고 아이콘" />,
+      icon: <ModalIcon src={WarningIcon} alt="경고 아이콘" />,
       title: '정말로 삭제 하시겠습니까?',
       content: '작성중인 내용은 저장되지 않습니다.',
       buttons: [
@@ -91,8 +95,11 @@ function TilWrite() {
           value={titleValue}
           onChange={onTitleChange}
         ></textarea>
-
-        <MDEditor value={value} onChange={setValue} />
+        {isMoblie ? (
+          <EditorMDEditor value={value} onChange={setValue} />
+        ) : (
+          <MDEditor value={value} onChange={setValue} />
+        )}
         {/* 아래가 글내용 */}
         {/* <div style={{ marginTop: '16px' }}>
           <MDEditor.Markdown source={value} />

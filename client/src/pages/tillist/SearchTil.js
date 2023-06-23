@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { useTilListStore } from '../../default/tilComponents/useTilStore';
 import useStore from '../../default/useStore';
 import styled from 'styled-components';
-import { TilWrapper, TilFlexContainer } from '../../default/styled';
+import {
+  TilWrapper,
+  TilFlexContainer,
+  TilCardWrapper,
+} from '../../default/styled';
 import TilList from '../../default/tilComponents/TilList';
 import TilCard from '../../default/tilComponents/TilCard';
 import Search from './component/Search';
@@ -10,6 +14,18 @@ import LoadingImage from '../../default/LoadingImage';
 
 const SearchResult = styled.div`
   margin-top: 20px;
+  @media (max-width: 900px) {
+    margin-top: 10px;
+    > h2{
+      font-size: 15px;
+    }
+  }
+    @media (max-width: 500px) {
+    > h2{
+      font-size: 13px;
+    }
+  }
+  }
 `;
 
 function SearchTil() {
@@ -36,6 +52,7 @@ function SearchTil() {
     if (keyword) {
       url += `searchKeyword=${keyword}&`;
     }
+
     fetchData(currentPage, url);
   }, [currentPage, keyword, isLogin, memberId]);
 
@@ -60,7 +77,7 @@ function SearchTil() {
           </SearchResult>
         )}
       </TilFlexContainer>
-      {data.length === 0 && <LoadingImage />}
+      {!data && <LoadingImage />}
       <TilList
         currentPage={currentPage}
         totalPages={totalPages}
@@ -68,12 +85,14 @@ function SearchTil() {
         endPage={endPage}
         setCurrentPage={setCurrentPage}
       >
-        {data &&
-          data.map((data) => (
-            <li key={data.tilId}>
-              <TilCard data={data} memberId={memberId} />
-            </li>
-          ))}
+        <TilCardWrapper>
+          {data &&
+            data.map((data) => (
+              <li key={data.tilId}>
+                <TilCard data={data} memberId={memberId} />
+              </li>
+            ))}
+        </TilCardWrapper>
       </TilList>
     </TilWrapper>
   );

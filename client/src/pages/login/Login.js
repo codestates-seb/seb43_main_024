@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  JoinBox,
-  FilledBtns,
-  InputForm,
-  OAuthBtn,
-  OauthBox,
-} from '../../default/styled';
+import { JoinBox, FilledBtns, InputForm, OauthBox } from '../../default/styled';
 import useStore from '../../default/useStore';
 import API from '../../API';
-import logoGoogle from '../../default/image/google-logo.svg';
-import logoGithub from '../../default/image/github-mark.svg';
+import GoogleButton from './components/GoogleButton';
+import GithubButton from './components/GithubButton';
 
 // import { HeaderLink } from '../../default/styled';
 axios.defaults.withCredentials = true;
@@ -101,18 +95,8 @@ function LoginForm() {
 
       <span>간편하게 SNS 로그인</span>
       <OauthBox>
-        <OAuthBtn
-          google
-          href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
-        >
-          <img src={logoGoogle} alt="구글로고" />
-        </OAuthBtn>
-        <OAuthBtn
-          github
-          href="http://ec2-43-202-31-64.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/github"
-        >
-          <img src={logoGithub} alt="구글로고" />
-        </OAuthBtn>
+        <GoogleButton />
+        <GithubButton />
       </OauthBox>
     </JoinBox>
   );

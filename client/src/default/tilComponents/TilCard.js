@@ -3,7 +3,7 @@ import removeMarkdown from 'remove-markdown';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import TilBookmark from './TilBookmark';
-import { UserInfo } from '../styled';
+import { UserInfo, MemberImg } from '../styled';
 import { ReactComponent as View } from '../image/view.svg';
 
 const CardWrapper = styled.div`
@@ -20,6 +20,12 @@ const CardWrapper = styled.div`
   &:hover {
     scale: 101%;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 1300px) {
+    width: 263px;
+    height: 198px;
+    padding: 25px;
+    margin: 6px;
   }
 `;
 
@@ -40,6 +46,11 @@ const CardContent = styled.div`
   font-size: 10px;
   color: var(--color-gray6);
   line-height: 16px;
+  @media (max-width: 1300px) {
+    height: 50px;
+    -webkit-line-clamp: 3;
+    margin-bottom: 13px;
+  }
 `;
 
 const CardUserInfo = styled(UserInfo)`
@@ -60,13 +71,10 @@ const H2 = styled.h2`
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 18px;
-`;
-
-const Img = styled.img`
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin-right: 4px;
+  @media (max-width: 1300px) {
+    font-size: 16px;
+    padding: 12px 0px;
+  }
 `;
 
 const P = styled.p`
@@ -104,7 +112,12 @@ function TilCard({ data, memberId }) {
         <CardContent>{plainText}</CardContent>
         <CardInfo>
           <CardUserInfo>
-            <Img src={memberProfileImage} alt={memberNickname} />
+            <MemberImg
+              src={
+                memberProfileImage ? memberProfileImage : '/defaultprofile.png'
+              }
+              alt={memberNickname}
+            />
             <p className="user-name">{memberNickname}</p>
           </CardUserInfo>
           <CardUserInfo>

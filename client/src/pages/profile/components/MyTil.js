@@ -6,7 +6,11 @@ import TilCard from '../../../default/tilComponents/TilCard';
 import TilList from '../../../default/tilComponents/TilList';
 import useStore from '../../../default/useStore';
 import Blogging from '../../../default/image/Blogging-cuate.svg';
-import { NoPosts, LinkFilledBtns } from '../../../default/styled';
+import {
+  NoPosts,
+  LinkFilledBtns,
+  TilCardWrapper,
+} from '../../../default/styled';
 
 export function MyTIL() {
   const isLogin = useStore((state) => state.isLogin);
@@ -45,12 +49,14 @@ export function MyTIL() {
         endPage={endPage}
         setCurrentPage={setCurrentPage}
       >
-        {data &&
-          data.map((data) => (
-            <li key={data.tilId}>
-              <TilCard data={data} memberId={memberId} />
-            </li>
-          ))}
+        <TilCardWrapper mypage>
+          {data &&
+            data.map((data) => (
+              <li key={data.tilId}>
+                <TilCard data={data} memberId={memberId} />
+              </li>
+            ))}
+        </TilCardWrapper>
       </TilList>
     </>
   );
