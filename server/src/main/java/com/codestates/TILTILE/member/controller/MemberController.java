@@ -87,6 +87,7 @@ public class MemberController {
             memberResponseDto.setNickName(member.getNickName());
             memberResponseDto.setAboutMe(member.getAboutMe());
             memberResponseDto.setImg(member.getProfileImage());
+            memberResponseDto.setTilTier(member.getTilTier());
 
             // Oauth 유저인 경우에는 비밀번호 필드를 비워둘 수 있습니다.
             if (!member.isOauthMember()) {

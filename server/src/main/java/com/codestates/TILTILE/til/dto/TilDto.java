@@ -80,6 +80,7 @@ public class TilDto {
         private long memberId;
         private String memberNickname;
         private Boolean tilStatus;
+        private Integer tilTier;
     }
 
     @Getter
@@ -95,7 +96,7 @@ public class TilDto {
         private long memberId;
         private String memberNickname;
         private String memberProfileImage;
-        private Long tilTier;
+        private Integer tilTier;
     }
 
     @Getter
@@ -112,7 +113,7 @@ public class TilDto {
         private long memberId;
         private String memberNickname;
         private String memberProfileImage;
-        private Long tilTier;
+        private Integer tilTier;
     }
 
     @Getter
@@ -137,7 +138,7 @@ public class TilDto {
         @Schema(description = "회원프로필이미지", example = "https://tiltil2-images.s3.ap-northeast-2.amazonaws.com/profile/2023/06/07/26cac24f-4753-4e4a-b231-d87511bafa28.jpg\"")
         private String memberProfileImage;
         @Schema(description = "회원틸틸이티어", example = "1")
-        private Long tilTier;
+        private Integer tilTier;
         @Schema(description = "북마크추가여부", example = "true")
         private Boolean checkBookmark;
     }

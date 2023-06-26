@@ -23,5 +23,5 @@ public class MemberResponseDto {
     private String img;
 
     @Schema(description = "회원틸틸이티어", example = "1")
-    private Long tilTier;
+    private Integer tilTier;
 }

@@ -19,5 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     void deleteByProviderAndProviderId(String provider, String providerId);
 
     Member findByProviderAndProviderId(String provider, String providerId);
+
+    Optional<Member> findByMemberId(Long memberId);
 }
 
