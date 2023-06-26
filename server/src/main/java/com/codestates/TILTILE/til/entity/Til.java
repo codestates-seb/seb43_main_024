@@ -18,9 +18,8 @@ public class Til {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tilId;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "memberId")
     private Member member;
 
     public void setMember(Member member) {

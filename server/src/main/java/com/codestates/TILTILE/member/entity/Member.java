@@ -35,9 +35,8 @@ public class Member {
     private String aboutMe;
 
     @Column
-    private Long tilTier;
+    private Integer tilTier;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Til> tils = new ArrayList<>();
 
@@ -77,14 +76,19 @@ public class Member {
         return email;
     }
 
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
     // OAuth를 위해 구성한 추가 필드 2개
     private String provider;
     private String providerId;
 
-    public Member(String email, String nickName, String password) {
+    public Member(String email, String nickName, String password, Integer tilTier) {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
+        this.tilTier = tilTier;
     }
 
     public Member(String email, String nickName, String password, String provider, String providerId) {

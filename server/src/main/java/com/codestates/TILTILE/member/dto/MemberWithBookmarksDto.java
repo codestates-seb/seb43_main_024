@@ -13,7 +13,7 @@ public class MemberWithBookmarksDto {
     private Long memberId;
     private String nickName;
 
-    private long tilTier;
+    private Integer tilTier;
 
     private String aboutMe;
 

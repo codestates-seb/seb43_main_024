@@ -58,4 +58,12 @@ dependencies {
 
     // API 문서화
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.10'
+
+    // SLF4J API
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+
+    // Logback (or Log4j2) implementation
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
+
+    testImplementation'org.springframework.batch:spring-batch-test'
 }
