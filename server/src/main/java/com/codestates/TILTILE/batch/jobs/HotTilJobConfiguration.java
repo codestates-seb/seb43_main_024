@@ -80,7 +80,7 @@ public class HotTilJobConfiguration {
                                                 "SELECT t FROM Til t WHERE t.createdAt >= :startDate AND t.createdAt <= :endDate ORDER BY t.tilViewCount DESC", Til.class
                                         ).setParameter("startDate", startDate)
                                         .setParameter("endDate", endDate)
-                                        .setMaxResults(8)
+                                        .setMaxResults(24)
                                         .getResultList()
                         );
 
@@ -110,6 +110,7 @@ public class HotTilJobConfiguration {
         return til -> {
             HotTil hotTil = new HotTil();
             hotTil.setTil(til);
+            hotTil.setTilViewCount(til.getTilViewCount());
 
             return hotTil;
         };

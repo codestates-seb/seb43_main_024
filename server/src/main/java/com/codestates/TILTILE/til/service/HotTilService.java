@@ -27,10 +27,10 @@ public class HotTilService {
 
     public List<TilDto.Card> findCards(List<Bookmark> bookmarkList ) {
         // 핫틸 리스트 -> 틸 리스트 -> TilDto.Card 리스트
-        List<HotTil> EntitiyHotTils = hotTilRepository.findAll();
+        List<HotTil> EntityHotTils = hotTilRepository.findAll();
 
         List<Til> EntityTils = new ArrayList<>(8);
-        for (HotTil hotTil: EntitiyHotTils) {
+        for (HotTil hotTil: EntityHotTils) {
             EntityTils.add(hotTil.getTil());
         }
 
