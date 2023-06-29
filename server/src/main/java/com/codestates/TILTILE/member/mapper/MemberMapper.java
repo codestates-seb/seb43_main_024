@@ -45,6 +45,7 @@ public interface MemberMapper {
         bookmarkCard.setMemberId(til.getMember().getMemberId());
         bookmarkCard.setMemberNickname(til.getMember().getNickName());
         bookmarkCard.setMemberProfileImage(til.getMember().getProfileImage());
+        bookmarkCard.setTilTier(til.getMember().getTilTier());
 
         return bookmarkCard;
     }
