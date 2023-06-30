@@ -39,6 +39,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        System.out.println("Oauth Success");
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String provider = token.getAuthorizedClientRegistrationId();  // provider 구분 값
@@ -52,6 +53,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         } else if (provider.equals("github")) {
             providerId = String.valueOf(oAuth2User.getAttributes().get("id"));
             profileImageURL = String.valueOf(oAuth2User.getAttributes().get("avatar_url"));
+            System.out.println("github@@@");
         }
 
 
@@ -115,7 +117,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("tiltil2-images.s3-website.ap-northeast-2.amazonaws.com")
+                .host("tiltile.co.kr")
 //                .port(80)
                 .path("/oauthloading") //
 //                .path(uriPath)
