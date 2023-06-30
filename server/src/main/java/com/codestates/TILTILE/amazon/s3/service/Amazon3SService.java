@@ -59,7 +59,8 @@ public class Amazon3SService {
                 PutObjectResult putObjectResult = amazonS3Client.putObject(putObjectRequest);
 
                 // S3에 업로드한 폴더 및 파일 URL
-                uploadFileUrl = amazonS3Client.getUrl(bucketName, keyName).toString();
+//                uploadFileUrl = amazonS3Client.getUrl(bucketName, keyName).toString();
+                uploadFileUrl = "https://s3.ap-northeast-2.amazonaws.com/" + bucketName + "/" + keyName;
 
                 s3Files.add(S3FileDto.builder()
                         .originalFileName(originalFileName)
