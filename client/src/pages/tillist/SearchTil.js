@@ -11,6 +11,7 @@ import TilList from '../../default/tilComponents/TilList';
 import TilCard from '../../default/tilComponents/TilCard';
 import Search from './component/Search';
 import LoadingImage from '../../default/LoadingImage';
+import MoveButton from '../../default/tilComponents/MoveButton';
 
 const SearchResult = styled.div`
   margin-top: 20px;
@@ -30,7 +31,10 @@ const SearchResult = styled.div`
 
 function SearchTil() {
   const isLogin = useStore((state) => state.isLogin);
-  const memberId = localStorage.getItem('memberId');
+  const memberId =
+    localStorage.getItem('memberId') !== 'null'
+      ? localStorage.getItem('memberId')
+      : null;
   const [keyword, setKeyword] = useState('');
   const {
     data,
@@ -46,9 +50,10 @@ function SearchTil() {
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/til/list?`;
 
-    if (memberId) {
+    if (memberId !== null && memberId !== undefined) {
       url += `member_id=${memberId}&`;
     }
+
     if (keyword) {
       url += `searchKeyword=${keyword}&`;
     }
@@ -94,6 +99,7 @@ function SearchTil() {
             ))}
         </TilCardWrapper>
       </TilList>
+      <MoveButton />
     </TilWrapper>
   );
 }

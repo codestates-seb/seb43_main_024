@@ -12,6 +12,7 @@ import {
 import PostContent from './components/PostContent';
 import WarningIcon from '../../default/image/icoWarning.svg';
 import HotTilTop from '../tillist/component/HotTilTop';
+import MoveButton from '../../default/tilComponents/MoveButton';
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -113,6 +114,7 @@ function TilPost() {
       <UnderPost>
         <HotTilTop />
       </UnderPost>
+      <MoveButton />
     </div>
   );
 }

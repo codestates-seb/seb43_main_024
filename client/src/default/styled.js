@@ -206,15 +206,12 @@ export const NavStyle = styled(NavLink)`
     transition: transform 0.2s ease-in-out;
   }
   @media (max-width: 800px) {
-    color: var(--color-black);
-    padding: 10px 0px 10px;
+    padding: 0px 0px 10px;
     font-weight: 600;
     font-size: 13px;
-    :hover {
-      color: var(--brand-color);
-    }
     &.active {
-      color: var(--brand-color);
+      border-bottom: 2px solid rgb(34, 34, 34);
+      padding: 10px 10px 15px;
     }
   }
 `;
@@ -402,7 +399,7 @@ export const HeaderLink = styled(NavLink)`
       ${OutlineBtnsStyle};
     `}
   ${(props) =>
-    props.userInfo &&
+    props.userinfo &&
     css`
       display: flex;
       align-items: center;
@@ -433,7 +430,7 @@ export const HeaderLink = styled(NavLink)`
     font-size: 11px;
     padding: 9px 15px;
     ${(props) =>
-      props.userInfo &&
+      props.userinfo &&
       css`
         padding: 6px;
       `}
@@ -1148,9 +1145,11 @@ export const UserProfileWrapper = styled.div`
   }
 
   h2 {
-    margin: 32px;
+ margin: 25px 0px 15px;
   }
-
+& .til-tier{
+  margin-bottom: 35px;
+}
   p {
     border-top: 1px solid #e3e3e3;
     padding-top: 40px;
@@ -1176,8 +1175,11 @@ export const UserProfileWrapper = styled.div`
       width: 130px;
     }
     h2 {
-      margin: 25px;
+      margin: 20px 0px 15px;
       font-size: 15px;
+    }
+    & .til-tier{
+      margin-bottom: 20px;
     }
     p {
       padding-top: 25px;
@@ -1214,8 +1216,11 @@ export const UserProfileWrapper = styled.div`
       padding-right: 35px;
     }
     h2 {
-      margin: 20px;
+      margin: 15px 0px 12px;
       font-size: 13px;
+    }
+    & .til-tier{
+      margin-bottom: 20px;
     }
     & .user-photo {
       width: 100px;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { PostComponent, UserInfo, MemberImg } from '../../../default/styled';
 import { useBookmarkStore } from '../../../default/tilComponents/useTilStore';
 import MDEditor from '@uiw/react-md-editor';
+import TilTierText from '../../../default/tilComponents/TilTierText';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ function PostContent({ data, tilId }) {
     tilTitle,
     tilContent,
     createdAt,
+    tilTier,
     memberNickname,
     memberProfileImage,
   } = data;
@@ -83,6 +85,7 @@ function PostContent({ data, tilId }) {
               alt={memberNickname}
             />
             <UserName>{memberNickname}</UserName>
+            <TilTierText tilTier={tilTier} textTil="til" size="15px" />
           </UserInfo>
           <p>{formattedDate}</p>
         </UserContainer>

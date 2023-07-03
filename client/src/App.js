@@ -2,15 +2,12 @@ import './default/style.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-
 import MobileHeader from './pages/mobileHeader/MobileHeader';
 import Header from './pages/Header';
 import { Wrapper } from './default/styled';
 import Main from './pages/Main';
-
 // 모달
 import Modal from './default/Modal';
-
 // login 컴포넌트
 import Account from './pages/login/Account';
 import LoginForm from './pages/login/Login';
@@ -29,7 +26,6 @@ import HotTil from './pages/tillist/HotTil';
 import TilPost from './pages/tilpost/TilPost';
 import TilEdit from './pages/tilpost/TilEdit';
 import OauthLoading from './pages/login/OauthLoading';
-//import Footer from './pages/Footer';
 
 function App() {
   const location = useLocation();

@@ -24,9 +24,14 @@ function Header() {
   const fetchProfileData = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        return;
+      }
       const decodedToken = jwt_decode(token);
       const memberId = decodedToken.memberId;
-      const response = await API.get(`/members/${memberId}`);
+      const response = await API.get(
+        `${process.env.REACT_APP_API_URL}/members/${memberId}`
+      );
       const data = response.data;
       setProfileData(data);
     } catch (error) {
@@ -45,13 +50,10 @@ function Header() {
       localStorage.removeItem('memberId');
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+      localStorage.removeItem('isLoggedIn');
       setLoginStatus(false);
 
       alert('로그아웃이 완료되었습니다.');
-      localStorage.removeItem('token');
-      localStorage.removeItem('memberId');
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
       navigate('/');
       window.location.reload();
     } catch (error) {
@@ -98,7 +100,7 @@ function Header() {
         </NavLogo>
 
         <BtnGroup>
-          <HeaderLink to="/write" light>
+          <HeaderLink to="/write" light="true">
             TIL 작성하기
           </HeaderLink>
 
@@ -106,7 +108,7 @@ function Header() {
             <>
               <HeaderLink onClick={handleLogout}>로그아웃</HeaderLink>
               {profileData && (
-                <HeaderLink to="/profile/mytil" userInfo>
+                <HeaderLink to="/profile/mytil" userinfo="true">
                   <UserPic
                     src={
                       profileData.img ? profileData.img : '/defaultprofile.png'
@@ -120,7 +122,7 @@ function Header() {
           ) : (
             <>
               <HeaderLink to="/account/login">로그인</HeaderLink>
-              <HeaderLink to="/account/signup" outline>
+              <HeaderLink to="/account/signup" outline="true">
                 회원가입
               </HeaderLink>
             </>

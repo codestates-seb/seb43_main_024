@@ -130,8 +130,6 @@ function HotTilSwiper({ data, memberId }) {
               bulletActiveClass: 'swiper-pagination-bullet-active',
               el: '.swiper-pagination',
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
           >
             {data.map((data) => {
               return (

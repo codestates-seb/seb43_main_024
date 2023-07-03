@@ -11,6 +11,7 @@ import {
   TilCardWrapper,
   TitleH1,
 } from '../../default/styled';
+import MoveButton from '../../default/tilComponents/MoveButton';
 
 const HotTilListWrapper = styled(TilListWrapper)`
   margin-bottom: 100px;
@@ -56,6 +57,7 @@ function HotTil() {
           </TilCardWrapper>
         </HotTilListWrapper>
       </TilWrapper>
+      <MoveButton />
     </div>
   );
 }

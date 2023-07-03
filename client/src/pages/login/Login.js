@@ -5,7 +5,6 @@ import { JoinBox, FilledBtns, InputForm, OauthBox } from '../../default/styled';
 import useStore from '../../default/useStore';
 import API from '../../API';
 import GoogleButton from './components/GoogleButton';
-import GithubButton from './components/GithubButton';
 
 // import { HeaderLink } from '../../default/styled';
 axios.defaults.withCredentials = true;
@@ -49,6 +48,7 @@ function LoginForm() {
       }
 
       localStorage.setItem('username', username);
+      localStorage.setItem('isLoggedIn', 'true');
 
       setLoginStatus(true);
       navigate('/profile/mytil');
@@ -96,7 +96,6 @@ function LoginForm() {
       <span>간편하게 SNS 로그인</span>
       <OauthBox>
         <GoogleButton />
-        <GithubButton />
       </OauthBox>
     </JoinBox>
   );

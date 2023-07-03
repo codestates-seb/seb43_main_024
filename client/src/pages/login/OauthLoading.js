@@ -11,7 +11,7 @@ function OauthLoading() {
   const googlerefresh = searchParams.get('refresh_token');
 
   if (googletoken) {
-    localStorage.setItem('access_token', googletoken);
+    localStorage.setItem('access_token', `Bearer ${googletoken}`);
     localStorage.setItem('refresh_token', googlerefresh);
     const token = localStorage.getItem('access_token');
     const decodedToken = jwt_decode(token);

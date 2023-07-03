@@ -4,12 +4,12 @@ import API from '../../../API';
 import jwt_decode from 'jwt-decode';
 import { UserProfileWrapper, ImgBox } from '../../../default/styled';
 import IconPencil from '../../../default/image/ico-pencil.svg';
+import TilTierText from '../../../default/tilComponents/TilTierText';
 
 export function UserProfile() {
   const [profileData, setProfileData] = useState(null);
-  const token = localStorage.getItem('token');
-  const isAuthenticated = token && token.startsWith('Bearer ');
-  const editProfilePath = isAuthenticated ? '/editpass' : '/editprofile';
+  const oauthToken = localStorage.getItem('access_token');
+  const editProfilePath = oauthToken ? '/editprofile' : '/editpass';
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -17,12 +17,13 @@ export function UserProfile() {
         const token = localStorage.getItem('token');
         const decodedToken = jwt_decode(token);
         const memberId = decodedToken.memberId;
-        const response = await API.get(`/members/${memberId}`);
+        const response = await API.get(
+          `${process.env.REACT_APP_API_URL}/members/${memberId}`
+        );
         const data = response.data;
         setProfileData(data);
-        // console.log('/profile에 대한 get요청이 완료되었습니다.');
       } catch (error) {
-        // console.error('프로필 데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error('프로필 데이터를 가져오는 중 오류가 발생했습니다.');
       }
     };
     fetchProfileData();
@@ -52,7 +53,13 @@ export function UserProfile() {
             />
           </ImgBox>
           <h2>{profileData.nickName}</h2>
-          {/* <h3>나의 다짐</h3> */}
+          <span className="til-tier">
+            <TilTierText
+              tilTier={profileData.tilTier}
+              textTil="tilday"
+              size="13px"
+            />
+          </span>
         </div>
         <p>
           {profileData.aboutMe

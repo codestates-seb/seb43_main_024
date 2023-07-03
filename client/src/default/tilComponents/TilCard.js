@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import TilBookmark from './TilBookmark';
 import { UserInfo, MemberImg } from '../styled';
 import { ReactComponent as View } from '../image/view.svg';
+import TilTierText from './TilTierText';
 
 const CardWrapper = styled.div`
   display: flex;
@@ -90,6 +91,7 @@ function TilCard({ data, memberId }) {
     tilContent,
     tilViewCount,
     createdAt,
+    tilTier,
     memberNickname,
     memberProfileImage,
     checkBookmark,
@@ -119,6 +121,7 @@ function TilCard({ data, memberId }) {
               alt={memberNickname}
             />
             <p className="user-name">{memberNickname}</p>
+            <TilTierText tilTier={tilTier} textTil="til" />
           </CardUserInfo>
           <CardUserInfo>
             <View className="view-img" />
