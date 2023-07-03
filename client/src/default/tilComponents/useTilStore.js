@@ -94,7 +94,6 @@ export const useTilStore = create((set) => ({
         `${process.env.REACT_APP_API_URL}/til/${tilId}`,
         updatedData
       );
-      console.log(updatedData);
       set({ data: updatedData });
     } catch (error) {
       console.error(`데이터 수정 중에 오류가 발생했습니다:`, error);

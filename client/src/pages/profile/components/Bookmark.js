@@ -10,6 +10,7 @@ import {
   LinkFilledBtns,
   TilCardWrapper,
 } from '../../../default/styled';
+import MoveButton from '../../../default/tilComponents/MoveButton';
 
 export function Bookmark() {
   const isLogin = useStore((state) => state.isLogin);
@@ -59,6 +60,7 @@ export function Bookmark() {
               </li>
             ))}
         </TilCardWrapper>
+        <MoveButton />
       </TilList>
     </>
   );

@@ -53,11 +53,10 @@ function TilWrite() {
   };
 
   const handleCancel = () => {
-    //취소처리
     setTitleValue('');
     setValue('');
     setIsPrivate(false);
-    navigate(-1); //이전페이지로 돌아가기
+    navigate(-1);
     closeModal();
   };
 
@@ -74,7 +73,6 @@ function TilWrite() {
         `${process.env.REACT_APP_API_URL}/til`,
         data
       );
-      console.log(response);
       const postId = response.data.tilId; // 서버 응답에서 작성된 글의 ID 가져오기
       navigate(`/til/${postId}`);
       //요청이 성공했을 때 처리
@@ -83,7 +81,6 @@ function TilWrite() {
       console.log('Error: ', error); // 에러를 좀 더 자세하게 표시
       console.log('Error response: ', error.response); // 에러 응답 객체도 출력
       console.log('Error message: ', error.message); // errorMessage를 인쇄합니다.
-      //에러처리
     }
   };
 
@@ -100,10 +97,6 @@ function TilWrite() {
         ) : (
           <MDEditor value={value} onChange={setValue} />
         )}
-        {/* 아래가 글내용 */}
-        {/* <div style={{ marginTop: '16px' }}>
-          <MDEditor.Markdown source={value} />
-        </div> */}
       </WritrForm>
       <PostActions>
         <div>

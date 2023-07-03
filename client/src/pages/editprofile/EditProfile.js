@@ -28,8 +28,7 @@ export function EditProfile() {
   const closeModal = useStore((state) => state.closeModal);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
-  const isAuthenticated = token && token.startsWith('Bearer ');
+  const oauthToken = localStorage.getItem('access_token');
 
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
@@ -114,7 +113,11 @@ export function EditProfile() {
         },
       };
 
-      await API.post('/uploadProfileImage', formData, config);
+      await API.post(
+        `${process.env.REACT_APP_API_URL}/uploadProfileImage`,
+        formData,
+        config
+      );
 
       openModal({
         icon: <ModalIcon src={CheckIcon} alt="완료 아이콘" />,
@@ -225,7 +228,7 @@ export function EditProfile() {
                 placeholder="변경할 자기소개"
               />
             </AuthInput>
-            {isAuthenticated && (
+            {!oauthToken && (
               <>
                 <span>비밀번호 변경</span>
                 <AuthInput>

@@ -11,6 +11,7 @@ import {
   LinkFilledBtns,
   TilCardWrapper,
 } from '../../../default/styled';
+import MoveButton from '../../../default/tilComponents/MoveButton';
 
 export function MyTIL() {
   const isLogin = useStore((state) => state.isLogin);
@@ -58,6 +59,7 @@ export function MyTIL() {
             ))}
         </TilCardWrapper>
       </TilList>
+      <MoveButton />
     </>
   );
 }

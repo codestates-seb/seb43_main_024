@@ -18,6 +18,9 @@ function Dropdown({ closeMemu }) {
   const fetchProfileData = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        return;
+      }
       const decodedToken = jwt_decode(token);
       const memberId = decodedToken.memberId;
       const response = await API.get(`/members/${memberId}`);
@@ -39,6 +42,7 @@ function Dropdown({ closeMemu }) {
       localStorage.removeItem('memberId');
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+      localStorage.removeItem('isLoggedIn');
       setLoginStatus(false);
       alert('로그아웃이 완료되었습니다.');
       navigate('/');

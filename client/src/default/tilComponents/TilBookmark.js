@@ -25,26 +25,49 @@ function TilBookmark({ checkBookmark, memberId, tilId, width, height }) {
   const { getBookmarkData, bookmarksData, deleteData, addBookmarkData } =
     useBookmarkStore();
   const [bookmarkCheck, setBookmarkCheck] = useState(checkBookmark);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const toggleBookmark = async () => {
-    if (bookmarkCheck) {
-      const deleteItem = bookmarksData.find((item) => item.tilId === tilId);
-      const { bookmarkId } = deleteItem;
-      await deleteData(bookmarkId); // 북마크 삭제 API 요청 완료까지 대기
-    } else {
-      await addBookmarkData(memberId, tilId); // 북마크 추가 API 요청 완료까지 대기
+    if (isProcessing || !memberId) {
+      return;
     }
-    setBookmarkCheck((prevCheck) => !prevCheck);
+
+    setIsProcessing(true);
+
+    try {
+      if (bookmarkCheck) {
+        const deleteItem = bookmarksData.find((item) => item.tilId === tilId);
+        const { bookmarkId } = deleteItem;
+        await deleteData(bookmarkId);
+        await getBookmarkData(memberId);
+      } else {
+        await addBookmarkData(memberId, tilId);
+        await getBookmarkData(memberId);
+      }
+
+      setBookmarkCheck((prevCheck) => !prevCheck);
+    } catch (error) {
+      console.error('북마크 처리 오류', error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   useEffect(() => {
-    getBookmarkData(memberId);
+    if (memberId) {
+      getBookmarkData(memberId);
+    }
   }, [memberId, tilId]);
 
   return (
     <>
       {bookmarkCheck ? (
-        <Button width={width} height={height} onClick={toggleBookmark}>
+        <Button
+          width={width}
+          height={height}
+          onClick={toggleBookmark}
+          disabled={isProcessing}
+        >
           <StyledCheckBookmarkIcon
             className="book-icon"
             width={width}
@@ -52,7 +75,12 @@ function TilBookmark({ checkBookmark, memberId, tilId, width, height }) {
           />
         </Button>
       ) : (
-        <Button width={width} height={height} onClick={toggleBookmark}>
+        <Button
+          width={width}
+          height={height}
+          onClick={toggleBookmark}
+          disabled={isProcessing}
+        >
           <StyledBookmarkIcon
             className="book-icon"
             width={width}
