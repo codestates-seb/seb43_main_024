@@ -1,44 +1,78 @@
-import styled from 'styled-components';
-
-const UserProfileWrapper = styled.div`
-  position: fixed;
-  z-index: 1;
-  top: 70px;
-
-  display: flex;
-  flex-direction: column;
-
-  width: 355px;
-  height: 100%;
-
-  background: white;
-  background: #ffffff;
-  border-right: 1px solid #ededed;
-
-  img {
-    width: 150px;
-    border-radius: 100%;
-    background: black;
-  }
-`;
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../../API';
+import jwt_decode from 'jwt-decode';
+import { UserProfileWrapper, ImgBox } from '../../../default/styled';
+import IconPencil from '../../../default/image/ico-pencil.svg';
+import TilTierText from '../../../default/tilComponents/TilTierText';
 
 export function UserProfile() {
+  const [profileData, setProfileData] = useState(null);
+  const oauthToken = localStorage.getItem('access_token');
+  const editProfilePath = oauthToken ? '/editprofile' : '/editpass';
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwt_decode(token);
+        const memberId = decodedToken.memberId;
+        const response = await API.get(
+          `${process.env.REACT_APP_API_URL}/members/${memberId}`
+        );
+        const data = response.data;
+        setProfileData(data);
+      } catch (error) {
+        console.error('프로필 데이터를 가져오는 중 오류가 발생했습니다.');
+      }
+    };
+    fetchProfileData();
+  }, []);
+
+  // null 에 대한 loading 처리
+  if (!profileData) {
+    return (
+      <>
+        <div>Loading...</div>;
+        <Link to={editProfilePath}>
+          <button>정보수정</button>
+        </Link>
+      </>
+    );
+  }
+
   return (
     <UserProfileWrapper>
-      <img
-        src="https://velog.velcdn.com/images/chang626/post/c9533c4f-adbb-4411-bce4-b09293d64fbf/A03EACB4-4DFA-439A-A3FE-084635A89FE6.png"
-        alt="user profile"
-      />
-      <h2>쩨우스</h2>
-      <h4>10tiltil</h4>
-      <button>+팔로우</button>
-      <p>
-        저는 웹사이트의 시각적인 부분을 담당하는 프론트엔드 개발자로,
-        사용자들에게 최상의 경험을 제공하기 위해 항상 노력합니다. 최신 기술과
-        동향을 학습하고, 웹사이트의 디자인과 기능을 개선하는 것을 즐깁니다. 제가
-        개발한 웹사이트가 사용자들에게 편리하고 만족스러운 경험을 제공할 때 가장
-        큰 보람을 느낍니다.
-      </p>
+      <div className="flexCenter">
+        <div className="media">
+          <ImgBox>
+            <img
+              className="user-photo"
+              src={profileData.img ? profileData.img : '/defaultprofile.png'}
+              alt="user profile"
+            />
+          </ImgBox>
+          <h2>{profileData.nickName}</h2>
+          <span className="til-tier">
+            <TilTierText
+              tilTier={profileData.tilTier}
+              textTil="tilday"
+              size="13px"
+            />
+          </span>
+        </div>
+        <p>
+          {profileData.aboutMe
+            ? profileData.aboutMe
+            : `저는 개발자가 되기위한 ${profileData.nickName} 입니다 최고의 개발자가 되는날 까지 열심히 Til을 기록하겠습니다.`}
+        </p>
+      </div>
+      <Link to={editProfilePath}>
+        <button>
+          <img src={IconPencil} alt="pencil icon" />
+          정보수정
+        </button>
+      </Link>
     </UserProfileWrapper>
   );
 }

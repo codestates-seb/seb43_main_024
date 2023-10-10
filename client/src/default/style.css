@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6, p, b {
 	padding: 0;
 	border: 0;
 }
-a {text-decoration: none; outline: none; color: inherit;}
+a {text-decoration: none; outline: none; color: inherit;cursor: pointer;}
 a:hover, a:active {text-decoration: none; color: inherit;}
 
 
@@ -41,6 +41,7 @@ button {
 
 /* ! my-style */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 :root {
     --brand-color: #3AB170;
@@ -49,6 +50,8 @@ button {
     --color-lightgreen: #E1FBEC;
     --color-darkgreen: #1F613D;
     --color-white: #FFFFFF;
+    --color-linegray: #E8E8E8;
+    --color-title-linegray: #E5E5E5;
     --color-lightgray: #ccc;
     --color-gray5: #555;
     --color-gray6: #666;
@@ -62,20 +65,90 @@ button {
 body {
     font-family: 'Nanum Gothic', sans-serif;
     line-height: 1;
-	font-size: 13px;
-	color: #555;
+	  font-size: 13px;
+	  color: #555;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     position: relative;
+    background: #f8f8f8;
 }
 
 h1 {
     color: #222;
     margin-bottom: 16px;
+    font-size: 24px;
 }
 
 h2 {
     color: #222;
     margin-bottom: 12px;
+    font-size: 18px;
 }
+
+
+textarea::placeholder, input::placeholder {
+    color: #ccc;
+}
+
+input:autofill {
+  box-shadow: 0 0 0px 1000px var(--light-background-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .custom-checkbox p {margin-left: 28px;}
+  
+  @media (max-width: 900px) {
+    .custom-checkbox p {margin-left: 25px;}
+  }
+  
+    
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+  }
+
+  @media (max-width: 900px) {
+  .checkmark {
+    height: 15px;
+    width: 15px;
+    }
+  }
+  
+  input[type='checkbox']:checked ~ .checkmark {
+    background-color: var(--brand-color);
+  }
+  
+  input[type='checkbox']:checked ~ .checkmark:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) translate(-50%, -100%);
+    top: 64%;
+    left: 10%;
+  }

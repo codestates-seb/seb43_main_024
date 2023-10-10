@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { HeaderLink } from './styled';
 
 const FollowComponentWrapper = styled.li`
   box-sizing: border-box;
@@ -13,6 +14,8 @@ const FollowComponentWrapper = styled.li`
   border: 1px solid #ededed;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+
+  padding: 20px;
 
   img {
     border: 3px solid #ffffff;
@@ -66,6 +69,7 @@ const FollowComponentWrapper = styled.li`
   }
 
   div {
+    padding: 10px;
   }
 `;
 
@@ -74,17 +78,17 @@ export function FollowCard() {
     <FollowComponentWrapper>
       <img
         src="http://file3.instiz.net/data/cached_img/upload/2019/09/20/13/8304c05163b40eb9bcdd41a15d1afed6.jpg"
-        alt="follower"
+        alt="userImage"
       />
       <h1>UserName</h1>
-      <h4>12Til 🐥</h4>
+      <h4>12Til🐥</h4>
       <p>
         안정적이고 유연한 코드를 작성하는 것을 좋아하는 주니어 개발자입니다.
         새로운 기술을 배우고 성장하며, 팀원들과의 협업을 즐깁니다.
       </p>
       <div>
-        <button>프로필</button>
-        <button>팔로우해제</button>
+        <HeaderLink Out>프로필</HeaderLink>
+        <HeaderLink>팔로우해제</HeaderLink>
       </div>
     </FollowComponentWrapper>
   );
