@@ -1,7 +1,8 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.11'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.11'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'war'
 }
 
 group = 'com.codestates'
@@ -9,27 +10,60 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-}
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    compileOnly 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'com.google.code.gson:gson'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
 
-tasks.named('test') {
-	useJUnitPlatform()
+    // JWT 기능을 위한 jjwt 라이브러리
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly    'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // 타임리프를 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+    // OAUTH2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // 스프링 배치
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    // 배치를 주기적으로 실행시키기 위한 트리거로 사용하기 위해서 추가
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+    // API 문서화
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.10'
+
+    // SLF4J API
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+
+    // Logback (or Log4j2) implementation
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
+
+    testImplementation'org.springframework.batch:spring-batch-test'
 }
